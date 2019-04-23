@@ -2,14 +2,62 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TestApp"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              x:Class="TestApp.OutputPage"
              Title="Результат">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Int32 x:Key="StackLayoutPadding">10</x:Int32>
+            <x:Double x:Key="FontSize">24</x:Double>
+            <x:Int32 x:Key="FramePadding">0</x:Int32>
+            <x:Int32 x:Key="FrameMargin">1</x:Int32>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
+    <FlexLayout Direction="Column">
+
+        <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
+            <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
+                
+                <Label Text="sin(x)"
+                   FontSize="{StaticResource Key=FontSize}"
+                   HorizontalOptions="StartAndExpand"/>
+                
+                <Switch 
+                x:Name="SinSwitch"
+                HorizontalOptions="EndAndExpand"/>
+                
+            </StackLayout>
+        </Frame>
+
+        <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
+            <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
+                <Label Text="cos(x)"
+                   FontSize="{StaticResource Key=FontSize}"
+                   HorizontalOptions="StartAndExpand"/>
+
+                <Switch 
+                x:Name="CosSwitch"
+                HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
+            <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
+                <Label Text="sin(x)+cos(x)"
+                   FontSize="{StaticResource Key=FontSize}"
+                   HorizontalOptions="StartAndExpand"/>
+
+                <Switch 
+                x:Name="SinCosSwitch"
+                HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Frame>
+        <Frame>
+            <skia:SKCanvasView PaintSurface="OnCanvasViewPaintSurface" FlexLayout.AlignSelf="Stretch">
+            </skia:SKCanvasView>
+        </Frame>
+        
+    </FlexLayout>
 </ContentPage>

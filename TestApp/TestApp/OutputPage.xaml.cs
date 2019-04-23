@@ -18,9 +18,9 @@ namespace TestApp
 
             _numberOfWaves = numberOfWaves;            
 
-            SKCanvasView canvasView = new SKCanvasView();
-            canvasView.PaintSurface += OnCanvasViewPaintSurface;
-            Content = canvasView;
+            //SKCanvasView canvasView = new SKCanvasView();
+            //canvasView.PaintSurface += OnCanvasViewPaintSurface;
+            //Content = canvasView;
         }
 
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
