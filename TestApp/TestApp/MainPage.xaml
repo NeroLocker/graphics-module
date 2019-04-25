@@ -1,28 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TestApp"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              x:Class="TestApp.MainPage"
-             Title="Графопостроитель sin(x)">
-    <ContentPage.Content>
-        <StackLayout Padding="20">
-            <Label Text="Задайте количество волн"
-                   FontSize="Large"
-                VerticalOptions="Center" 
-                HorizontalOptions="CenterAndExpand" />
+             Title="Результат">
 
-            <Entry Placeholder="Введите число от 5 до 30"
-                   x:Name="numberOfWavesEntry"
-                   Keyboard="Numeric"
-                   VerticalOptions="Center"
-                   HorizontalOptions="CenterAndExpand" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Int32 x:Key="StackLayoutPadding">10</x:Int32>
+            <x:Double x:Key="FontSize">24</x:Double>
+            <x:Int32 x:Key="FramePadding">0</x:Int32>
+            <x:Int32 x:Key="FrameMargin">1</x:Int32>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-            <Button Text="Рассчитать"
-                    x:Name="CalculateButton"
-                    FontSize="Large"
-                    BorderWidth="1"
-                    VerticalOptions="Center"
-                    HorizontalOptions="CenterAndExpand"
-                    Clicked="OnCalculateButton" />
-        </StackLayout>
-    </ContentPage.Content>
+    <Grid VerticalOptions="FillAndExpand">
+        <FlexLayout Direction="Column" Grid.Row="0">
+
+            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
+                <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
+
+                    <Label Text="Тригонометрические"
+                   FontSize="{StaticResource Key=FontSize}"
+                   HorizontalOptions="StartAndExpand"/>
+
+                    <Switch 
+                        x:Name="TrigonometricSwitch"
+                        Toggled="OnTrigonometricSwitchToggled"
+                        HorizontalOptions="EndAndExpand"/>
+
+                </StackLayout>
+            </Frame>
+
+            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
+                <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
+
+                    <Label Text="Остальные"
+                   FontSize="{StaticResource Key=FontSize}"
+                   HorizontalOptions="StartAndExpand"/>
+
+                    <Switch 
+                        x:Name="OtherSwitch"
+                        Toggled="OnOtherSwitchToggled"
+                HorizontalOptions="EndAndExpand"/>
+
+                </StackLayout>
+            </Frame>
+        </FlexLayout>
+        
+        <skia:SKCanvasView PaintSurface="OnCanvasViewPaintSurface" Grid.Row="1" x:Name="OutputCanvasView">
+        </skia:SKCanvasView>
+    </Grid>
+
 </ContentPage>

@@ -15,17 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="OutputPage.xaml.cs">
-      <DependentUpon>OutputPage.xaml</DependentUpon>
-    </Compile>
     <Compile Update="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="MainPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 </Project>
