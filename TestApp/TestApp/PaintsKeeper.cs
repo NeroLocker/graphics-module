@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using SkiaSharp;
-using SkiaSharp.Views.Forms;
 
 namespace TestApp
 {
     /// <summary>
     /// Класс, хранящий коллекцию красок
     /// </summary>
-    class MyPaints
+    public class PaintsKeeper
     {
 
-        public Dictionary<string, SKPaint> Dict = new Dictionary<string, SKPaint>();
+        public Dictionary<string, SKPaint> dictionary = new Dictionary<string, SKPaint>();
 
         /// <summary>
         /// Инициализирует словарь красок
         /// </summary>
-        public MyPaints()
+        public PaintsKeeper()
         {
             SKPaint blackPaint = new SKPaint
             {
@@ -44,10 +43,10 @@ namespace TestApp
                 TextSize = 32
             };
 
-            Dict.Add("Black Paint", blackPaint);
-            Dict.Add("Red Paint", redPaint);
-            Dict.Add("Blue Paint", bluePaint);
-            Dict.Add("Text Paint", textPaint);
+            dictionary.Add("Black Paint", blackPaint);
+            dictionary.Add("Red Paint", redPaint);
+            dictionary.Add("Blue Paint", bluePaint);
+            dictionary.Add("Text Paint", textPaint);
         }
     }
 }
