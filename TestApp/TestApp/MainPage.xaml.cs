@@ -79,6 +79,26 @@ namespace TestApp
         }
 
         /// <summary>
+        /// Событие выбора схемы из списка
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            Scheme selectedItem = e.SelectedItem as Scheme;
+        }
+
+        /// <summary>
+        /// Событие нажатия на элемент списка
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void OnListViewItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            Scheme tappedItem = e.Item as Scheme;
+        }
+
+        /// <summary>
         /// Событие нажатия свитча для отрисовки тригонометрических функций
         /// </summary>
         /// <param name="sender"></param>

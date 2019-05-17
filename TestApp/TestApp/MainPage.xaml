@@ -17,9 +17,34 @@
 
     <Grid VerticalOptions="FillAndExpand">
         <ListView
-              HasUnevenRows="True"
-              ItemsSource="{Binding Schemes}" 
-                  Grid.Row="0">
+            HasUnevenRows="True"
+            ItemsSource="{Binding Schemes}"
+            ItemSelected="OnListViewItemSelected"
+            ItemTapped="OnListViewItemTapped"
+            Grid.Row="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="2"
+                           Source="{Binding ImagePath}"
+                           Aspect="AspectFit" />
+                            <Label Grid.Column="1"
+                           Text="{Binding Name}"
+                           FontSize="{StaticResource Key=FontSize}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
         </ListView>        
 
         <FlexLayout Direction="Column" Grid.Row="1">
