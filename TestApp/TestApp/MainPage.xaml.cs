@@ -11,11 +11,53 @@ namespace TestApp
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        /// <summary>
+        /// Список схем включения
+        /// </summary>
+        public IList<Scheme> Schemes { get; private set; }
+
+        /// <summary>
+        /// Класс схемы
+        /// </summary>
+        public class Scheme
         {
-            InitializeComponent();        
+            public string Name { get; set; }
+            public string ImagePath { get; set; }
+
+            public override string ToString()
+            {
+                return Name;
+            }
         }
 
+        public MainPage()
+        {
+            InitializeComponent();
+
+            // Заполняем список данными
+            Schemes = new List<Scheme>();
+
+            Schemes.Add(new Scheme
+            {
+                Name = "Coupler",
+                ImagePath = "coupler.jpg"
+            });
+
+            Schemes.Add(new Scheme
+            {
+                Name = "Bridge Divider",
+                ImagePath = "bridge_divider.jpg"
+            });
+
+            Schemes.Add(new Scheme
+            {
+                Name = "Transformer",
+                ImagePath = "transformer.jpg"
+            });
+
+            BindingContext = this;
+        }
+  
         /// <summary>
         /// Отрисовывает графику на плоскости
         /// </summary>

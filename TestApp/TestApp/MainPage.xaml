@@ -16,9 +16,15 @@
     </ContentPage.Resources>
 
     <Grid VerticalOptions="FillAndExpand">
-        <FlexLayout Direction="Column" Grid.Row="0">
+        <ListView
+              HasUnevenRows="True"
+              ItemsSource="{Binding Schemes}" 
+                  Grid.Row="0">
+        </ListView>        
 
-            <Label Text="Графики" 
+        <FlexLayout Direction="Column" Grid.Row="1">
+
+            <Label Text="Частотные характеристики" 
                    Margin="{StaticResource Key=StackLayoutPadding}"
                    FontSize="24"
                    HorizontalOptions="StartAndExpand"
@@ -27,7 +33,7 @@
             <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
                 <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
 
-                    <Label Text="Тригонометрические"
+                    <Label Text="/S/"
                    FontSize="{StaticResource Key=FontSize}"
                    HorizontalOptions="StartAndExpand"/>
 
@@ -42,7 +48,7 @@
             <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
                 <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
 
-                    <Label Text="Остальные"
+                    <Label Text="arg(S)"
                    FontSize="{StaticResource Key=FontSize}"
                    HorizontalOptions="StartAndExpand"/>
 
@@ -58,7 +64,7 @@
         <skia:SKCanvasView Margin="10"
                            PaintSurface="OnCanvasViewPaintSurface"
                            x:Name="OutputCanvasView"
-                           Grid.Row="1">
+                           Grid.Row="2">
         </skia:SKCanvasView>
 
     </Grid>
