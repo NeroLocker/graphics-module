@@ -39,19 +39,19 @@ namespace TestApp
 
             Schemes.Add(new Scheme
             {
-                Name = "Coupler",
+                Name = "Ответвитель",
                 ImagePath = "coupler.jpg"
             });
 
             Schemes.Add(new Scheme
             {
-                Name = "Bridge Divider",
+                Name = "Мост-делитель",
                 ImagePath = "bridge_divider.jpg"
             });
 
             Schemes.Add(new Scheme
             {
-                Name = "Transformer",
+                Name = "Трансформатор",
                 ImagePath = "transformer.jpg"
             });
 
