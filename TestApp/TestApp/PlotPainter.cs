@@ -26,6 +26,42 @@ namespace TestApp
         // Толщина линий для отрисовки
         private int _thicknessOfLines = 2;
 
+        private float _indent;
+
+        private float _startWidthPoint;
+
+        private float StartWidthPoint
+        {
+            get { return _startWidthPoint;}
+            set
+            {
+                _startWidthPoint = (float)(_info.Width * value);
+            }
+        }
+
+        private float _endWidthPoint;
+
+        private float EndWidthPoint
+        {
+            get { return _endWidthPoint; }
+            set
+            {
+                _endWidthPoint = (float)(_info.Width * (1 - value));
+            }
+        }
+
+        /// <summary>
+        /// Отступ надписей графиков от левой стороны экрана в процентах в десятичной форме
+        /// </summary>
+        private float Indent
+        {
+            get { return _indent;}
+            set
+            {
+                // Считаем процент от ширины холста
+                _indent = (float)(_info.Width * value);
+            }
+        }
         /// <summary>
         /// Инициализирует служебные поля холста и необходимые для работы данные
         /// </summary>
@@ -41,6 +77,11 @@ namespace TestApp
             _heightCenterOfCanvas = _info.Height / 2;
 
             _keeper = new PaintsKeeper();
+
+            Indent = (float)0.10;
+
+            StartWidthPoint = (float)0.05;
+            EndWidthPoint = (float)0.05;
 
             _canvas.Clear();
         }
@@ -82,7 +123,7 @@ namespace TestApp
 
             float percent = (float)0.05;
 
-            _canvas.DrawRect((float)(_info.Width * percent), (float)(_info.Height * percent), (float)(_info.Width * (1 - 2 * percent)), (float)(_info.Height * (1 - 2 * percent)), _keeper.dictionary["Axes Paint"]);
+            _canvas.DrawRect((float)(StartWidthPoint), (float)(_info.Height * percent), (float)(_info.Width * (1 - 2 * percent)), (float)(_info.Height * (1 - 2 * percent)), _keeper.dictionary["Axes Paint"]);
           
             // Точка 0
             //_keeper.dictionary["Text Paint"].Color = SKColors.Black;
@@ -139,13 +180,15 @@ namespace TestApp
             // Необходимо для построения тригонометрических функций
             float PI = (float)(Math.PI);
 
+            //float firstPoint = percent
+
             if (nameOfPlot == "sin")
             {
-                _canvas.DrawText("sin(x)", 0, (float)(_info.Height * 0.25), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("sin(x)", Indent, (float)(_info.Height * 0.25), _keeper.dictionary["Text Paint"]);
 
-                for (int i = 0; i < _info.Width; i++)
+                for (float i = StartWidthPoint; i < EndWidthPoint; i++)
                 {
-                    int x = i;
+                    float x = i;
                     float y = (float)(_info.Height / 9 * (Math.Sin(i * 5 * PI / (_info.Width - 1))));
                     _canvas.DrawCircle(x, _info.Height / 2 + y, _thicknessOfLines, _keeper.dictionary["Black Paint"]);
                 }
@@ -155,11 +198,11 @@ namespace TestApp
             {
                 // Рисуем красным цветом
                 _keeper.dictionary["Text Paint"].Color = SKColors.Red;
-                _canvas.DrawText("cos(x)", 0, (float)(_info.Height * 0.30), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("cos(x)", Indent, (float)(_info.Height * 0.30), _keeper.dictionary["Text Paint"]);
 
-                for (int i = 0; i < _info.Width; i++)
+                for (float i = StartWidthPoint; i < EndWidthPoint; i++)
                 {
-                    int x = i;
+                    float x = i;
                     float y = (float)(_info.Height / 9 * (Math.Cos(i * 5 * PI / (_info.Width - 1))));
                     _canvas.DrawCircle(x, _info.Height / 2 + y, _thicknessOfLines, _keeper.dictionary["Red Paint"]);
                 }
@@ -169,11 +212,11 @@ namespace TestApp
             {
                 // Рисуем синим цветом
                 _keeper.dictionary["Text Paint"].Color = SKColors.Blue;
-                _canvas.DrawText("sin(x) + cos(x)", 0, (float)(_info.Height * 0.35), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("sin(x) + cos(x)", Indent, (float)(_info.Height * 0.35), _keeper.dictionary["Text Paint"]);
 
-                for (int i = 0; i < _info.Width; i++)
+                for (float i = StartWidthPoint; i < EndWidthPoint; i++)
                 {
-                    int x = i;
+                    float x = i;
                     float sinY = (float)(_info.Height / 9 * (Math.Sin(i * 5 * PI / (_info.Width - 1))));
                     float cosY = (float)(_info.Height / 9 * (Math.Cos(i * 5 * PI / (_info.Width - 1))));
                     float y = sinY + cosY;
@@ -186,13 +229,13 @@ namespace TestApp
                 // y = kx + b
 
                 // Метка графика
-                _canvas.DrawText("kx", 0, (float)(_info.Height * 0.25), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("kx", Indent, (float)(_info.Height * 0.25), _keeper.dictionary["Text Paint"]);
 
                 // Перемещаемся по x в начало координат
-                float counter = (float)-(_info.Width * 0.35);
+                float counter = StartWidthPoint;
 
                 // Проходим циклом 100% отрезка ширины экрана
-                while(counter < _info.Width * 0.65)
+                while(counter < EndWidthPoint)
                 {
                     float x = counter;
                     float y = -x;
@@ -210,7 +253,7 @@ namespace TestApp
                 _keeper.dictionary["Text Paint"].Color = SKColors.Red;
 
                 // Метка графика
-                _canvas.DrawText("x*x", 0, (float)(_info.Height * 0.30), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("x*x", Indent, (float)(_info.Height * 0.30), _keeper.dictionary["Text Paint"]);
 
                 // Перемещаемся по x в начало координат
                 float counter = (float)-(_info.Width * 0.35);
@@ -236,7 +279,7 @@ namespace TestApp
                 _keeper.dictionary["Text Paint"].Color = SKColors.Blue;
 
                 // Метка графика
-                _canvas.DrawText("e^x", 0, (float)(_info.Height * 0.35), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("e^x", Indent, (float)(_info.Height * 0.35), _keeper.dictionary["Text Paint"]);
 
                 // Перемещаемся по x в начало координат
                 float counter = (float)-(_info.Width * 0.35);
