@@ -36,16 +36,31 @@ namespace TestApp
                 Color = SKColors.Blue
             };
 
+            SKPaint greenPaint = new SKPaint
+            {
+                Style = SKPaintStyle.Fill,
+                Color = SKColors.Green
+            };
+
+            SKPaint axesPaint = new SKPaint
+            {
+                Style = SKPaintStyle.Stroke,
+                Color = SKColors.Black,
+                StrokeWidth = 2
+            };
+
             SKPaint textPaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
                 Color = SKColors.Black,
-                TextSize = 32
+                TextSize = 24
             };
 
             dictionary.Add("Black Paint", blackPaint);
             dictionary.Add("Red Paint", redPaint);
             dictionary.Add("Blue Paint", bluePaint);
+            dictionary.Add("Green Paint", greenPaint);
+            dictionary.Add("Axes Paint", axesPaint);
             dictionary.Add("Text Paint", textPaint);
         }
     }

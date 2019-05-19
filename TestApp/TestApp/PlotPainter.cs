@@ -78,18 +78,56 @@ namespace TestApp
         /// </summary>
         public void DrawAxis()
         {
-            // Ось x
-            _canvas.DrawLine(0, _heightCenterOfCanvas, _info.Width, _heightCenterOfCanvas, _keeper.dictionary["Black Paint"]);
+            // Оси
 
+            float percent = (float)0.05;
+
+            _canvas.DrawRect((float)(_info.Width * percent), (float)(_info.Height * percent), (float)(_info.Width * (1 - 2 * percent)), (float)(_info.Height * (1 - 2 * percent)), _keeper.dictionary["Axes Paint"]);
+          
             // Точка 0
-            _keeper.dictionary["Text Paint"].Color = SKColors.Black;
-            _canvas.DrawText("0", 0, (float)(_info.Height / 2), _keeper.dictionary["Text Paint"]);
+            //_keeper.dictionary["Text Paint"].Color = SKColors.Black;
+            //_canvas.DrawText("0", 0, (float)(_info.Height / 2), _keeper.dictionary["Text Paint"]);
 
             // Пометка оси X
-            _canvas.DrawText("x", (float)(_info.Width - 24), (float)(_info.Height / 2), _keeper.dictionary["Text Paint"]);
+            //_canvas.DrawText("x", (float)(_info.Width - 24), (float)(_info.Height / 2), _keeper.dictionary["Text Paint"]);
 
-            // Ось y
-            //canvas.DrawLine(centerOfWidth, 0, centerOfWidth, info.Height, blackPaint);
+            // Число отметок
+            float numberOfMarks = 20;
+
+            float step = (float)((_info.Width * (1 - 2 * percent)) / numberOfMarks);
+
+            float currentPixel = (float)(_info.Width * percent);
+
+            float temp = (float)(_info.Width * (1 - percent));
+
+            for (int i = 1; i <= temp; i++)
+            {
+                if (i >= numberOfMarks)
+                {
+                    break;
+                }
+                currentPixel += step;
+                _canvas.DrawText($"{i}", (float)currentPixel, (float)(_info.Height), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawLine((float)currentPixel, (float)(_info.Height * (1 - percent)), (float)currentPixel, (float)(_info.Height * percent), _keeper.dictionary["Green Paint"]);
+            }
+
+            // Для оси Y
+            step = (float)((_info.Height * (1 - 2 * percent)) / numberOfMarks);
+
+            currentPixel = (float)(_info.Height * percent);
+
+            temp = (float)(_info.Height * (1 - percent));
+
+            for (int i = 1; i <= temp; i++)
+            {
+                if (i >= numberOfMarks)
+                {
+                    break;
+                }
+                currentPixel += step;
+                _canvas.DrawText($"{i}", (float)(_info.Width * 0.02), (float)currentPixel, _keeper.dictionary["Text Paint"]);
+                _canvas.DrawLine((float)(_info.Width * percent), (float)currentPixel, (float)(_info.Width * (1 - percent)), (float)currentPixel, _keeper.dictionary["Green Paint"]);
+            }
         }
 
         /// <summary>
