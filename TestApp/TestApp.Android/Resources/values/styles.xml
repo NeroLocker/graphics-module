@@ -36,5 +36,5 @@
     <item name="android:activatedBackgroundIndicator">@color/ListViewSelected</item>
   </style>
   <color name="ListViewSelected">#A6A6A6</color>
-  <color name="ListViewHighlighted">#CCCCCC</color>
+  <color name="ListViewHighlighted">#CCCCCCa</color>
 </resources>
