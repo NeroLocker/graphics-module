@@ -14,27 +14,30 @@
     <item name="colorPrimary">#2196F3</item>
     <!-- colorPrimaryDark is used for the status bar -->
     <item name="colorPrimaryDark">#1976D2</item>
-    <!-- colorAccent is used as the default value for colorControlActivated
-         which is used to tint widgets -->
-    <item name="colorAccent">#FF4081</item>
+    
     <!-- You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. -->
     <item name="windowActionModeOverlay">true</item>
-
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
-  </style>
-
-  <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-    <item name="colorAccent">#FF4081</item>
-  </style>
-
-  <style name="ThemeForColorOfSelectedItem" parent="android:style/Theme.Material.Light.DarkActionBar">
+    
+    <!-- Цвет для свитчей -->
+    <!-- colorAccent is used as the default value for colorControlActivated
+         which is used to tint widgets -->        
+    <item name="colorAccent">#e6e6e6</item>
+  
+    <!-- Устанавливаем кастомные цвета для элементов списка -->
     <item name="android:colorPressedHighlight">@color/ListViewSelected</item>
     <item name="android:colorLongPressedHighlight">@color/ListViewHighlighted</item>
     <item name="android:colorFocusedHighlight">@color/ListViewSelected</item>
     <item name="android:colorActivatedHighlight">@color/ListViewSelected</item>
     <item name="android:activatedBackgroundIndicator">@color/ListViewSelected</item>
   </style>
-  <color name="ListViewSelected">#A6A6A6</color>
-  <color name="ListViewHighlighted">#CCCCCCa</color>
+
+  <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">#FF4081</item>
+  </style>
+
+  <!-- Кастомные цвета для выбранного и подсвеченного(?) элемента списка в 16-ом виде-->
+  <color name="ListViewSelected">#f2f2f2</color>
+  <color name="ListViewHighlighted">#cccccc</color>
 </resources>

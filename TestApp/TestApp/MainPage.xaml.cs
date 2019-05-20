@@ -46,7 +46,7 @@ namespace TestApp
             Schemes.Add(new Scheme
             {
                 Name = "Мост-делитель",
-                ImagePath = "bridge_divider.jpg"
+                ImagePath = "bridge_divider.jpg"                
             });
 
             Schemes.Add(new Scheme
@@ -71,7 +71,7 @@ namespace TestApp
             {               
                 plotPainter.Paint("Trigonometric");              
             }
-
+            
             if (OtherSwitch.IsToggled)
             {               
                 plotPainter.Paint("Other");
