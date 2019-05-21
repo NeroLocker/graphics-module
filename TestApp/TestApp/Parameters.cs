@@ -30,7 +30,6 @@ namespace TestApp
         /// </summary>
         private float _c = 299_792_458f;
 
-
         public float Z0
         {
             get { return _z0;}
@@ -174,7 +173,47 @@ namespace TestApp
         {
             get { return (float)((Z0 * K) / KHatch); }
         }
-        
+
+        // Параметры с тильдами ~
+        private float W11tilda
+        {
+            get { return (float)((Z0 * KHatch) / N); }
+        }
+        private float W22tilda
+        {
+            get { return (float)(Z0 * KHatch * N); }
+        }
+        private float Rho11tilda
+        {
+            get { return (float)(Z0 / (N * KHatch)); }
+        }
+        private float Rho22tilda
+        {
+            get { return (float)((Z0 * N) / KHatch); }
+        }
+        private float Utilda
+        {
+            get { return (float)((Z0 * KHatch) / K); }
+        }
+        private float Rtilda
+        {
+            get { return (float)((Z0 * K) / KHatch); }
+        }
+        // -
+
+        private float Rho11
+        {
+            get { return (float)(Rho11tilda / Z01); }
+        }
+        private float Rho22
+        {
+            get { return (float)(Rho22tilda / Z02); }
+        }
+        private float R
+        {
+            get { return (float)(Rtilda / Math.Sqrt(Z01 * Z02)); }
+        }
+
 
 
 
