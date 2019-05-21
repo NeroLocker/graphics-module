@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace TestApp
@@ -146,7 +147,7 @@ namespace TestApp
         private float Theta(float currentF)
         {
             
-            return (float)((360*currentF*Math.Sqrt(eps)*L)/C);
+            return (float)((360 * currentF * Math.Sqrt(eps)*L)/C);
         }
         
         private float Z1c
@@ -213,7 +214,27 @@ namespace TestApp
         {
             get { return (float)(Rtilda / Math.Sqrt(Z01 * Z02)); }
         }
+        private float W11
+        {
+            get { return (float)(W11tilda / Z01); }
+        }
+        private float W22
+        {
+            get { return (float)(W22tilda / Z02); }
+        }
+        private float V
+        {
+            get { return (float)(Zm / Math.Sqrt(Z01 * Z02)); }
+        }
 
+        //TODO: реализовать формулы S-параметров и знаменателя A
+        //# region S-параметры
+        //public Complex A
+        //{
+
+        //}
+
+        //# endregion
 
 
 
