@@ -31,6 +31,11 @@ namespace TestApp
         /// </summary>
         private float _c = 299_792_458f;
 
+        private Complex _s33;
+        private Complex _s44;
+        private Complex _s34;
+        private Complex _s43;
+
         public float Z0
         {
             get { return _z0;}
@@ -154,22 +159,27 @@ namespace TestApp
         {
             get { return (float)((Z0 * KHatch) / (N - K)); }
         }
+
         private float Z1pi
         {
             get { return (float)(Z0 * ((1/N - K) / KHatch)); }
         }
+
         private float Z2c
         {
             get { return (float)((Z0 * KHatch) / (1/N - K)); }
         }
+
         private float Z2pi
         {
             get { return (float)(Z0 * ((N - K) / KHatch)); }
         }
+
         private float Zm
         {
             get { return (float)((Z0 * KHatch) / K); }
         }
+
         private float Z12
         {
             get { return (float)((Z0 * K) / KHatch); }
@@ -180,10 +190,12 @@ namespace TestApp
         {
             get { return (float)((Z0 * KHatch) / N); }
         }
+
         private float W22tilda
         {
             get { return (float)(Z0 * KHatch * N); }
         }
+
         private float Rho11tilda
         {
             get { return (float)(Z0 / (N * KHatch)); }
@@ -192,10 +204,12 @@ namespace TestApp
         {
             get { return (float)((Z0 * N) / KHatch); }
         }
+
         private float Utilda
         {
             get { return (float)((Z0 * KHatch) / K); }
         }
+
         private float Rtilda
         {
             get { return (float)((Z0 * K) / KHatch); }
@@ -206,35 +220,88 @@ namespace TestApp
         {
             get { return (float)(Rho11tilda / Z01); }
         }
+
         private float Rho22
         {
             get { return (float)(Rho22tilda / Z02); }
         }
+
         private float R
         {
             get { return (float)(Rtilda / Math.Sqrt(Z01 * Z02)); }
         }
+
         private float W11
         {
             get { return (float)(W11tilda / Z01); }
         }
+
         private float W22
         {
             get { return (float)(W22tilda / Z02); }
         }
+
         private float V
         {
             get { return (float)(Zm / Math.Sqrt(Z01 * Z02)); }
         }
 
-        //TODO: реализовать формулы S-параметров и знаменателя A
-        //# region S-параметры
-        //public Complex A
-        //{
+        //TODO: реализовать формулы S-параметров
+        # region S-параметры
+        public Complex A(float currentF)
+        {
+            // Обозначим комплексные числа выражения А переменными Alpha и Beta
+            Complex alpha = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1/W11) * Math.Sin(Theta(currentF)));
+            Complex beta = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1 / W22) * Math.Sin(Theta(currentF)));
 
-        //}
 
-        //# endregion
+            return ((Math.Pow(((R - 1 / V) * Math.Sin(Theta(currentF))), 2)) + alpha*beta);
+        }
+
+        public Complex S11(float currentF)
+        {
+            // Числитель выражения
+            Complex numerator = new Complex(( ((Math.Pow(R, 2) - 1/ Math.Pow(V, 2)) - (Rho11 - 1/W11) - (Rho22 - 1 / W22)) * Math.Pow(Math.Sin(Theta(currentF)), 2) ), (Rho11 - 1 / W11) * Math.Sin(2 * Theta(currentF)));
+
+            // Считаем
+            Complex res = (numerator / A(currentF));
+
+            // Поскольку S11 = S33
+            S33 = res;
+
+            return res;
+;        }
+
+        // Параметр, зависящий от S11 (S11 = S33)
+        public Complex S33
+        {            
+            get {return _s33; }
+            private set { _s33 = value;}
+        }
+
+        public Complex S22(float currentF)
+        {
+            // Числитель выражения
+            Complex numerator = new Complex((((Math.Pow(R, 2) - 1 / Math.Pow(V, 2)) - (Rho11 - 1 / W11) - (Rho22 - 1 / W22)) * Math.Pow(Math.Sin(Theta(currentF)), 2)), (Rho22 - 1 / W22) * Math.Sin(2 * Theta(currentF)));
+
+            // Считаем
+            Complex res = (numerator / A(currentF));
+
+            // Поскольку S22 = S44
+            S44 = res;
+
+            return res;
+            ;
+        }
+
+        // Параметр, зависящий от S22 (S22 = S44)
+        public Complex S44
+        {
+            get { return _s44; }
+            private set { _s44 = value; }
+        }
+
+        #endregion
 
 
 
