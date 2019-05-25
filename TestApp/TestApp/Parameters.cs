@@ -17,10 +17,12 @@ namespace TestApp
         private float _z02;
         private float _s21;
         private float _l;
+
         /// <summary>
         /// Начальная частота fi
         /// </summary>
         private float _fStart = 0;
+
         /// <summary>
         /// Конечная частота fi
         /// </summary>
@@ -40,6 +42,9 @@ namespace TestApp
         private Complex _s43;
         private Complex _s31;
         private Complex _s42;
+        private Complex _s41;
+        private Complex _s23;
+        private Complex _s32;
 
         public float Z0
         {
@@ -251,14 +256,19 @@ namespace TestApp
             get { return (float)(Zm / Math.Sqrt(Z01 * Z02)); }
         }
 
-        //TODO: реализовать формулы S-параметров
+        #endregion
+
         # region S-параметры
+        /// <summary>
+        /// Общий знаменатель для всех S-параметров
+        /// </summary>
+        /// <param name="currentF"></param>
+        /// <returns></returns>
         public Complex A(float currentF)
         {
             // Обозначим комплексные числа выражения А переменными Alpha и Beta
             Complex alpha = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1/W11) * Math.Sin(Theta(currentF)));
             Complex beta = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1 / W22) * Math.Sin(Theta(currentF)));
-
 
             return ((Math.Pow(((R - 1 / V) * Math.Sin(Theta(currentF))), 2)) + alpha * beta);
         }
@@ -378,7 +388,42 @@ namespace TestApp
             private set { _s42 = value; }
         }
 
-        #endregion
+        public Complex S14(float currentF)
+        {
+            // Объявляем комплексную мнимую единицу
+            Complex i = Complex.Sqrt(-1);
+
+            // Считаем
+            Complex res = -i * (2 * (R - 1/V) * Math.Sin(Theta(currentF)))/A(currentF);
+
+            // Поскольку S14 = S41 = S23 = S32
+            S41 = res;
+            S23 = res;
+            S32 = res;
+
+            return res;
+        }
+
+        // Параметр, зависящий от S14 (S14 = S41)
+        public Complex S41
+        {
+            get { return _s41; }
+            private set { _s41 = value; }
+        }
+
+        // Параметр, зависящий от S14 (S14 = S23)
+        public Complex S23
+        {
+            get { return _s23; }
+            private set { _s23 = value; }
+        }
+
+        // Параметр, зависящий от S14 (S14 = S32)
+        public Complex S32
+        {
+            get { return _s32; }
+            private set { _s32 = value; }
+        }
 
         #endregion
 
