@@ -11,11 +11,31 @@ namespace TestApp
     /// </summary>
     class Parameters
     {
+        /// <summary>
+        /// Характеристический импеданс
+        /// </summary>
         private float _z0;
+
+        /// <summary>
+        /// Характеристический импеданс первой линии
+        /// </summary>
         private float _z1;
+
+        /// <summary>
+        /// Характеристический импеданс второй линии
+        /// </summary>
         private float _z2;
+
+        /// <summary>
+        /// Номинал нагрузочного резистора Z01
+        /// </summary>
         private float _z01;
+
+        /// <summary>
+        /// Номинал нагрузочного резистора Z02
+        /// </summary>
         private float _z02;
+
         private float _s21;
 
         /// <summary>
@@ -63,12 +83,18 @@ namespace TestApp
             private set { _z0 = value;}
         }
 
+        /// <summary>
+        /// Характеристический импеданс первой линии
+        /// </summary>
         public float Z1
         {
             get { return _z1;}
             private set { _z1 = value;}
         }
 
+        /// <summary>
+        /// Характеристический импеданс второй линии
+        /// </summary>
         public float Z2
         {
             get { return _z2;}
@@ -199,8 +225,10 @@ namespace TestApp
             return (float)((360 * currentF * Math.Sqrt(Er)*L)/C);
         }
 
+        # region Нагрузочные резисторы
+
         /// <summary>
-        /// Импеданс первой линии при синфазном возбуждении
+        /// Номинал нагрузочного резистора Z1c
         /// </summary>
         private float Z1c
         {
@@ -208,40 +236,48 @@ namespace TestApp
         }
 
         /// <summary>
-        /// Импеданс первой линии при противофазном возбуждении
+        /// Номинал нагрузочного резистора Z1π
         /// </summary>
         private float Z1pi
         {
-            get { return (float)(Z0 * ((1/N - K) / KHatch)); }
+            get { return (float)(Z0 * ((1 / N - K) / KHatch)); }
         }
 
         /// <summary>
-        /// Импеданс второй линии при синфазном возбуждении
+        /// Номинал нагрузочного резистора Z2c
         /// </summary>
         private float Z2c
         {
-            get { return (float)((Z0 * KHatch) / (1/N - K)); }
+            get { return (float)((Z0 * KHatch) / (1 / N - K)); }
         }
 
         /// <summary>
-        /// Импеданс второй линии при противофазном возбуждении
+        /// Номинал нагрузочного резистора Z2π
         /// </summary>
         private float Z2pi
         {
             get { return (float)(Z0 * ((N - K) / KHatch)); }
         }
 
+        /// <summary>
+        /// Номинал нагрузочного резистора Zm
+        /// </summary>
         private float Zm
         {
             get { return (float)((Z0 * KHatch) / K); }
         }
 
+        /// <summary>
+        /// Номинал нагрузочного резистора Z12
+        /// </summary>
         private float Z12
         {
             get { return (float)((Z0 * K) / KHatch); }
         }
 
-        // Параметры с тильдами ~
+        #endregion
+
+        # region Параметры с тильдами (~)
         private float W11tilda
         {
             get { return (float)((Z0 * KHatch) / N); }
@@ -270,7 +306,8 @@ namespace TestApp
         {
             get { return (float)((Z0 * K) / KHatch); }
         }
-        // -
+        
+        # endregion
 
         private float Rho11
         {
