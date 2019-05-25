@@ -10,7 +10,6 @@ namespace GraphicsModule
     /// </summary>
     public class PaintsKeeper
     {
-
         public Dictionary<string, SKPaint> dictionary = new Dictionary<string, SKPaint>();
 
         /// <summary>

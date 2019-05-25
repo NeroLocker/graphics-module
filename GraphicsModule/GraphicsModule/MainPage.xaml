@@ -1,114 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:GraphicsModule"
-             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              x:Class="GraphicsModule.MainPage"
-             Title="Результат">
+             Title="Введите параметры">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <x:Int32 x:Key="StackLayoutPadding">10</x:Int32>
-            <x:Double x:Key="FontSize">14</x:Double>
-            <x:Int32 x:Key="FramePadding">0</x:Int32>
-            <x:Int32 x:Key="FrameMargin">1</x:Int32>
         </ResourceDictionary>
     </ContentPage.Resources>
+    
+    <!--TODO: реализовать все необходимые для параметров Entry на странице и навигацию с передачей данных-->
+    <ContentPage.Content>
+        <StackLayout Margin="{StaticResource Key=StackLayoutPadding}">
+            <Image Source="coupler.jpg" HorizontalOptions="Center"></Image>
+            <Entry Placeholder="Z0, Ом"
+                   x:Name="z0"
+                   Keyboard="Numeric"
+                   HorizontalOptions="FillAndExpand" />
+            <Entry Placeholder="|S21|, дБ"
+                   x:Name="S21"
+                   Keyboard="Numeric"
+                   HorizontalOptions="FillAndExpand" />
+            <Entry Placeholder="Z1, Ом"
+                   x:Name="z1"
+                   Keyboard="Numeric"
+                   HorizontalOptions="FillAndExpand" />
+            <Entry Placeholder="Z2, Ом"
+                   x:Name="z2"
+                   Keyboard="Numeric"
+                   HorizontalOptions="FillAndExpand" />
 
-    <!--Скомпонуем элементы в сетку-->
-    <Grid VerticalOptions="FillAndExpand">
-        <!--Список со схемами-->
-        <!--Привязка к списку Schemes в классе MainPage-->
-        <ListView
-            HasUnevenRows="True"
-            ItemsSource="{Binding Schemes}"
-            ItemSelected="OnListViewItemSelected"
-            ItemTapped="OnListViewItemTapped"
-            Grid.Row="0">
-
-            <!--Заголовок списка-->
-            <ListView.Header>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Выбор схемы включения"
-                           Margin="{StaticResource Key=StackLayoutPadding}"
-                           FontSize="24"
-                           HorizontalOptions="StartAndExpand"
-                           />
-                </StackLayout>
-            </ListView.Header>
-
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.RowSpan="2"
-                           Source="{Binding ImagePath}"
-                           Aspect="AspectFit" />
-                            <Label Grid.Column="1"
-                           Text="{Binding Name}"
-                           FontSize="{StaticResource Key=FontSize}" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <!--Свитчи-->
-        <FlexLayout Direction="Column" Grid.Row="1">
-
-            <Label Text="Частотные характеристики" 
-                   Margin="{StaticResource Key=StackLayoutPadding}"
-                   FontSize="24"
-                   HorizontalOptions="StartAndExpand"
-                   />
-
-            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
-                <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
-
-                    <Label Text="/S/"
-                   FontSize="{StaticResource Key=FontSize}"
-                   HorizontalOptions="StartAndExpand"/>
-
-                    <Switch 
-                        x:Name="TrigonometricSwitch"
-                        Toggled="OnTrigonometricSwitchToggled"
-                        HorizontalOptions="EndAndExpand"/>
-
-                </StackLayout>
-            </Frame>
-
-            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
-                <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
-
-                    <Label Text="arg(S)"
-                   FontSize="{StaticResource Key=FontSize}"
-                   HorizontalOptions="StartAndExpand"/>
-
-                    <Switch 
-                        x:Name="OtherSwitch"
-                        Toggled="OnOtherSwitchToggled"
-                HorizontalOptions="EndAndExpand"/>
-
-                </StackLayout>
-            </Frame>
-        </FlexLayout>
-
-        <!--Вывод графиков-->
-        <skia:SKCanvasView Margin="10"
-                           PaintSurface="OnCanvasViewPaintSurface"
-                           x:Name="OutputCanvasView" Grid.Row="2"
-                           >
-        </skia:SKCanvasView>
-
-    </Grid>
-
-
+            <Button Text="Дальше" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"></Button>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
