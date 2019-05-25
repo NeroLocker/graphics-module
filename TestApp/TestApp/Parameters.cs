@@ -25,7 +25,10 @@ namespace TestApp
         /// Конечная частота fi
         /// </summary>
         private float _fEnd;
+
+        // ???
         private float eps = (float)8.854E-12;
+
         /// <summary>
         /// Скорость света
         /// </summary>
@@ -291,7 +294,6 @@ namespace TestApp
             S44 = res;
 
             return res;
-            ;
         }
 
         // Параметр, зависящий от S22 (S22 = S44)
@@ -300,6 +302,58 @@ namespace TestApp
             get { return _s44; }
             private set { _s44 = value; }
         }
+
+        public Complex S12(float currentF)
+        {
+            // Числитель выражения
+            Complex numerator = new Complex((-2*(Rho11/V + R/W11)*Math.Pow(Math.Sin(Theta(currentF)),2)), ((R + 1/V) * Math.Sin(2 * Theta(currentF))));
+
+            // Считаем
+            Complex res = (numerator / A(currentF));
+
+            // Поскольку S12 = S21 = S34 = S43
+            S34 = res;
+            S43 = res;
+
+            // Значение S21 инициализируется в конструкторе
+
+            return res;
+        }
+
+        // Параметр, зависящий от S12 (S12 = S34)
+        public Complex S34
+        {
+            get { return _s34; }
+            private set { _s34 = value; }
+        }
+
+        // Параметр, зависящий от S12 (S12 = S43)
+        public Complex S43
+        {
+            get { return _s43; }
+            private set { _s43 = value; }
+        }
+
+        // TODO: разобраться с параметрами S13, S31, S24, S42, которые в своём составе имеют комплексное число
+        //public Complex S13(float currentF)
+        //{
+        //    // комплексное число, стоящее в выражении
+        //    Complex complexNumber = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1/W22));
+
+        //    // Числитель выражения
+        //    Complex numerator = new Complex();
+
+        //    // Считаем
+        //    Complex res = (numerator / A(currentF));
+
+        //    // Поскольку S12 = S21 = S34 = S43
+        //    S34 = res;
+        //    S43 = res;
+
+        //    // Значение S21 инициализируется в конструкторе
+
+        //    return res;
+        //}
 
         #endregion
 
