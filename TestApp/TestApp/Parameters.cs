@@ -38,6 +38,8 @@ namespace TestApp
         private Complex _s44;
         private Complex _s34;
         private Complex _s43;
+        private Complex _s31;
+        private Complex _s42;
 
         public float Z0
         {
@@ -258,7 +260,7 @@ namespace TestApp
             Complex beta = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1 / W22) * Math.Sin(Theta(currentF)));
 
 
-            return ((Math.Pow(((R - 1 / V) * Math.Sin(Theta(currentF))), 2)) + alpha*beta);
+            return ((Math.Pow(((R - 1 / V) * Math.Sin(Theta(currentF))), 2)) + alpha * beta);
         }
 
         public Complex S11(float currentF)
@@ -334,30 +336,49 @@ namespace TestApp
             private set { _s43 = value; }
         }
 
-        // TODO: разобраться с параметрами S13, S31, S24, S42, которые в своём составе имеют комплексное число
-        //public Complex S13(float currentF)
-        //{
-        //    // комплексное число, стоящее в выражении
-        //    Complex complexNumber = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1/W22));
+        public Complex S13(float currentF)
+        {
+            // комплексное число, стоящее в выражении
+            Complex complexNumber = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1 / W22));
 
-        //    // Числитель выражения
-        //    Complex numerator = new Complex();
+            // Считаем
+            Complex res = ((2 * complexNumber * Math.Sin(Theta(currentF))) / A(currentF));
 
-        //    // Считаем
-        //    Complex res = (numerator / A(currentF));
+            // Поскольку S13 = S31
+            S31 = res;
 
-        //    // Поскольку S12 = S21 = S34 = S43
-        //    S34 = res;
-        //    S43 = res;
+            return res;
+        }
 
-        //    // Значение S21 инициализируется в конструкторе
+        // Параметр, зависящий от S13 (S13 = S31)
+        public Complex S31
+        {
+            get { return _s31; }
+            private set { _s31 = value; }
+        }
 
-        //    return res;
-        //}
+        public Complex S24(float currentF)
+        {
+            // комплексное число, стоящее в выражении
+            Complex complexNumber = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1 / W11));
+
+            // Считаем
+            Complex res = ((2 * complexNumber * Math.Sin(Theta(currentF))) / A(currentF));
+
+            // Поскольку S24 = S42
+            S42 = res;
+
+            return res;
+        }
+
+        // Параметр, зависящий от S24 (S24 = S42)
+        public Complex S42
+        {
+            get { return _s42; }
+            private set { _s42 = value; }
+        }
 
         #endregion
-
-
 
         #endregion
 
