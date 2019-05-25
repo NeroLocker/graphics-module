@@ -7,7 +7,7 @@ using Xamarin.Forms;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 
-namespace TestApp
+namespace GraphicsModule
 {
     public partial class MainPage : ContentPage
     {

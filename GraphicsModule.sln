@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp.Android", "TestApp\TestApp.Android\TestApp.Android.csproj", "{C8539AB5-6054-4104-BC7B-7962D4812AFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsModule.Android", "GraphicsModule\GraphicsModule.Android\GraphicsModule.Android.csproj", "{C8539AB5-6054-4104-BC7B-7962D4812AFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp\TestApp.csproj", "{F8941BD4-1356-4CF5-BF73-1E2B6EF9D9EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicsModule", "GraphicsModule\GraphicsModule\GraphicsModule.csproj", "{F8941BD4-1356-4CF5-BF73-1E2B6EF9D9EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

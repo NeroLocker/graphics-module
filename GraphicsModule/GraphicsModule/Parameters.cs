@@ -4,7 +4,7 @@ using System.Numerics;
 using System.Text;
 using static System.Math;
 
-namespace TestApp
+namespace GraphicsModule
 {
     /// <summary>
     /// Содержит все данные, касающиеся расчета

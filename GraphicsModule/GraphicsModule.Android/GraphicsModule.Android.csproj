@@ -7,8 +7,8 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>TestApp.Droid</RootNamespace>
-    <AssemblyName>TestApp.Android</AssemblyName>
+    <RootNamespace>GraphicsModule.Droid</RootNamespace>
+    <AssemblyName>GraphicsModule.Android</AssemblyName>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -94,9 +94,9 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestApp\TestApp.csproj">
-      <Project>{29579554-A11B-4A0A-A002-A4E1217A343C}</Project>
-      <Name>TestApp</Name>
+    <ProjectReference Include="..\GraphicsModule\GraphicsModule.csproj">
+      <Project>{F8941BD4-1356-4CF5-BF73-1E2B6EF9D9EE}</Project>
+      <Name>GraphicsModule</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
