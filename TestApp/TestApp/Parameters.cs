@@ -17,6 +17,10 @@ namespace TestApp
         private float _z01;
         private float _z02;
         private float _s21;
+
+        /// <summary>
+        /// Длина схемы отрезка СЛ
+        /// </summary>
         private float _l;
 
         /// <summary>
@@ -29,8 +33,11 @@ namespace TestApp
         /// </summary>
         private float _fEnd;
 
-        // ???
-        private float eps = (float)8.854E-12;
+        // Может быть больше единицы
+        /// <summary>
+        /// Диэлектрическая проницаемость среды
+        /// </summary>
+        private float Er = 1f;       
 
         /// <summary>
         /// Скорость света
@@ -47,6 +54,9 @@ namespace TestApp
         private Complex _s23;
         private Complex _s32;
 
+        /// <summary>
+        /// Характеристический импеданс
+        /// </summary>
         public float Z0
         {
             get { return _z0;}
@@ -65,12 +75,18 @@ namespace TestApp
             private set { _z2 = value;}
         }
 
+        /// <summary>
+        /// Номинал нагрузочного резистора Z01
+        /// </summary>
         public float Z01
         {
             get { return _z01; }
             private set { _z01 = value; }
         }
 
+        /// <summary>
+        /// Номинал нагрузочного резистора Z02
+        /// </summary>
         public float Z02
         {
             get { return _z02;}
@@ -83,6 +99,9 @@ namespace TestApp
             private set { _s21 = Math.Abs(value);}
         }
 
+        /// <summary>
+        /// Длина схемы отрезка СЛ
+        /// </summary>
         public float L
         {
             get { return _l;}
@@ -111,8 +130,8 @@ namespace TestApp
         /// </summary>
         public float C
         {
-            get { return _fEnd; }
-            private set { _fEnd = value; }
+            get { return _c; }
+            private set { _c = value; }
         }
 
         /// <summary>
@@ -142,45 +161,71 @@ namespace TestApp
 
         // Реализуем вычисление формул в геттерах свойств класса, представляющих параметры
         // Идея работать через методы вместо свойств кажется нецелесообразной
+
+        /// <summary>
+        /// Коэффициент импедансной связи
+        /// </summary>
         private float K
         {
             // k = 10^(-S21/20)
             get { return (float)(Math.Pow(10, -(S21 / 20))); }            
         }
 
+        /// <summary>
+        /// Характеристический коэффициент k'
+        /// </summary>
         private float KHatch
-        {
-            // k'
+        {           
             get { return (float)(Math.Sqrt(1 - K * K)); }            
         }
 
+        /// <summary>
+        /// Коэффициент трансформации(симметрии)
+        /// </summary>
         private float N
         {
             // n
             get { return (float)(Math.Sqrt(Z2 / Z1)); }
         }
 
+        /// <summary>
+        /// Электрическая длина отрезка СЛ
+        /// </summary>
+        /// <param name="currentF"></param>
+        /// <returns></returns>
         private float Theta(float currentF)
         {
             
-            return (float)((360 * currentF * Math.Sqrt(eps)*L)/C);
+            return (float)((360 * currentF * Math.Sqrt(Er)*L)/C);
         }
-        
+
+        /// <summary>
+        /// Импеданс первой линии при синфазном возбуждении
+        /// </summary>
         private float Z1c
         {
             get { return (float)((Z0 * KHatch) / (N - K)); }
         }
 
+        /// <summary>
+        /// Импеданс первой линии при противофазном возбуждении
+        /// </summary>
         private float Z1pi
         {
             get { return (float)(Z0 * ((1/N - K) / KHatch)); }
         }
 
+        /// <summary>
+        /// Импеданс второй линии при синфазном возбуждении
+        /// </summary>
         private float Z2c
         {
             get { return (float)((Z0 * KHatch) / (1/N - K)); }
         }
 
+        /// <summary>
+        /// Импеданс второй линии при противофазном возбуждении
+        /// </summary>
         private float Z2pi
         {
             get { return (float)(Z0 * ((N - K) / KHatch)); }
