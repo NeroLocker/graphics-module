@@ -12,28 +12,9 @@ namespace GraphicsModule
     public partial class ResultsPage : ContentPage
     {
         /// <summary>
-        /// Список схем включения
-        /// </summary>
-        public IList<Scheme> Schemes { get; private set; }
-
-        /// <summary>
         /// Свойство, хранящее пользовательские данные
         /// </summary>
         private Parameters UserParameters { get; set;}
-
-        /// <summary>
-        /// Класс схемы
-        /// </summary>
-        public class Scheme
-        {
-            public string Name { get; set; }
-            public string ImagePath { get; set; }
-
-            public override string ToString()
-            {
-                return Name;
-            }
-        }
 
         /// <summary>
         /// Конструктор, инициализирующий свойство пользовательских параметров
@@ -47,29 +28,6 @@ namespace GraphicsModule
             {
                 UserParameters = userParameters;
             }
-
-            // Заполняем список данными
-            Schemes = new List<Scheme>();
-
-            Schemes.Add(new Scheme
-            {
-                Name = "Ответвитель",
-                ImagePath = "coupler.png"
-            });
-
-            Schemes.Add(new Scheme
-            {
-                Name = "Мост-делитель",
-                ImagePath = "bridge_divider.jpg"                
-            });
-
-            Schemes.Add(new Scheme
-            {
-                Name = "Трансформатор",
-                ImagePath = "transformer.jpg"
-            });
-
-            BindingContext = this;
         }
   
         /// <summary>
@@ -90,26 +48,6 @@ namespace GraphicsModule
             {               
                 plotPainter.Paint("Other");
             }
-        }
-
-        /// <summary>
-        /// Событие выбора схемы из списка
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            Scheme selectedItem = e.SelectedItem as Scheme;
-        }
-
-        /// <summary>
-        /// Событие нажатия на элемент списка
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void OnListViewItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            Scheme tappedItem = e.Item as Scheme;
         }
 
         /// <summary>

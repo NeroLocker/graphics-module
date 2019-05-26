@@ -17,52 +17,8 @@
 
     <!--Скомпонуем элементы в сетку-->
     <Grid VerticalOptions="FillAndExpand">
-        <!--Список со схемами-->
-        <!--Привязка к списку Schemes в классе MainPage-->
-        <ListView
-            HasUnevenRows="True"
-            ItemsSource="{Binding Schemes}"
-            ItemSelected="OnListViewItemSelected"
-            ItemTapped="OnListViewItemTapped"
-            Grid.Row="0">
-
-            <!--Заголовок списка-->
-            <ListView.Header>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Выбор схемы включения"
-                           Margin="{StaticResource Key=StackLayoutPadding}"
-                           FontSize="{StaticResource Key=FontSize}"
-                           HorizontalOptions="StartAndExpand"
-                           />
-                </StackLayout>
-            </ListView.Header>
-
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.RowSpan="2"
-                           Source="{Binding ImagePath}"
-                           Aspect="AspectFit" />
-                            <Label Grid.Column="1"
-                           Text="{Binding Name}"
-                           FontSize="{StaticResource Key=FontSize}" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
         <!--Свитчи-->
-        <FlexLayout Direction="Column" Grid.Row="1">
+        <FlexLayout Direction="Column" Grid.Row="0">
 
             <Label Text="Частотные характеристики" 
                    Margin="{StaticResource Key=StackLayoutPadding}"
@@ -104,7 +60,7 @@
         <!--Вывод графиков-->
         <skia:SKCanvasView Margin="10"
                            PaintSurface="OnCanvasViewPaintSurface"
-                           x:Name="OutputCanvasView" Grid.Row="2"
+                           x:Name="OutputCanvasView" Grid.Row="1"
                            >
         </skia:SKCanvasView>
 
