@@ -64,6 +64,11 @@ namespace GraphicsModule
         /// </summary>
         private float _c = 299_792_458f;
 
+        /// <summary>
+        /// Коэффициент импедансной связи
+        /// </summary>
+        private float _k;
+
         private Complex _s33;
         private Complex _s44;
         private Complex _s34;
@@ -192,7 +197,18 @@ namespace GraphicsModule
         private float K
         {
             // k = 10^(-S21/20)
-            get { return (float)(Math.Pow(10, -(S21 / 20))); }            
+            get { return (float)(Math.Pow(10, -(S21 / 20))); }
+            set
+            {
+                if(value >= 0 && value < 1)
+                {
+                    _k = value;
+                }
+                else
+                {
+                    throw new ArgumentException($"{value} should be in range of 0 to 1");
+                }
+            }
         }
 
         /// <summary>
