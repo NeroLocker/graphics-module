@@ -16,5 +16,66 @@ namespace GraphicsModule
         {
             InitializeComponent();
         }
+
+        private async void OnContinueButtonClicked(object sender, EventArgs e)
+        {
+            if (CheckFields())
+            {
+                float z0 = float.Parse(z0Entry.Text);
+                float z1 = float.Parse(z1Entry.Text);
+                float z2 = float.Parse(z2Entry.Text);
+                float z01 = float.Parse(z01Entry.Text);
+                float z02 = float.Parse(z02Entry.Text);
+                float s21 = float.Parse(s21Entry.Text);
+                float l = float.Parse(lEntry.Text);
+                float fn = float.Parse(fnEntry.Text);
+
+                Parameters userParameters = new Parameters(z0, z1, z2, z01, z02, s21, l, fn);
+                await Navigation.PushAsync(new ResultsPage(userParameters));
+            }
+            
+        }
+
+        /// <summary>
+        /// Проверяет поля на заполненность 
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckFields()
+        {
+            if(z0Entry.Text.Length == 0)
+            {
+                return false;
+            }
+            if(z1Entry.Text.Length == 0)
+            {
+                return false;
+            }
+            if(z2Entry.Text.Length == 0)
+            {
+                return false;
+            }
+            if(z01Entry.Text.Length == 0)
+            {
+                return false;
+            }
+            if(z02Entry.Text.Length == 0)
+            {
+                return false;
+            }
+            if(s21Entry.Text.Length == 0)
+            {
+                return false;
+            }
+            if(lEntry.Text.Length == 0)
+            {
+                return false;
+            }
+            if(fnEntry.Text.Length == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

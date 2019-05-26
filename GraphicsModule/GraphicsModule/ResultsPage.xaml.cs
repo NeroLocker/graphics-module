@@ -17,6 +17,11 @@ namespace GraphicsModule
         public IList<Scheme> Schemes { get; private set; }
 
         /// <summary>
+        /// Свойство, хранящее пользовательские данные
+        /// </summary>
+        private Parameters UserParameters { get; set;}
+
+        /// <summary>
         /// Класс схемы
         /// </summary>
         public class Scheme
@@ -30,9 +35,18 @@ namespace GraphicsModule
             }
         }
 
-        public ResultsPage()
+        /// <summary>
+        /// Конструктор, инициализирующий свойство пользовательских параметров
+        /// </summary>
+        /// <param name="userParameters"></param>
+        public ResultsPage(Parameters userParameters)
         {
             InitializeComponent();
+
+            if (userParameters != null)
+            {
+                UserParameters = userParameters;
+            }
 
             // Заполняем список данными
             Schemes = new List<Scheme>();

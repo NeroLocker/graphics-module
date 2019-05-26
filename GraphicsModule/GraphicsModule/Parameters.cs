@@ -9,7 +9,7 @@ namespace GraphicsModule
     /// <summary>
     /// Содержит все данные, касающиеся расчета
     /// </summary>
-    class Parameters
+    public class Parameters
     {
         /// <summary>
         /// Характеристический импеданс
@@ -80,7 +80,8 @@ namespace GraphicsModule
         public float Z0
         {
             get { return _z0;}
-            private set { _z0 = value;}
+            private set { 
+                _z0 = value;}
         }
 
         /// <summary>
