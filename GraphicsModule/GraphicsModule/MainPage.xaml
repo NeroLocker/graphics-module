@@ -7,29 +7,74 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <x:Int32 x:Key="StackLayoutPadding">10</x:Int32>
+            <x:Double x:Key="FontSize">14</x:Double>
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <!--TODO: реализовать все необходимые для параметров Entry на странице и навигацию с передачей данных-->
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource Key=StackLayoutPadding}">
-            <Image Source="coupler.jpg" HorizontalOptions="Center"></Image>
-            <Entry Placeholder="Z0, Ом"
+            <Image Source="coupler.png" HorizontalOptions="Center"></Image>
+
+            <Grid>
+                <Entry Placeholder="Z0, Ом"
+                       Grid.Column="0"
+                       FontSize="{StaticResource Key=FontSize}"
                    x:Name="z0"
                    Keyboard="Numeric"
                    HorizontalOptions="FillAndExpand" />
-            <Entry Placeholder="|S21|, дБ"
+                <Entry Placeholder="|S21|, дБ"
+                       Grid.Column="1"
+                       FontSize="{StaticResource Key=FontSize}"
                    x:Name="S21"
                    Keyboard="Numeric"
                    HorizontalOptions="FillAndExpand" />
-            <Entry Placeholder="Z1, Ом"
+            </Grid>
+
+            <Grid>
+                <Entry Placeholder="Z1, Ом"
+                       Grid.Column="0"
+                       FontSize="{StaticResource Key=FontSize}"
                    x:Name="z1"
                    Keyboard="Numeric"
                    HorizontalOptions="FillAndExpand" />
-            <Entry Placeholder="Z2, Ом"
+                <Entry Placeholder="Z2, Ом"
+                       Grid.Column="1"
+                       FontSize="{StaticResource Key=FontSize}"
                    x:Name="z2"
                    Keyboard="Numeric"
                    HorizontalOptions="FillAndExpand" />
+            </Grid>
+
+            <Grid>
+                <Entry Placeholder="l, мм"
+                       Grid.Column="0"
+                       FontSize="{StaticResource Key=FontSize}"
+                   x:Name="l"
+                   Keyboard="Numeric"
+                   HorizontalOptions="FillAndExpand" />
+                <Entry Placeholder="fn[0..fn], ГГц"
+                       Grid.Column="1"
+                       FontSize="{StaticResource Key=FontSize}"
+                   x:Name="fn"
+                   Keyboard="Numeric"
+                   HorizontalOptions="FillAndExpand" />
+            </Grid>
+
+            <Grid>
+                <Entry Placeholder="Z01, Ом"
+                       Grid.Column="0"
+                       FontSize="{StaticResource Key=FontSize}"
+                   x:Name="z01"
+                   Keyboard="Numeric"
+                   HorizontalOptions="FillAndExpand" />
+                <Entry Placeholder="Z02, Ом"
+                       Grid.Column="1"
+                       FontSize="{StaticResource Key=FontSize}"
+                   x:Name="z02"
+                   Keyboard="Numeric"
+                   HorizontalOptions="FillAndExpand" />
+            </Grid>
 
             <Button Text="Дальше" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"></Button>
         </StackLayout>

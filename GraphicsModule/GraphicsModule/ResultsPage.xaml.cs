@@ -40,7 +40,7 @@ namespace GraphicsModule
             Schemes.Add(new Scheme
             {
                 Name = "Ответвитель",
-                ImagePath = "coupler.jpg"
+                ImagePath = "coupler.png"
             });
 
             Schemes.Add(new Scheme
