@@ -16,12 +16,10 @@ namespace GraphicsModule
         private SKSurface _surface;
         private SKCanvas _canvas;
 
-        // Поля центров по ширине и высоте холста
-        private float _widthCenterOfCanvas;
-        private float _heightCenterOfCanvas;
-
-        // Краски
-        private PaintsKeeper _keeper;
+        /// <summary>
+        /// Коллекция красок
+        /// </summary>
+        private PaintsKeeper _paints;
 
         // Толщина линий для отрисовки
         private int _thicknessOfLines = 2;
@@ -73,10 +71,7 @@ namespace GraphicsModule
             _surface = args.Surface;
             _canvas = _surface.Canvas;
 
-            _widthCenterOfCanvas = _info.Width / 2;
-            _heightCenterOfCanvas = _info.Height / 2;
-
-            _keeper = new PaintsKeeper();
+            _paints = new PaintsKeeper();
 
             Indent = (float)0.10;
 
@@ -123,7 +118,7 @@ namespace GraphicsModule
 
             float percent = (float)0.05;
 
-            _canvas.DrawRect((float)(StartWidthPoint), (float)(_info.Height * percent), (float)(_info.Width * (1 - 2 * percent)), (float)(_info.Height * (1 - 2 * percent)), _keeper.dictionary["Axes Paint"]);
+            _canvas.DrawRect((float)(StartWidthPoint), (float)(_info.Height * percent), (float)(_info.Width * (1 - 2 * percent)), (float)(_info.Height * (1 - 2 * percent)), _paints.dictionary["Axes Paint"]);
           
             // Точка 0
             //_keeper.dictionary["Text Paint"].Color = SKColors.Black;
@@ -148,8 +143,8 @@ namespace GraphicsModule
                     break;
                 }
                 currentPixel += step;
-                _canvas.DrawText($"{i}", (float)currentPixel, (float)(_info.Height), _keeper.dictionary["Text Paint"]);
-                _canvas.DrawLine((float)currentPixel, (float)(_info.Height * (1 - percent)), (float)currentPixel, (float)(_info.Height * percent), _keeper.dictionary["Green Paint"]);
+                _canvas.DrawText($"{i}", (float)currentPixel, (float)(_info.Height), _paints.dictionary["Text Paint"]);
+                _canvas.DrawLine((float)currentPixel, (float)(_info.Height * (1 - percent)), (float)currentPixel, (float)(_info.Height * percent), _paints.dictionary["Green Paint"]);
             }
 
             // Для оси Y
@@ -166,8 +161,8 @@ namespace GraphicsModule
                     break;
                 }
                 currentPixel += step;
-                _canvas.DrawText($"{i}", (float)(_info.Width * 0.02), (float)currentPixel, _keeper.dictionary["Text Paint"]);
-                _canvas.DrawLine((float)(_info.Width * percent), (float)currentPixel, (float)(_info.Width * (1 - percent)), (float)currentPixel, _keeper.dictionary["Green Paint"]);
+                _canvas.DrawText($"{i}", (float)(_info.Width * 0.02), (float)currentPixel, _paints.dictionary["Text Paint"]);
+                _canvas.DrawLine((float)(_info.Width * percent), (float)currentPixel, (float)(_info.Width * (1 - percent)), (float)currentPixel, _paints.dictionary["Green Paint"]);
             }
         }
 
@@ -184,35 +179,35 @@ namespace GraphicsModule
 
             if (nameOfPlot == "sin")
             {
-                _canvas.DrawText("sin(x)", Indent, (float)(_info.Height * 0.25), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("sin(x)", Indent, (float)(_info.Height * 0.25), _paints.dictionary["Text Paint"]);
 
                 for (float i = StartWidthPoint; i < EndWidthPoint; i++)
                 {
                     float x = i;
                     float y = (float)(_info.Height / 9 * (Math.Sin(i * 5 * PI / (_info.Width - 1))));
-                    _canvas.DrawCircle(x, _info.Height / 2 + y, _thicknessOfLines, _keeper.dictionary["Black Paint"]);
+                    _canvas.DrawCircle(x, _info.Height / 2 + y, _thicknessOfLines, _paints.dictionary["Black Paint"]);
                 }
             }
 
             if (nameOfPlot == "cos")
             {
                 // Рисуем красным цветом
-                _keeper.dictionary["Text Paint"].Color = SKColors.Red;
-                _canvas.DrawText("cos(x)", Indent, (float)(_info.Height * 0.30), _keeper.dictionary["Text Paint"]);
+                _paints.dictionary["Text Paint"].Color = SKColors.Red;
+                _canvas.DrawText("cos(x)", Indent, (float)(_info.Height * 0.30), _paints.dictionary["Text Paint"]);
 
                 for (float i = StartWidthPoint; i < EndWidthPoint; i++)
                 {
                     float x = i;
                     float y = (float)(_info.Height / 9 * (Math.Cos(i * 5 * PI / (_info.Width - 1))));
-                    _canvas.DrawCircle(x, _info.Height / 2 + y, _thicknessOfLines, _keeper.dictionary["Red Paint"]);
+                    _canvas.DrawCircle(x, _info.Height / 2 + y, _thicknessOfLines, _paints.dictionary["Red Paint"]);
                 }
             }
 
             if (nameOfPlot == "sin+cos")
             {
                 // Рисуем синим цветом
-                _keeper.dictionary["Text Paint"].Color = SKColors.Blue;
-                _canvas.DrawText("sin(x) + cos(x)", Indent, (float)(_info.Height * 0.35), _keeper.dictionary["Text Paint"]);
+                _paints.dictionary["Text Paint"].Color = SKColors.Blue;
+                _canvas.DrawText("sin(x) + cos(x)", Indent, (float)(_info.Height * 0.35), _paints.dictionary["Text Paint"]);
 
                 for (float i = StartWidthPoint; i < EndWidthPoint; i++)
                 {
@@ -220,7 +215,7 @@ namespace GraphicsModule
                     float sinY = (float)(_info.Height / 9 * (Math.Sin(i * 5 * PI / (_info.Width - 1))));
                     float cosY = (float)(_info.Height / 9 * (Math.Cos(i * 5 * PI / (_info.Width - 1))));
                     float y = sinY + cosY;
-                    _canvas.DrawCircle(x, _info.Height / 2 + y, _thicknessOfLines, _keeper.dictionary["Blue Paint"]);
+                    _canvas.DrawCircle(x, _info.Height / 2 + y, _thicknessOfLines, _paints.dictionary["Blue Paint"]);
                 }
             }
 
@@ -229,7 +224,7 @@ namespace GraphicsModule
                 // y = kx + b
 
                 // Метка графика
-                _canvas.DrawText("kx", Indent, (float)(_info.Height * 0.25), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("kx", Indent, (float)(_info.Height * 0.25), _paints.dictionary["Text Paint"]);
 
                 // Перемещаемся по x в начало координат
                 float counter = StartWidthPoint;
@@ -239,7 +234,7 @@ namespace GraphicsModule
                 {
                     float x = counter;
                     float y = -x;
-                    _canvas.DrawCircle((float)(_info.Width * 0.35 + x), _info.Height / 2 + y, _thicknessOfLines, _keeper.dictionary["Black Paint"]);
+                    _canvas.DrawCircle((float)(_info.Width * 0.35 + x), _info.Height / 2 + y, _thicknessOfLines, _paints.dictionary["Black Paint"]);
 
                     counter += 1;
                 }
@@ -250,10 +245,10 @@ namespace GraphicsModule
                 // y = x^2
 
                 // Рисуем красным цветом
-                _keeper.dictionary["Text Paint"].Color = SKColors.Red;
+                _paints.dictionary["Text Paint"].Color = SKColors.Red;
 
                 // Метка графика
-                _canvas.DrawText("x*x", Indent, (float)(_info.Height * 0.30), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("x*x", Indent, (float)(_info.Height * 0.30), _paints.dictionary["Text Paint"]);
 
                 // Перемещаемся по x в начало координат
                 float counter = (float)-(_info.Width * 0.35);
@@ -265,7 +260,7 @@ namespace GraphicsModule
 
                     // Масштабируем график с помощью домножения на коэффициент
                     float y = (float)(-0.01 * (x * x));
-                    _canvas.DrawCircle((float)(_info.Width * 0.35 + x), _info.Height / 2 + y, _thicknessOfLines, _keeper.dictionary["Red Paint"]);
+                    _canvas.DrawCircle((float)(_info.Width * 0.35 + x), _info.Height / 2 + y, _thicknessOfLines, _paints.dictionary["Red Paint"]);
 
                     counter += 1;
                 }
@@ -276,10 +271,10 @@ namespace GraphicsModule
                 // y = e^x
 
                 // Рисуем синим цветом
-                _keeper.dictionary["Text Paint"].Color = SKColors.Blue;
+                _paints.dictionary["Text Paint"].Color = SKColors.Blue;
 
                 // Метка графика
-                _canvas.DrawText("e^x", Indent, (float)(_info.Height * 0.35), _keeper.dictionary["Text Paint"]);
+                _canvas.DrawText("e^x", Indent, (float)(_info.Height * 0.35), _paints.dictionary["Text Paint"]);
 
                 // Перемещаемся по x в начало координат
                 float counter = (float)-(_info.Width * 0.35);
@@ -288,7 +283,7 @@ namespace GraphicsModule
                     float x = counter;
                     float y = (float)(-Math.Exp(x));
 
-                    _canvas.DrawCircle((float)(_info.Width * 0.35 + x), _info.Height / 2 + y, _thicknessOfLines, _keeper.dictionary["Blue Paint"]);
+                    _canvas.DrawCircle((float)(_info.Width * 0.35 + x), _info.Height / 2 + y, _thicknessOfLines, _paints.dictionary["Blue Paint"]);
 
                     // Используем литерал типа float для правильного приведения типов
                     counter += 0.05f;
