@@ -9,5 +9,22 @@ namespace GraphicsModule
     /// </summary>
     class Plot
     {
+        private string _name;
+        private string Name
+        {
+            get{ return _name;} 
+            set
+            {
+                if ((value != "Frequency Response") || (value != "Phase Response"))
+                {
+                    throw new ArgumentException("This name is forbidden");
+                }
+                else
+                {
+                    _name = value;
+                }
+
+            }
+        }
     }
 }
