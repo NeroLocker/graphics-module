@@ -9,7 +9,7 @@ namespace GraphicsModule
     /// <summary>
     /// Класс, ответственный за построение графиков
     /// </summary>
-    public class PlotPainter
+    public class Painter
     {
         // Все поля относящиеся к рабочему холсту
         private SKImageInfo _info;
@@ -70,7 +70,7 @@ namespace GraphicsModule
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        public PlotPainter(object sender, SKPaintSurfaceEventArgs args)
+        public Painter(object sender, SKPaintSurfaceEventArgs args)
         {
             _info = args.Info;
             _surface = args.Surface;

@@ -37,7 +37,7 @@ namespace GraphicsModule
         /// <param name="args"></param>
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
-            PlotPainter plotPainter = new PlotPainter(sender, args);
+            Painter plotPainter = new Painter(sender, args);
 
             if (TrigonometricSwitch.IsToggled)
             {               
