@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SkiaSharp;
+
 
 namespace GraphicsModule
 {
@@ -32,6 +34,22 @@ namespace GraphicsModule
                 }
 
             }
+        }
+
+        /// <summary>
+        /// Краска, используемая для отрисовки линий
+        /// </summary>
+        private SKPaint Paint { get; set;}
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="paint"></param>
+        public Plot(string name, SKPaint paint)
+        {
+            Name = name;
+            Paint = paint;
         }
     }
 }
