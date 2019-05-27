@@ -21,6 +21,11 @@ namespace GraphicsModule
         /// </summary>
         private PaintsKeeper _paints;
 
+        /// <summary>
+        /// Коллекция графиков
+        /// </summary>
+        private List<Plot> Plots;
+
         // Толщина линий для отрисовки
         private int _thicknessOfLines = 2;
 
