@@ -16,6 +16,7 @@ namespace GraphicsModule
         private SKSurface _surface;
         private SKCanvas _canvas;
 
+
         /// <summary>
         /// Коллекция красок
         /// </summary>
@@ -71,12 +72,15 @@ namespace GraphicsModule
             }
         }
         /// <summary>
-        /// Инициализирует служебные поля холста и необходимые для работы данные
+        /// Конструктор
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        public Painter(object sender, SKPaintSurfaceEventArgs args)
+        public Painter(List<Plot> plots, float margin, object sender, SKPaintSurfaceEventArgs args)
         {
+            Plots = plots;
+            DrawingSpace = new Frame(args.Info, margin);
+
             _info = args.Info;
             _surface = args.Surface;
             _canvas = _surface.Canvas;

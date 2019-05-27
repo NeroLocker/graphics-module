@@ -9,7 +9,7 @@ namespace GraphicsModule
     /// <summary>
     /// График
     /// </summary>
-    class Plot
+    public class Plot
     {
         /// <summary>
         /// Имя

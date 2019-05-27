@@ -62,7 +62,7 @@ namespace GraphicsModule
         /// Инициализирует свойства
         /// </summary>
         /// <param name="info"></param>
-        /// <param name="margin"></param>
+        /// <param name="margin">Отступ от всех краев рабочего пространства</param>
         public Frame(SKImageInfo info, float margin)
         {
             Info = info;

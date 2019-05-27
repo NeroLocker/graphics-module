@@ -37,16 +37,19 @@ namespace GraphicsModule
         /// <param name="args"></param>
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
-            Painter plotPainter = new Painter(sender, args);
+            PaintsKeeper paints = new PaintsKeeper();
+            List<Plot> plots = new List<Plot>(){new Plot("Frequency Response", paints.dictionary["Blue Paint"]), new Plot("Phase Response", paints.dictionary["Blue Paint"]) };
+
+            Painter painter = new Painter(plots, 0.15f, sender, args);
 
             if (TrigonometricSwitch.IsToggled)
             {               
-                plotPainter.Paint("Trigonometric");              
+                painter.Paint("Trigonometric");              
             }
             
             if (OtherSwitch.IsToggled)
             {               
-                plotPainter.Paint("Other");
+                painter.Paint("Other");
             }
         }
 
