@@ -26,6 +26,11 @@ namespace GraphicsModule
         /// </summary>
         private List<Plot> Plots;
 
+        /// <summary>
+        /// Рабочее пространство или рамка
+        /// </summary>
+        private Frame DrawingSpace;
+
         // Толщина линий для отрисовки
         private int _thicknessOfLines = 2;
 
