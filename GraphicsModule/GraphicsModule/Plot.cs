@@ -9,7 +9,14 @@ namespace GraphicsModule
     /// </summary>
     class Plot
     {
+        /// <summary>
+        /// Имя
+        /// </summary>
         private string _name;
+
+        /// <summary>
+        /// Имя
+        /// </summary>
         private string Name
         {
             get{ return _name;} 
