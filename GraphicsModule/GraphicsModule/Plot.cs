@@ -21,7 +21,7 @@ namespace GraphicsModule
         /// </summary>
         private string Name
         {
-            get{ return _name;} 
+            get => _name;
             set
             {
                 if ((value != "Frequency Response") || (value != "Phase Response"))
@@ -39,7 +39,7 @@ namespace GraphicsModule
         /// <summary>
         /// Краска, используемая для отрисовки линий.
         /// </summary>
-        private SKPaint Paint { get; set;}
+        public SKPaint Paint { get; private set;}
 
         /// <summary>
         /// Конструктор.

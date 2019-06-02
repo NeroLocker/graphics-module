@@ -84,9 +84,8 @@ namespace GraphicsModule
         /// </summary>
         public float Z0
         {
-            get { return _z0;}
-            private set { 
-                _z0 = value;}
+            get => _z0;
+            private set => _z0 = value;
         }
 
         /// <summary>
@@ -94,8 +93,8 @@ namespace GraphicsModule
         /// </summary>
         public float Z1
         {
-            get { return _z1;}
-            private set { _z1 = value;}
+            get => _z1;
+            private set => _z1 = value;
         }
 
         /// <summary>
@@ -103,8 +102,8 @@ namespace GraphicsModule
         /// </summary>
         public float Z2
         {
-            get { return _z2;}
-            private set { _z2 = value;}
+            get => _z2;
+            private set => _z2 = value;
         }
 
         /// <summary>
@@ -112,8 +111,8 @@ namespace GraphicsModule
         /// </summary>
         public float Z01
         {
-            get { return _z01; }
-            private set { _z01 = value; }
+            get => _z01;
+            private set => _z01 = value;
         }
 
         /// <summary>
@@ -121,14 +120,14 @@ namespace GraphicsModule
         /// </summary>
         public float Z02
         {
-            get { return _z02;}
-            private set { _z02 = value;}
+            get => _z02;
+            private set => _z02 = value;
         }
 
         public float S21
         {
-            get { return _s21;}
-            private set { _s21 = Math.Abs(value);}
+            get => _s21;
+            private set => _s21 = Math.Abs(value);
         }
 
         /// <summary>
@@ -136,8 +135,8 @@ namespace GraphicsModule
         /// </summary>
         public float L
         {
-            get { return _l;}
-            private set { _l = value;}
+            get => _l;
+            private set => _l = value;
         }
 
         /// <summary>
@@ -153,8 +152,8 @@ namespace GraphicsModule
         /// </summary>
         public float FEnd
         {
-            get { return _fEnd; }
-            private set { _fEnd = value; }
+            get => _fEnd;
+            private set => _fEnd = value;
         }
 
         /// <summary>
@@ -162,8 +161,8 @@ namespace GraphicsModule
         /// </summary>
         public float C
         {
-            get { return _c; }
-            private set { _c = value; }
+            get => _c;
+            private set => _c = value;
         }
 
         /// <summary>
@@ -197,10 +196,10 @@ namespace GraphicsModule
         private float K
         {
             // k = 10^(-S21/20)
-            get { return (float)(Math.Pow(10, -(S21 / 20))); }
+            get => (float)(Math.Pow(10, -(S21 / 20)));
             set
             {
-                if(value >= 0 && value < 1)
+                if (value >= 0 && value < 1)
                 {
                     _k = value;
                 }
@@ -386,9 +385,9 @@ namespace GraphicsModule
 
         // Параметр, зависящий от S11 (S11 = S33)
         public Complex S33
-        {            
-            get {return _s33; }
-            private set { _s33 = value;}
+        {
+            get => _s33;
+            private set => _s33 = value;
         }
 
         public Complex S22(float currentF)
@@ -408,8 +407,8 @@ namespace GraphicsModule
         // Параметр, зависящий от S22 (S22 = S44)
         public Complex S44
         {
-            get { return _s44; }
-            private set { _s44 = value; }
+            get => _s44;
+            private set => _s44 = value;
         }
 
         public Complex S12(float currentF)
@@ -432,15 +431,15 @@ namespace GraphicsModule
         // Параметр, зависящий от S12 (S12 = S34)
         public Complex S34
         {
-            get { return _s34; }
-            private set { _s34 = value; }
+            get => _s34;
+            private set => _s34 = value;
         }
 
         // Параметр, зависящий от S12 (S12 = S43)
         public Complex S43
         {
-            get { return _s43; }
-            private set { _s43 = value; }
+            get => _s43;
+            private set => _s43 = value;
         }
 
         public Complex S13(float currentF)
@@ -460,8 +459,8 @@ namespace GraphicsModule
         // Параметр, зависящий от S13 (S13 = S31)
         public Complex S31
         {
-            get { return _s31; }
-            private set { _s31 = value; }
+            get => _s31;
+            private set => _s31 = value;
         }
 
         public Complex S24(float currentF)
@@ -481,8 +480,8 @@ namespace GraphicsModule
         // Параметр, зависящий от S24 (S24 = S42)
         public Complex S42
         {
-            get { return _s42; }
-            private set { _s42 = value; }
+            get => _s42;
+            private set => _s42 = value;
         }
 
         public Complex S14(float currentF)
@@ -504,22 +503,22 @@ namespace GraphicsModule
         // Параметр, зависящий от S14 (S14 = S41)
         public Complex S41
         {
-            get { return _s41; }
-            private set { _s41 = value; }
+            get => _s41;
+            private set => _s41 = value;
         }
 
         // Параметр, зависящий от S14 (S14 = S23)
         public Complex S23
         {
-            get { return _s23; }
-            private set { _s23 = value; }
+            get => _s23;
+            private set => _s23 = value;
         }
 
         // Параметр, зависящий от S14 (S14 = S32)
         public Complex S32
         {
-            get { return _s32; }
-            private set { _s32 = value; }
+            get => _s32;
+            private set => _s32 = value;
         }
 
         #endregion
