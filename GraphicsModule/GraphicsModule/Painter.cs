@@ -7,7 +7,7 @@ using SkiaSharp.Views.Forms;
 namespace GraphicsModule
 {
     /// <summary>
-    /// Класс, ответственный за построение графиков
+    /// Класс, ответственный за построение графиков.
     /// </summary>
     public class Painter
     {
@@ -18,17 +18,17 @@ namespace GraphicsModule
 
 
         /// <summary>
-        /// Коллекция красок
+        /// Коллекция красок.
         /// </summary>
         private PaintsKeeper _paints;
 
         /// <summary>
-        /// Коллекция графиков
+        /// Коллекция графиков.
         /// </summary>
         private List<Plot> Plots;
 
         /// <summary>
-        /// Рабочее пространство или рамка
+        /// Рабочее пространство или рамка.
         /// </summary>
         private Frame DrawingSpace;
 
@@ -60,7 +60,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Отступ надписей графиков от левой стороны экрана в процентах в десятичной форме
+        /// Отступ надписей графиков от левой стороны экрана в процентах в десятичной форме.
         /// </summary>
         private float Indent
         {
@@ -72,7 +72,7 @@ namespace GraphicsModule
             }
         }
         /// <summary>
-        /// Конструктор
+        /// Конструктор.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
@@ -96,7 +96,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Рисует графики
+        /// Рисует графики.
         /// </summary>
         /// <param name="typeOfPlot"></param>
         public void Paint(string typeOfPlot)
@@ -124,7 +124,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Рисует оси координатной системы и помечает их метками
+        /// Рисует оси координатной системы и помечает их метками.
         /// </summary>
         public void DrawAxis()
         {
@@ -181,7 +181,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Рисует график по входной строке
+        /// Рисует график по входной строке.
         /// </summary>
         /// <param name="nameOfPlot"></param>
         private void DrawPlotByName(string nameOfPlot)

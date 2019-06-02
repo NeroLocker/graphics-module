@@ -7,17 +7,17 @@ using SkiaSharp;
 namespace GraphicsModule
 {
     /// <summary>
-    /// График
+    /// График.
     /// </summary>
     public class Plot
     {
         /// <summary>
-        /// Имя
+        /// Имя.
         /// </summary>
         private string _name;
 
         /// <summary>
-        /// Имя
+        /// Имя.
         /// </summary>
         private string Name
         {
@@ -37,12 +37,12 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Краска, используемая для отрисовки линий
+        /// Краска, используемая для отрисовки линий.
         /// </summary>
         private SKPaint Paint { get; set;}
 
         /// <summary>
-        /// Конструктор
+        /// Конструктор.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="paint"></param>

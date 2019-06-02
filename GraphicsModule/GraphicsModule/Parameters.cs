@@ -7,44 +7,44 @@ using static System.Math;
 namespace GraphicsModule
 {
     /// <summary>
-    /// Содержит все данные, касающиеся расчета
+    /// Содержит все данные, касающиеся расчета.
     /// </summary>
     public class Parameters
     {
         /// <summary>
-        /// Характеристический импеданс
+        /// Характеристический импеданс.
         /// </summary>
         private float _z0;
 
         /// <summary>
-        /// Характеристический импеданс первой линии
+        /// Характеристический импеданс первой линии.
         /// </summary>
         private float _z1;
 
         /// <summary>
-        /// Характеристический импеданс второй линии
+        /// Характеристический импеданс второй линии.
         /// </summary>
         private float _z2;
 
         /// <summary>
-        /// Номинал нагрузочного резистора Z01
+        /// Номинал нагрузочного резистора Z01.
         /// </summary>
         private float _z01;
 
         /// <summary>
-        /// Номинал нагрузочного резистора Z02
+        /// Номинал нагрузочного резистора Z02.
         /// </summary>
         private float _z02;
 
         private float _s21;
 
         /// <summary>
-        /// Длина схемы отрезка СЛ
+        /// Длина схемы отрезка СЛ.
         /// </summary>
         private float _l;
 
         /// <summary>
-        /// Начальная частота fi
+        /// Начальная частота fi.
         /// </summary>
         private float _fStart = 0;
 
@@ -55,17 +55,17 @@ namespace GraphicsModule
 
         // Может быть больше единицы
         /// <summary>
-        /// Диэлектрическая проницаемость среды
+        /// Диэлектрическая проницаемость среды.
         /// </summary>
         private float Er = 1f;       
 
         /// <summary>
-        /// Скорость света
+        /// Скорость света.
         /// </summary>
         private float _c = 299_792_458f;
 
         /// <summary>
-        /// Коэффициент импедансной связи
+        /// Коэффициент импедансной связи.
         /// </summary>
         private float _k;
 
@@ -80,7 +80,7 @@ namespace GraphicsModule
         private Complex _s32;
 
         /// <summary>
-        /// Характеристический импеданс
+        /// Характеристический импеданс.
         /// </summary>
         public float Z0
         {
@@ -90,7 +90,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Характеристический импеданс первой линии
+        /// Характеристический импеданс первой линии.
         /// </summary>
         public float Z1
         {
@@ -99,7 +99,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Характеристический импеданс второй линии
+        /// Характеристический импеданс второй линии.
         /// </summary>
         public float Z2
         {
@@ -108,7 +108,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Номинал нагрузочного резистора Z01
+        /// Номинал нагрузочного резистора Z01.
         /// </summary>
         public float Z01
         {
@@ -117,7 +117,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Номинал нагрузочного резистора Z02
+        /// Номинал нагрузочного резистора Z02.
         /// </summary>
         public float Z02
         {
@@ -132,7 +132,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Длина схемы отрезка СЛ
+        /// Длина схемы отрезка СЛ.
         /// </summary>
         public float L
         {
@@ -141,7 +141,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Начальная частота fi
+        /// Начальная частота fi.
         /// </summary>
         public float FStart
         {
@@ -149,7 +149,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Конечная частота fi
+        /// Конечная частота fi.
         /// </summary>
         public float FEnd
         {
@@ -158,7 +158,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Скорость света
+        /// Скорость света.
         /// </summary>
         public float C
         {
@@ -167,7 +167,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Конструктор, инициализирующий поля класса входными данными пользователя
+        /// Конструктор, инициализирующий поля класса входными данными пользователя.
         /// </summary>
         /// <param name="z0"></param>
         /// <param name="z1"></param>
@@ -192,7 +192,7 @@ namespace GraphicsModule
         # region Параметры, вычисляемые формулами
 
         /// <summary>
-        /// Коэффициент импедансной связи
+        /// Коэффициент импедансной связи.
         /// </summary>
         private float K
         {
@@ -212,7 +212,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Характеристический коэффициент k'
+        /// Характеристический коэффициент k'.
         /// </summary>
         private float KHatch
         {           
@@ -220,7 +220,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Коэффициент трансформации(симметрии)
+        /// Коэффициент трансформации(симметрии).
         /// </summary>
         private float N
         {
@@ -229,7 +229,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Электрическая длина отрезка СЛ
+        /// Электрическая длина отрезка СЛ.
         /// </summary>
         /// <param name="currentF"></param>
         /// <returns></returns>
@@ -242,7 +242,7 @@ namespace GraphicsModule
         # region Нагрузочные резисторы
 
         /// <summary>
-        /// Номинал нагрузочного резистора Z1c
+        /// Номинал нагрузочного резистора Z1c.
         /// </summary>
         private float Z1c
         {
@@ -250,7 +250,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Номинал нагрузочного резистора Z1π
+        /// Номинал нагрузочного резистора Z1π.
         /// </summary>
         private float Z1pi
         {
@@ -258,7 +258,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Номинал нагрузочного резистора Z2c
+        /// Номинал нагрузочного резистора Z2c.
         /// </summary>
         private float Z2c
         {
@@ -266,7 +266,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Номинал нагрузочного резистора Z2π
+        /// Номинал нагрузочного резистора Z2π.
         /// </summary>
         private float Z2pi
         {
@@ -274,7 +274,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Номинал нагрузочного резистора Zm
+        /// Номинал нагрузочного резистора Zm.
         /// </summary>
         private float Zm
         {
@@ -282,7 +282,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Номинал нагрузочного резистора Z12
+        /// Номинал нагрузочного резистора Z12.
         /// </summary>
         private float Z12
         {
@@ -357,7 +357,7 @@ namespace GraphicsModule
 
         # region S-параметры
         /// <summary>
-        /// Общий знаменатель для всех S-параметров
+        /// Общий знаменатель для всех S-параметров.
         /// </summary>
         /// <param name="currentF"></param>
         /// <returns></returns>

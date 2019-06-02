@@ -6,14 +6,14 @@ using SkiaSharp;
 namespace GraphicsModule
 {
     /// <summary>
-    /// Класс, хранящий коллекцию красок
+    /// Класс, хранящий коллекцию красок.
     /// </summary>
     public class PaintsKeeper
     {
         public Dictionary<string, SKPaint> dictionary = new Dictionary<string, SKPaint>();
 
         /// <summary>
-        /// Инициализирует словарь красок
+        /// Инициализирует словарь красок.
         /// </summary>
         public PaintsKeeper()
         {
