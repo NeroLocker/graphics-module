@@ -199,14 +199,12 @@ namespace GraphicsModule
             get => (float)(Math.Pow(10, -(S21 / 20)));
             set
             {
-                if (value >= 0 && value < 1)
-                {
-                    _k = value;
-                }
-                else
+                if (!(value >= 0 && value < 1))
                 {
                     throw new ArgumentException($"{value} should be in range of 0 to 1");
                 }
+
+                _k = value;
             }
         }
 

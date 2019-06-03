@@ -38,7 +38,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Считает координату X верхней левой точки.
+        /// Считает координату X левой верхней точки.
         /// </summary>
         /// <returns></returns>
         private float CalculateFirstPointX()
@@ -47,7 +47,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Считает координату Y верхней левой точки.
+        /// Считает координату Y левой верхней точки.
         /// </summary>
         /// <returns></returns>
         private float CalculateFirstPointY()
@@ -56,7 +56,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Считает координату X нижней правой точки.
+        /// Считает координату X правой нижней точки.
         /// </summary>
         /// <returns></returns>
         private float CalculateSecondPointX()
@@ -65,7 +65,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Считает координату Y нижней правой точки.
+        /// Считает координату Y правой нижней точки.
         /// </summary>
         /// <returns></returns>
         private float CalculateSecondPointY()
