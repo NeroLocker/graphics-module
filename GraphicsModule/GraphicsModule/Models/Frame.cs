@@ -6,7 +6,7 @@ using SkiaSharp;
 namespace GraphicsModule
 {
     /// <summary>
-    /// Представляет рамку
+    /// Представляет рамку.
     /// </summary>
     class Frame
     {
@@ -27,41 +27,9 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Координата X левой верхней точки.
+        /// Конструктор.
         /// </summary>
-        public float FirstPointX
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// Координата Y левой верхней точки.
-        /// </summary>
-        public float FirstPointY
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// Координата X нижней правой точки.
-        /// </summary>
-        public float SecondPointX
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// Координата Y нижней правой точки.
-        /// </summary>
-        public float SecondPointY
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// Инициализирует свойства.
-        /// </summary>
-        /// <param name="info"></param>
+        /// <param name="info">Служебная информация о рабочем пространстве</param>
         /// <param name="margin">Отступ от всех краев рабочего пространства</param>
         public Frame(SKImageInfo info, float margin)
         {
