@@ -11,7 +11,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     
-    <!--TODO: реализовать все необходимые для параметров Entry на странице и навигацию с передачей данных-->
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource Key=StackLayoutPadding}">
             <Image Source="coupler.png" HorizontalOptions="Center"></Image>

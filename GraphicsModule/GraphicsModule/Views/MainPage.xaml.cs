@@ -21,14 +21,14 @@ namespace GraphicsModule
         {
             if (CheckFields())
             {
-                float z0 = float.Parse(z0Entry.Text);
-                float z1 = float.Parse(z1Entry.Text);
-                float z2 = float.Parse(z2Entry.Text);
-                float z01 = float.Parse(z01Entry.Text);
-                float z02 = float.Parse(z02Entry.Text);
-                float s21 = float.Parse(s21Entry.Text);
-                float l = float.Parse(lEntry.Text);
-                float fn = float.Parse(fnEntry.Text);
+                var z0 = float.Parse(z0Entry.Text);
+                var z1 = float.Parse(z1Entry.Text);
+                var z2 = float.Parse(z2Entry.Text);
+                var z01 = float.Parse(z01Entry.Text);
+                var z02 = float.Parse(z02Entry.Text);
+                var s21 = float.Parse(s21Entry.Text);
+                var l = float.Parse(lEntry.Text);
+                var fn = float.Parse(fnEntry.Text);
 
                 Parameters userParameters = new Parameters(z0, z1, z2, z01, z02, s21, l, fn);
                 await Navigation.PushAsync(new ResultsPage(userParameters));

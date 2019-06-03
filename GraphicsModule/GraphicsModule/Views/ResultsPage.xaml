@@ -15,9 +15,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!--Скомпонуем элементы в сетку-->
+    
     <Grid VerticalOptions="FillAndExpand">
-        <!--Свитчи-->
+        
         <FlexLayout Direction="Column" Grid.Row="0">
 
             <Label Text="Частотные характеристики" 
@@ -57,7 +57,7 @@
             </Frame>
         </FlexLayout>
 
-        <!--Вывод графиков-->
+        
         <skia:SKCanvasView Margin="10"
                            PaintSurface="OnCanvasViewPaintSurface"
                            x:Name="OutputCanvasView" Grid.Row="1"
