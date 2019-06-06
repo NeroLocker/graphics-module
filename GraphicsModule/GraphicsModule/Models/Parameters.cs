@@ -36,6 +36,9 @@ namespace GraphicsModule
         /// </summary>
         private float _z02;
 
+        /// <summary>
+        /// ???
+        /// </summary>
         private float _s21;
 
         /// <summary>
@@ -124,6 +127,9 @@ namespace GraphicsModule
             private set => _z02 = value;
         }
 
+        /// <summary>
+        /// ???
+        /// </summary>
         public float S21
         {
             get => _s21;
@@ -140,15 +146,15 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Начальная частота fi.
+        /// Начальная частота Fn.
         /// </summary>
         public float FStart
         {
-            get { return _l;}
+            get { return _fStart;}
         }
 
         /// <summary>
-        /// Конечная частота fi.
+        /// Конечная частота Fn.
         /// </summary>
         public float FEnd
         {
@@ -520,6 +526,5 @@ namespace GraphicsModule
         }
 
         #endregion
-
     }
 }
