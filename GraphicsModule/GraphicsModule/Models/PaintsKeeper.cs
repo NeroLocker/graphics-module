@@ -10,7 +10,7 @@ namespace GraphicsModule
     /// </summary>
     public class PaintsKeeper
     {
-        public Dictionary<string, SKPaint> dictionary = new Dictionary<string, SKPaint>();
+        public Dictionary<string, SKPaint> paints = new Dictionary<string, SKPaint>();
 
         /// <summary>
         /// Инициализирует словарь красок.
@@ -55,12 +55,12 @@ namespace GraphicsModule
                 TextSize = 24
             };
 
-            dictionary.Add("Black Paint", blackPaint);
-            dictionary.Add("Red Paint", redPaint);
-            dictionary.Add("Blue Paint", bluePaint);
-            dictionary.Add("Green Paint", greenPaint);
-            dictionary.Add("Axes Paint", axesPaint);
-            dictionary.Add("Text Paint", textPaint);
+            paints.Add("Black Paint", blackPaint);
+            paints.Add("Red Paint", redPaint);
+            paints.Add("Blue Paint", bluePaint);
+            paints.Add("Green Paint", greenPaint);
+            paints.Add("Axes Paint", axesPaint);
+            paints.Add("Text Paint", textPaint);
         }
     }
 }

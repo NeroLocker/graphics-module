@@ -38,7 +38,7 @@ namespace GraphicsModule
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
             PaintsKeeper paints = new PaintsKeeper();
-            List<Plot> plots = new List<Plot>(){new Plot("Frequency Response", paints.dictionary["Blue Paint"]), new Plot("Phase Response", paints.dictionary["Blue Paint"]) };
+            List<Plot> plots = new List<Plot>(){new Plot("Frequency Response", paints.paints["Blue Paint"]), new Plot("Phase Response", paints.paints["Blue Paint"]) };
 
             Painter painter = new Painter(plots, 0.15f, sender, args);
 
