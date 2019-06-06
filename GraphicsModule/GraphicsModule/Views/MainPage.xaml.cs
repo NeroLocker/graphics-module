@@ -24,8 +24,8 @@ namespace GraphicsModule
                 var z0 = float.Parse(z0Entry.Text);
                 var z1 = float.Parse(z1Entry.Text);
                 var z2 = float.Parse(z2Entry.Text);
-                var z01 = float.Parse(z01Entry.Text);
-                var z02 = float.Parse(z02Entry.Text);
+                var z01 = z1;
+                var z02 = z2;
                 var s21 = float.Parse(s21Entry.Text);
                 var l = float.Parse(lEntry.Text);
                 var fn = float.Parse(fnEntry.Text);
@@ -51,14 +51,6 @@ namespace GraphicsModule
                 return false;
             }
             if(z2Entry.Text.Length == 0)
-            {
-                return false;
-            }
-            if(z01Entry.Text.Length == 0)
-            {
-                return false;
-            }
-            if(z02Entry.Text.Length == 0)
             {
                 return false;
             }
