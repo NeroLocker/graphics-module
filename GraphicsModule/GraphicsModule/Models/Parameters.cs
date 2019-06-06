@@ -7,7 +7,7 @@ using static System.Math;
 namespace GraphicsModule
 {
     /// <summary>
-    /// Содержит все данные, касающиеся расчета.
+    /// Класс параметров, который содержит все данные, касающиеся расчета.
     /// </summary>
     public class Parameters
     {
@@ -37,7 +37,7 @@ namespace GraphicsModule
         private float _z02;
 
         /// <summary>
-        /// ???
+        /// Коэффициент связи 1-ой и 2-ой линии.
         /// </summary>
         private float _s21;
 
@@ -128,7 +128,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// ???
+        /// Коэффициент связи 1-ой и 2-ой линии.
         /// </summary>
         public float S21
         {

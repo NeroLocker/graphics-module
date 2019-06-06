@@ -6,7 +6,7 @@ using System.Text;
 namespace GraphicsModule
 {
     /// <summary>
-    /// Отрисовщик рамок.
+    /// Интерфейс отрисовщика рамок.
     /// </summary>
     public interface IFramePainter
     {

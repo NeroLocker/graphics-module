@@ -5,8 +5,16 @@ using System.Text;
 
 namespace GraphicsModule
 {
+    /// <summary>
+    /// Отрисовщик рамки.
+    /// </summary>
     public class ConcreteFramePainter : IFramePainter
     {
+        /// <summary>
+        /// Рисует рамку.
+        /// </summary>
+        /// <param name="frame">Рамка.</param>
+        /// <param name="canvas">Холст.</param>
         public void Paint(Frame frame, SKCanvas canvas)
         {
             var firstPointX = frame.GetFirstPointX();
