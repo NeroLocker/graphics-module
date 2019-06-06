@@ -11,66 +11,95 @@ namespace GraphicsModule
     class Frame
     {
         /// <summary>
-        /// Содержит информацию о рабочем пространстве.
+        /// Содержит информацию о служебном рабочем пространстве.
         /// </summary>
-        private SKImageInfo Info
-        {
-            get; set;
-        }
+        private SKImageInfo _info;
 
         /// <summary>
-        /// Отступ от всех краев рабочего пространства.
+        /// Краска для линий.
         /// </summary>
-        private float Margin
+        public SKPaint Paint = new SKPaint
         {
-            get; set;
-        }
+            Style = SKPaintStyle.Stroke,
+            Color = SKColors.Black,
+            StrokeWidth = 2
+        };
+
+        /// <summary>
+        /// Отступ от всех краев служебного рабочего пространства.
+        /// </summary>
+        private float _margin;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
-        /// <param name="info">Служебная информация о рабочем пространстве</param>
-        /// <param name="margin">Отступ от всех краев рабочего пространства</param>
+        /// <param name="info">Информация о служебном рабочем пространстве.</param>
+        /// <param name="margin">Отступ от всех краев служебного рабочего пространства.</param>
         public Frame(SKImageInfo info, float margin)
         {
-            Info = info;
-            Margin = margin;
+            _info = info;
+            _margin = margin;
+        }
+
+        /// <summary>
+        /// Возвращает ширину рамки.
+        /// </summary>
+        /// <returns>Ширина рамки</returns>
+        public float GetWidth()
+        {
+            float xEnd = GetSecondPointX();
+            float xStart = GetFirstPointX();
+
+            return (xEnd - xStart);
+        }
+
+        /// <summary>
+        /// Возвращает длину рамки.
+        /// </summary>
+        /// <returns>Длина рамки</returns>
+        public float GetHeight()
+        {
+            float yEnd = GetSecondPointY();
+            float yStart = GetFirstPointY();
+
+            return (yEnd - yStart);
         }
 
         /// <summary>
         /// Считает координату X левой верхней точки.
         /// </summary>
         /// <returns></returns>
-        private float CalculateFirstPointX()
+        public float GetFirstPointX()
         {
-            return (float)Info.Width * Margin;
+            return (_info.Width * _margin);
         }
 
         /// <summary>
         /// Считает координату Y левой верхней точки.
         /// </summary>
         /// <returns></returns>
-        private float CalculateFirstPointY()
+        public float GetFirstPointY()
         {
-            return (float)Info.Height * Margin;
+            return (_info.Height * _margin);
         }
 
         /// <summary>
         /// Считает координату X правой нижней точки.
         /// </summary>
         /// <returns></returns>
-        private float CalculateSecondPointX()
+        public float GetSecondPointX()
         {
-            return (float)(Info.Width * (1 - 2 * Margin));
+            var value = (_info.Width * (1 - 2 * _margin));
+            return value;
         }
 
         /// <summary>
         /// Считает координату Y правой нижней точки.
         /// </summary>
         /// <returns></returns>
-        private float CalculateSecondPointY()
+        public float GetSecondPointY()
         {
-            return (float)(Info.Height * (1 - 2 * Margin));
+            return (_info.Height * (1 - 2 * _margin));
         }
     }
 }
