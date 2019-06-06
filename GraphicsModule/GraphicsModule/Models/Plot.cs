@@ -14,42 +14,66 @@ namespace GraphicsModule
         /// <summary>
         /// Имя.
         /// </summary>
-        private string _name;
+        public PlotType Type
+        {
+            get; private set;
+        }
 
         /// <summary>
-        /// Имя.
+        /// Рамка.
         /// </summary>
-        private string Name
-        {
-            get => _name;
-            set
-            {
-                if ((value != "Frequency Response") || (value != "Phase Response"))
-                {
-                    throw new ArgumentException("This name is forbidden");
-                }
-                else
-                {
-                    _name = value;
-                }
+        public Frame Frame { get; private set; }
 
-            }
-        }
+        /// <summary>
+        /// Первая точка оси X из диапазона точек, где определен график.
+        /// </summary>
+        public float FirstPointX { get; private set; }
+
+        /// <summary>
+        /// Первая точка оси Y из диапазона точек, где определен график.
+        /// </summary>
+        public float FirstPointY { get; private set; }
+
+        /// <summary>
+        /// Последняя точка оси X из диапазона точек, где определен график.
+        /// </summary>
+        public float SecondPointX { get; private set; }
+
+        /// <summary>
+        /// Последняя точка оси Y из диапазона точек, где определен график.
+        /// </summary>
+        public float SecondPointY { get; private set; }
+
+        /// <summary>
+        /// Толщина линий.
+        /// </summary>
+        public float LineThickness { get; private set; }
 
         /// <summary>
         /// Краска, используемая для отрисовки линий.
         /// </summary>
-        public SKPaint Paint { get; private set;}
+        public SKPaint Paint { get; private set; }
 
         /// <summary>
         /// Конструктор.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="paint"></param>
-        public Plot(string name, SKPaint paint)
+        /// <param name="type">Тип графика.</param>
+        /// <param name="paint">Краска для линий.</param>
+        /// <param name="frame">Рамка.</param>
+        /// <param name="lineThickness">Толщина линий.</param>
+        public Plot(PlotType type, SKPaint paint, Frame frame, float lineThickness)
         {
-            Name = name;
+            Type = type;
             Paint = paint;
+
+            Frame = frame;
+            FirstPointX = Frame.GetFirstPointX();
+            FirstPointY = Frame.GetFirstPointY();
+            // Странно работает здесь
+            SecondPointX = Frame.GetFirstPointX() + Frame.GetSecondPointX();
+            SecondPointY = Frame.GetFirstPointY() + Frame.GetSecondPointY();
+
+            LineThickness = lineThickness;
         }
     }
 }

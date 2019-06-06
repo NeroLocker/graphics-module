@@ -8,7 +8,7 @@ namespace GraphicsModule
     /// <summary>
     /// Представляет рамку.
     /// </summary>
-    class Frame
+    public class Frame
     {
         /// <summary>
         /// Содержит информацию о служебном рабочем пространстве.
