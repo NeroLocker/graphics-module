@@ -21,6 +21,11 @@ namespace GraphicsModule
         public IFramePainter FramePainter { get; set;}
 
         /// <summary>
+        /// Отрисовщик кординат.
+        /// </summary>
+        public ICoordinatesPainter CoordinatesPainter { get; set;}
+
+        /// <summary>
         /// Холст.
         /// </summary>
         private SKCanvas _canvas;
