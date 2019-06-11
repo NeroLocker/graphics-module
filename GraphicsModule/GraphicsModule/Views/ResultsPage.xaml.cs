@@ -32,6 +32,11 @@ namespace GraphicsModule
                 UserParameters = userParameters;
             }
         }
+
+        public ResultsPage()
+        {
+            InitializeComponent();
+        }
   
         /// <summary>
         /// Отрисовывает графику на плоскости
@@ -45,6 +50,8 @@ namespace GraphicsModule
             ICoordinatesPainter coordinatesPainter = new PhaseCoordinatesPainter();
 
             SKCanvas canvas = args.Surface.Canvas;
+            canvas.Clear();
+
             PaintsKeeper keeper = new PaintsKeeper();
             RestrictiveFrame frame = new RestrictiveFrame(args.Info, 0.1f);
             Plot plot = new Plot(PlotType.PhaseResponse, keeper.paints["Black Paint"], frame, 2f);

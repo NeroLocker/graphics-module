@@ -69,7 +69,6 @@ namespace GraphicsModule.Models
         /// </summary>
         /// <param name="coordinates">Координаты.</param>
         /// <param name="frame">Рамка.</param>
-        /// <param name="canvas">Холст.</param>
         public void PaintCoordinates(Coordinates coordinates, RestrictiveFrame frame)
         {
             CoordinatesPainter.Paint(coordinates, frame, _canvas);

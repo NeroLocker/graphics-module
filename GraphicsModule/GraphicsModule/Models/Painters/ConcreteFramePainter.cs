@@ -18,7 +18,7 @@ namespace GraphicsModule
         /// <param name="frame">Рамка.</param>
         /// <param name="canvas">Холст.</param>
         public void Paint(RestrictiveFrame frame, SKCanvas canvas)
-        {
+        {            
             var firstPointX = frame.GetFirstPointX();
             var firstPointY = frame.GetFirstPointY();
             var secondPointX = frame.GetSecondPointX();
@@ -26,8 +26,7 @@ namespace GraphicsModule
 
             var paints = new PaintsKeeper();
 
-            canvas.DrawCircle(firstPointX + 35f, firstPointY + 35f, 10f, paints.paints["Red Paint"]);
-            //canvas.DrawRect(firstPointX, firstPointY, secondPointX, secondPointY, frame.Paint);
+            canvas.DrawRect(firstPointX, firstPointY, secondPointX, secondPointY, frame.Paint);
         }
     }
 }

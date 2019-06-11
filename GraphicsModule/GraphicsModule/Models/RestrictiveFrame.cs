@@ -22,7 +22,8 @@ namespace GraphicsModule.Models
         {
             Style = SKPaintStyle.Stroke,
             Color = SKColors.Black,
-            StrokeWidth = 3
+            // Толщина линий
+            StrokeWidth = 2
         };
 
         /// <summary>

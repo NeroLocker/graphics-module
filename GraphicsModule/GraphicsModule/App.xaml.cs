@@ -11,7 +11,8 @@ namespace GraphicsModule
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage()); 
+            //MainPage = new NavigationPage(new MainPage()); 
+            MainPage = new ResultsPage();
         }
 
         protected override void OnStart()
