@@ -8,7 +8,7 @@ namespace GraphicsModule.Models
     /// <summary>
     /// Представляет рамку.
     /// </summary>
-    public class Frame
+    public class RestrictiveFrame
     {
         /// <summary>
         /// Содержит информацию о служебном рабочем пространстве.
@@ -35,7 +35,7 @@ namespace GraphicsModule.Models
         /// </summary>
         /// <param name="info">Информация о служебном рабочем пространстве.</param>
         /// <param name="margin">Отступ от всех краев служебного рабочего пространства.</param>
-        public Frame(SKImageInfo info, float margin)
+        public RestrictiveFrame(SKImageInfo info, float margin)
         {
             _info = info;
             _margin = margin;

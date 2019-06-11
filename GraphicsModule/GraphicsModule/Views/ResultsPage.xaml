@@ -57,12 +57,14 @@
             </Frame>
         </FlexLayout>
 
-        
-        <skia:SKCanvasView Margin="10"
+        <Frame Grid.Row="1">
+            <skia:SKCanvasView Margin="10"
                            PaintSurface="OnCanvasViewPaintSurface"
-                           x:Name="OutputCanvasView" Grid.Row="1"
+                           x:Name="OutputCanvasView"
                            >
-        </skia:SKCanvasView>
+            </skia:SKCanvasView>
+
+        </Frame>
 
     </Grid>
 

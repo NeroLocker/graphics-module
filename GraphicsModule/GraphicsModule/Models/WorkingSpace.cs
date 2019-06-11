@@ -20,7 +20,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Отрисовщик рамок.
         /// </summary>
-        public IFramePainter FramePainter { get; set;}
+        public IRestrictiveFramePainter FramePainter { get; set;}
 
         /// <summary>
         /// Отрисовщик кординат.
@@ -38,7 +38,7 @@ namespace GraphicsModule.Models
         /// <param name="plotPainter">Отрисовщик графика.</param>
         /// <param name="framePainter">Отрисовщик рамки.</param>
         /// <param name="canvas">Холст.</param>
-        public WorkingSpace(IPlotPainter plotPainter, IFramePainter framePainter, ICoordinatesPainter coordinatesPainter, SKCanvas canvas)
+        public WorkingSpace(IPlotPainter plotPainter, IRestrictiveFramePainter framePainter, ICoordinatesPainter coordinatesPainter, SKCanvas canvas)
         {
             PlotPainter = plotPainter;
             FramePainter = framePainter;
@@ -59,7 +59,7 @@ namespace GraphicsModule.Models
         /// Рисует рамку.
         /// </summary>
         /// <param name="frame">Рамка.</param>
-        public void PaintFrame(Frame frame)
+        public void PaintFrame(RestrictiveFrame frame)
         {
             FramePainter.Paint(frame, _canvas);
         }
@@ -70,9 +70,9 @@ namespace GraphicsModule.Models
         /// <param name="coordinates">Координаты.</param>
         /// <param name="frame">Рамка.</param>
         /// <param name="canvas">Холст.</param>
-        public void PaintCoordinates(Coordinates coordinates, Frame frame, SKCanvas canvas)
+        public void PaintCoordinates(Coordinates coordinates, RestrictiveFrame frame)
         {
-            CoordinatesPainter.Paint(coordinates, frame, canvas);
+            CoordinatesPainter.Paint(coordinates, frame, _canvas);
         }
     }
 }

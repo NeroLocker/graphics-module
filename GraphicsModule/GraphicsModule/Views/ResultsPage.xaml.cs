@@ -41,19 +41,19 @@ namespace GraphicsModule
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
             IPlotPainter phaseResponsePlotPainter = new PhaseResponsePlotPainter();
-            IFramePainter concreteFramePainter = new ConcreteFramePainter();
+            IRestrictiveFramePainter concreteFramePainter = new ConcreteFramePainter();
             ICoordinatesPainter coordinatesPainter = new PhaseCoordinatesPainter();
 
             SKCanvas canvas = args.Surface.Canvas;
             PaintsKeeper keeper = new PaintsKeeper();
-            Models.Frame frame = new Models.Frame(args.Info, 0.1f);
+            RestrictiveFrame frame = new RestrictiveFrame(args.Info, 0.1f);
             Plot plot = new Plot(PlotType.PhaseResponse, keeper.paints["Black Paint"], frame, 2f);
             Coordinates coordinates = new Coordinates(plot.Type);
 
             WorkingSpace workingSpace = new WorkingSpace(phaseResponsePlotPainter, concreteFramePainter, coordinatesPainter, canvas);
             workingSpace.PaintFrame(frame);
             workingSpace.PaintPlot(plot);
-            workingSpace.PaintCoordinates(coordinates, frame, canvas);
+            workingSpace.PaintCoordinates(coordinates, frame);
 
             //if (TrigonometricSwitch.IsToggled)
             //{               

@@ -22,7 +22,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Рамка.
         /// </summary>
-        public Frame Frame { get; private set; }
+        public RestrictiveFrame Frame { get; private set; }
 
         /// <summary>
         /// Первая точка оси X из диапазона точек, где определен график.
@@ -61,7 +61,7 @@ namespace GraphicsModule.Models
         /// <param name="paint">Краска для линий.</param>
         /// <param name="frame">Рамка.</param>
         /// <param name="lineThickness">Толщина линий.</param>
-        public Plot(PlotType type, SKPaint paint, Frame frame, float lineThickness)
+        public Plot(PlotType type, SKPaint paint, RestrictiveFrame frame, float lineThickness)
         {
             Type = type;
             Paint = paint;

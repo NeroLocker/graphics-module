@@ -9,8 +9,8 @@ namespace GraphicsModule.Interfaces
     /// <summary>
     /// Интерфейс отрисовщика рамок.
     /// </summary>
-    public interface IFramePainter
+    public interface IRestrictiveFramePainter
     {
-        void Paint(Frame frame, SKCanvas canvas);
+        void Paint(RestrictiveFrame frame, SKCanvas canvas);
     }
 }

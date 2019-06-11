@@ -14,9 +14,9 @@ namespace GraphicsModule.Painters
     {
         private SKCanvas _canvas;
         private Coordinates _coordinates;
-        private Frame _frame;
+        private RestrictiveFrame _frame;
 
-        public void Paint(Coordinates coordinates, Frame frame, SKCanvas canvas)
+        public void Paint(Coordinates coordinates, RestrictiveFrame frame, SKCanvas canvas)
         {
             _canvas = canvas;
             _coordinates = coordinates;

@@ -10,21 +10,24 @@ namespace GraphicsModule
     /// <summary>
     /// Отрисовщик рамки.
     /// </summary>
-    public class ConcreteFramePainter : IFramePainter
+    public class ConcreteFramePainter : IRestrictiveFramePainter
     {
         /// <summary>
         /// Рисует рамку.
         /// </summary>
         /// <param name="frame">Рамка.</param>
         /// <param name="canvas">Холст.</param>
-        public void Paint(Frame frame, SKCanvas canvas)
+        public void Paint(RestrictiveFrame frame, SKCanvas canvas)
         {
             var firstPointX = frame.GetFirstPointX();
             var firstPointY = frame.GetFirstPointY();
             var secondPointX = frame.GetSecondPointX();
             var secondPointY = frame.GetSecondPointY();
 
-            canvas.DrawRect(firstPointX, firstPointY, secondPointX, secondPointY, frame.Paint);
+            var paints = new PaintsKeeper();
+
+            canvas.DrawCircle(firstPointX + 35f, firstPointY + 35f, 10f, paints.paints["Red Paint"]);
+            //canvas.DrawRect(firstPointX, firstPointY, secondPointX, secondPointY, frame.Paint);
         }
     }
 }
