@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SkiaSharp;
 
-namespace GraphicsModule
+namespace GraphicsModule.Models
 {
     /// <summary>
     /// Представляет рамку.
@@ -22,7 +22,7 @@ namespace GraphicsModule
         {
             Style = SKPaintStyle.Stroke,
             Color = SKColors.Black,
-            StrokeWidth = 2
+            StrokeWidth = 3
         };
 
         /// <summary>

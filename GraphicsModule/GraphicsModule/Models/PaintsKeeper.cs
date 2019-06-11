@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SkiaSharp;
 
-namespace GraphicsModule
+namespace GraphicsModule.Models
 {
     /// <summary>
     /// Класс, хранящий коллекцию красок.

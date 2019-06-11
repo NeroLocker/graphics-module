@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using GraphicsModule.Interfaces;
+using GraphicsModule.Painters;
 
-namespace GraphicsModule
+namespace GraphicsModule.Models
 {
     /// <summary>
     /// Рабочее пространство.
@@ -36,10 +38,11 @@ namespace GraphicsModule
         /// <param name="plotPainter">Отрисовщик графика.</param>
         /// <param name="framePainter">Отрисовщик рамки.</param>
         /// <param name="canvas">Холст.</param>
-        public WorkingSpace(IPlotPainter plotPainter, IFramePainter framePainter, SKCanvas canvas)
+        public WorkingSpace(IPlotPainter plotPainter, IFramePainter framePainter, ICoordinatesPainter coordinatesPainter, SKCanvas canvas)
         {
             PlotPainter = plotPainter;
             FramePainter = framePainter;
+            CoordinatesPainter = coordinatesPainter;
             _canvas = canvas;
         }
 
@@ -59,6 +62,17 @@ namespace GraphicsModule
         public void PaintFrame(Frame frame)
         {
             FramePainter.Paint(frame, _canvas);
+        }
+
+        /// <summary>
+        /// Рисует координаты.
+        /// </summary>
+        /// <param name="coordinates">Координаты.</param>
+        /// <param name="frame">Рамка.</param>
+        /// <param name="canvas">Холст.</param>
+        public void PaintCoordinates(Coordinates coordinates, Frame frame, SKCanvas canvas)
+        {
+            CoordinatesPainter.Paint(coordinates, frame, canvas);
         }
     }
 }

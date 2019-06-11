@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GraphicsModule.Models;
+using SkiaSharp;
 
-namespace GraphicsModule
+namespace GraphicsModule.Interfaces
 {
     /// <summary>
     /// Интерфейс отрисовщика координат.
     /// </summary>
     public interface ICoordinatesPainter
     {
-        void Paint();
+        void Paint(Coordinates coordinates, Frame frame, SKCanvas canvas);
     }
 }

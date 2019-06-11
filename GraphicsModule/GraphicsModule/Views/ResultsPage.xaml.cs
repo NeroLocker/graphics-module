@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using GraphicsModule.Models;
+using GraphicsModule.Interfaces;
+using GraphicsModule.Painters;
 
 namespace GraphicsModule
 {
@@ -37,20 +40,30 @@ namespace GraphicsModule
         /// <param name="args"></param>
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
-            PaintsKeeper paints = new PaintsKeeper();
-            List<Plot> plots = new List<Plot>(){new Plot("Frequency Response", paints.paints["Blue Paint"]), new Plot("Phase Response", paints.paints["Blue Paint"]) };
+            IPlotPainter phaseResponsePlotPainter = new PhaseResponsePlotPainter();
+            IFramePainter concreteFramePainter = new ConcreteFramePainter();
+            ICoordinatesPainter coordinatesPainter = new PhaseCoordinatesPainter();
 
-            Painter painter = new Painter(plots, 0.15f, sender, args);
+            SKCanvas canvas = args.Surface.Canvas;
+            PaintsKeeper keeper = new PaintsKeeper();
+            Models.Frame frame = new Models.Frame(args.Info, 0.1f);
+            Plot plot = new Plot(PlotType.PhaseResponse, keeper.paints["Black Paint"], frame, 2f);
+            Coordinates coordinates = new Coordinates(plot.Type);
 
-            if (TrigonometricSwitch.IsToggled)
-            {               
-                painter.Paint("Trigonometric");              
-            }
+            WorkingSpace workingSpace = new WorkingSpace(phaseResponsePlotPainter, concreteFramePainter, coordinatesPainter, canvas);
+            workingSpace.PaintFrame(frame);
+            workingSpace.PaintPlot(plot);
+            workingSpace.PaintCoordinates(coordinates, frame, canvas);
+
+            //if (TrigonometricSwitch.IsToggled)
+            //{               
+            //    painter.Paint("Trigonometric");              
+            //}
             
-            if (OtherSwitch.IsToggled)
-            {               
-                painter.Paint("Other");
-            }
+            //if (OtherSwitch.IsToggled)
+            //{               
+            //    painter.Paint("Other");
+            //}
         }
 
         /// <summary>

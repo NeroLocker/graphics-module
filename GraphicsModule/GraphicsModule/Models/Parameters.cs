@@ -4,7 +4,7 @@ using System.Numerics;
 using System.Text;
 using static System.Math;
 
-namespace GraphicsModule
+namespace GraphicsModule.Models
 {
     /// <summary>
     /// Класс параметров, который содержит все данные, касающиеся расчета.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GraphicsModule
+namespace GraphicsModule.Models
 {
     /// <summary>
     /// Тип графика.

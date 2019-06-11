@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using GraphicsModule.Models;
 
-namespace GraphicsModule
+namespace GraphicsModule.Interfaces
 {    
     /// <summary>
     /// Интерфейс отрисовщика графиков.
