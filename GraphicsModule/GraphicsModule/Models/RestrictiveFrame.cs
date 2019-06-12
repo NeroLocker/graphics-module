@@ -26,6 +26,7 @@ namespace GraphicsModule.Models
             StrokeWidth = 2
         };
 
+
         /// <summary>
         /// Отступ от всех краев служебного рабочего пространства.
         /// </summary>
@@ -91,6 +92,7 @@ namespace GraphicsModule.Models
         public float GetSecondPointX()
         {
             var value = (_info.Width * (1 - 2 * _margin));
+
             return value;
         }
 

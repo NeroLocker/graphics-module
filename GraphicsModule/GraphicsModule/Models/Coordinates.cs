@@ -61,10 +61,13 @@ namespace GraphicsModule.Models
                 StartPointOfYAxis = 0;
                 EndPointOfYAxis = -30;
             }
-            NameOfYAxis = textData[1];
-            StartPointOfYAxis = 90;
-            EndPointOfYAxis = -180;
-
+            else
+            {
+                NameOfYAxis = textData[1];
+                StartPointOfYAxis = 90;
+                EndPointOfYAxis = -180;
+            }
+            
             StartPointOfXAxis = 0;
             EndPointOfXAxis = 20;
         }
