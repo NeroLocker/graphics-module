@@ -16,6 +16,7 @@ namespace GraphicsModule
         /// Рисует график.
         /// </summary>
         /// <param name="plot">График.</param>
+        /// <param name="parameters">Параметры.</param>
         /// <param name="canvas">Холст.</param>
         public void Paint(Plot plot, Parameters parameters, SKCanvas canvas)
         {           

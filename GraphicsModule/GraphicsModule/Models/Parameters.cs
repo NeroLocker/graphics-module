@@ -370,7 +370,10 @@ namespace GraphicsModule.Models
             Complex beta = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1/W11) * Math.Sin(Theta(currentF)));
             Complex gamma = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1/W22) * Math.Sin(Theta(currentF)));
 
-            return alpha + (beta * gamma);
+            Complex multiplication = Complex.Multiply(beta, gamma);
+
+            //???
+            return alpha + multiplication;
         }
 
         public Complex GetS21(float currentF)
