@@ -17,7 +17,7 @@ namespace GraphicsModule
         /// <summary>
         /// Свойство, хранящее пользовательские данные
         /// </summary>
-        private Parameters UserParameters { get; set;}
+        public Parameters UserParameters { get; private set;}
 
         /// <summary>
         /// Конструктор, инициализирующий свойство пользовательских параметров

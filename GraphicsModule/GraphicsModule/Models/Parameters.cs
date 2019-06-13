@@ -359,17 +359,37 @@ namespace GraphicsModule.Models
 
         # region S-параметры
         /// <summary>
-        /// Общий знаменатель для всех S-параметров.
+        /// Возвращает общий знаменатель A для всех S-параметров.
         /// </summary>
-        /// <param name="currentF"></param>
-        /// <returns></returns>
-        public Complex A(float currentF)
+        /// <param name="currentF">Текущая частота.</param>
+        /// <returns>Параметр A.</returns>
+        public Complex GetA(float currentF)
         {
-            // Обозначим комплексные числа выражения А переменными Alpha и Beta
-            Complex alpha = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1/W11) * Math.Sin(Theta(currentF)));
-            Complex beta = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1 / W22) * Math.Sin(Theta(currentF)));
+            // Обозначим комплексные части выражения А переменными
+            double alpha = Math.Pow(((R - 1/V) * Math.Sin(Theta(currentF))), 2);
+            Complex beta = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1/W11) * Math.Sin(Theta(currentF)));
+            Complex gamma = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1/W22) * Math.Sin(Theta(currentF)));
 
-            return ((Math.Pow(((R - 1 / V) * Math.Sin(Theta(currentF))), 2)) + alpha * beta);
+            return alpha + (beta * gamma);
+        }
+
+        public Complex GetS21(float currentF)
+        {            
+            double realPart = (-2 * (Rho11/V + R/W11) * Math.Pow(Math.Sin(Theta(currentF)), 2));
+            double imaginaryPart = ((R + 1/V) * Math.Sin(2 * Theta(currentF)));
+            // Числитель выражения
+            Complex numerator = new Complex(realPart, imaginaryPart);
+
+            Complex result = (numerator / GetA(currentF));
+
+            // Поскольку S12 = S21 = S34 = S43
+            S34 = result;
+            S43 = result;
+
+            // S12 = S21
+            // Значение S21 инициализируется в конструкторе
+
+            return result;
         }
 
         public Complex S11(float currentF)
@@ -378,7 +398,7 @@ namespace GraphicsModule.Models
             Complex numerator = new Complex(( ((Math.Pow(R, 2) - 1/ Math.Pow(V, 2)) - (Rho11 - 1/W11) - (Rho22 - 1 / W22)) * Math.Pow(Math.Sin(Theta(currentF)), 2) ), (Rho11 - 1 / W11) * Math.Sin(2 * Theta(currentF)));
 
             // Считаем
-            Complex res = (numerator / A(currentF));
+            Complex res = (numerator / GetA(currentF));
 
             // Поскольку S11 = S33
             S33 = res;
@@ -399,7 +419,7 @@ namespace GraphicsModule.Models
             Complex numerator = new Complex((((Math.Pow(R, 2) - 1 / Math.Pow(V, 2)) - (Rho11 - 1 / W11) - (Rho22 - 1 / W22)) * Math.Pow(Math.Sin(Theta(currentF)), 2)), (Rho22 - 1 / W22) * Math.Sin(2 * Theta(currentF)));
 
             // Считаем
-            Complex res = (numerator / A(currentF));
+            Complex res = (numerator / GetA(currentF));
 
             // Поскольку S22 = S44
             S44 = res;
@@ -420,12 +440,13 @@ namespace GraphicsModule.Models
             Complex numerator = new Complex((-2*(Rho11/V + R/W11)*Math.Pow(Math.Sin(Theta(currentF)),2)), ((R + 1/V) * Math.Sin(2 * Theta(currentF))));
 
             // Считаем
-            Complex res = (numerator / A(currentF));
+            Complex res = (numerator / GetA(currentF));
 
             // Поскольку S12 = S21 = S34 = S43
             S34 = res;
             S43 = res;
 
+            // S12 = S21
             // Значение S21 инициализируется в конструкторе
 
             return res;
@@ -451,7 +472,7 @@ namespace GraphicsModule.Models
             Complex complexNumber = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1 / W22));
 
             // Считаем
-            Complex res = ((2 * complexNumber * Math.Sin(Theta(currentF))) / A(currentF));
+            Complex res = ((2 * complexNumber * Math.Sin(Theta(currentF))) / GetA(currentF));
 
             // Поскольку S13 = S31
             S31 = res;
@@ -472,7 +493,7 @@ namespace GraphicsModule.Models
             Complex complexNumber = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1 / W11));
 
             // Считаем
-            Complex res = ((2 * complexNumber * Math.Sin(Theta(currentF))) / A(currentF));
+            Complex res = ((2 * complexNumber * Math.Sin(Theta(currentF))) / GetA(currentF));
 
             // Поскольку S24 = S42
             S42 = res;
@@ -493,7 +514,7 @@ namespace GraphicsModule.Models
             Complex i = Complex.Sqrt(-1);
 
             // Считаем
-            Complex res = -i * (2 * (R - 1/V) * Math.Sin(Theta(currentF)))/A(currentF);
+            Complex res = -i * (2 * (R - 1/V) * Math.Sin(Theta(currentF)))/GetA(currentF);
 
             // Поскольку S14 = S41 = S23 = S32
             S41 = res;

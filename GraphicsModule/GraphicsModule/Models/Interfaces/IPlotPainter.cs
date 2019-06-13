@@ -11,6 +11,6 @@ namespace GraphicsModule.Interfaces
     /// </summary>
     public interface IPlotPainter
     {
-        void Paint(Plot plot, SKCanvas canvas);
+        void Paint(Plot plot, Parameters parameters, SKCanvas canvas);
     }
 }

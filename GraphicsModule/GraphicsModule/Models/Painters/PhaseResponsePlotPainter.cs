@@ -17,8 +17,9 @@ namespace GraphicsModule
         /// </summary>
         /// <param name="plot">График.</param>
         /// <param name="canvas">Холст.</param>
-        public void Paint(Plot plot, SKCanvas canvas)
+        public void Paint(Plot plot, Parameters parameters, SKCanvas canvas)
         {           
+            // TODO: сделать отрисовку первого графика!!!
             var PI = (float)(Math.PI);
             var width = plot.Frame.GetWidth();
             var height = plot.Frame.GetHeight();
