@@ -71,16 +71,6 @@ namespace GraphicsModule.Models
         /// </summary>
         private float _k;
 
-        private Complex _s33;
-        private Complex _s44;
-        private Complex _s34;
-        private Complex _s43;
-        private Complex _s31;
-        private Complex _s42;
-        private Complex _s41;
-        private Complex _s23;
-        private Complex _s32;
-
         /// <summary>
         /// Характеристический импеданс.
         /// </summary>
@@ -391,58 +381,11 @@ namespace GraphicsModule.Models
 
             Complex result = (numerator / GetA(currentF));
 
-            // Поскольку S12 = S21 = S34 = S43
-            S34 = result;
-            S43 = result;
-
             // S12 = S21
             // Значение S21 инициализируется в конструкторе
 
             return result;
         }        
-
-        public Complex S11(float currentF)
-        {
-            // Числитель выражения
-            Complex numerator = new Complex(( ((Math.Pow(R, 2) - 1/ Math.Pow(V, 2)) - (Rho11 - 1/W11) - (Rho22 - 1 / W22)) * Math.Pow(Math.Sin(Theta(currentF)), 2) ), (Rho11 - 1 / W11) * Math.Sin(2 * Theta(currentF)));
-
-            // Считаем
-            Complex res = (numerator / GetA(currentF));
-
-            // Поскольку S11 = S33
-            S33 = res;
-
-            return res;
-;        }
-
-        // Параметр, зависящий от S11 (S11 = S33)
-        public Complex S33
-        {
-            get => _s33;
-            private set => _s33 = value;
-        }
-
-        public Complex S22(float currentF)
-        {
-            // Числитель выражения
-            Complex numerator = new Complex((((Math.Pow(R, 2) - 1 / Math.Pow(V, 2)) - (Rho11 - 1 / W11) - (Rho22 - 1 / W22)) * Math.Pow(Math.Sin(Theta(currentF)), 2)), (Rho22 - 1 / W22) * Math.Sin(2 * Theta(currentF)));
-
-            // Считаем
-            Complex res = (numerator / GetA(currentF));
-
-            // Поскольку S22 = S44
-            S44 = res;
-
-            return res;
-        }
-
-        // Параметр, зависящий от S22 (S22 = S44)
-        public Complex S44
-        {
-            get => _s44;
-            private set => _s44 = value;
-        }
-
         public Complex S12(float currentF)
         {
             // Числитель выражения
@@ -451,109 +394,11 @@ namespace GraphicsModule.Models
             // Считаем
             Complex res = (numerator / GetA(currentF));
 
-            // Поскольку S12 = S21 = S34 = S43
-            S34 = res;
-            S43 = res;
-
             // S12 = S21
             // Значение S21 инициализируется в конструкторе
 
             return res;
         }
-
-        // Параметр, зависящий от S12 (S12 = S34)
-        public Complex S34
-        {
-            get => _s34;
-            private set => _s34 = value;
-        }
-
-        // Параметр, зависящий от S12 (S12 = S43)
-        public Complex S43
-        {
-            get => _s43;
-            private set => _s43 = value;
-        }
-
-        public Complex S13(float currentF)
-        {
-            // комплексное число, стоящее в выражении
-            Complex complexNumber = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1 / W22));
-
-            // Считаем
-            Complex res = ((2 * complexNumber * Math.Sin(Theta(currentF))) / GetA(currentF));
-
-            // Поскольку S13 = S31
-            S31 = res;
-
-            return res;
-        }
-
-        // Параметр, зависящий от S13 (S13 = S31)
-        public Complex S31
-        {
-            get => _s31;
-            private set => _s31 = value;
-        }
-
-        public Complex S24(float currentF)
-        {
-            // комплексное число, стоящее в выражении
-            Complex complexNumber = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1 / W11));
-
-            // Считаем
-            Complex res = ((2 * complexNumber * Math.Sin(Theta(currentF))) / GetA(currentF));
-
-            // Поскольку S24 = S42
-            S42 = res;
-
-            return res;
-        }
-
-        // Параметр, зависящий от S24 (S24 = S42)
-        public Complex S42
-        {
-            get => _s42;
-            private set => _s42 = value;
-        }
-
-        public Complex S14(float currentF)
-        {
-            // Объявляем комплексную мнимую единицу
-            Complex i = Complex.Sqrt(-1);
-
-            // Считаем
-            Complex res = -i * (2 * (R - 1/V) * Math.Sin(Theta(currentF)))/GetA(currentF);
-
-            // Поскольку S14 = S41 = S23 = S32
-            S41 = res;
-            S23 = res;
-            S32 = res;
-
-            return res;
-        }
-
-        // Параметр, зависящий от S14 (S14 = S41)
-        public Complex S41
-        {
-            get => _s41;
-            private set => _s41 = value;
-        }
-
-        // Параметр, зависящий от S14 (S14 = S23)
-        public Complex S23
-        {
-            get => _s23;
-            private set => _s23 = value;
-        }
-
-        // Параметр, зависящий от S14 (S14 = S32)
-        public Complex S32
-        {
-            get => _s32;
-            private set => _s32 = value;
-        }
-
         #endregion
     }
 }
