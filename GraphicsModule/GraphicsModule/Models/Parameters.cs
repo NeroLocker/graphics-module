@@ -41,7 +41,7 @@ namespace GraphicsModule.Models
         private float _s21;
 
         /// <summary>
-        /// Длина схемы отрезка СЛ.
+        /// Геометрическая длина схемы отрезка СЛ.
         /// </summary>
         private float _l;
 
@@ -59,12 +59,12 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Диэлектрическая проницаемость среды.
         /// </summary>
-        private float Er = 1f;       
+        private float Er = 2.8f;       
 
         /// <summary>
         /// Скорость света.
         /// </summary>
-        private float _c = 299_792_458f;
+        private float _c = 299792458f;
 
         /// <summary>
         /// Коэффициент импедансной связи.
@@ -136,7 +136,7 @@ namespace GraphicsModule.Models
         }
 
         /// <summary>
-        /// Длина схемы отрезка СЛ.
+        /// Геометрическая длина схемы отрезка СЛ.
         /// </summary>
         public float L
         {
@@ -366,14 +366,20 @@ namespace GraphicsModule.Models
         public Complex GetA(float currentF)
         {
             // Обозначим комплексные части выражения А переменными
-            double alpha = Math.Pow(((R - 1/V) * Math.Sin(Theta(currentF))), 2);
+            // TODO: изменить тип данных alpha
+            Complex alpha = Math.Pow(((R - 1/V) * Math.Sin(Theta(currentF))), 2);
+            
+
             Complex beta = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1/W11) * Math.Sin(Theta(currentF)));
             Complex gamma = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1/W22) * Math.Sin(Theta(currentF)));
 
             Complex multiplication = Complex.Multiply(beta, gamma);
 
+            Complex result = Complex.Add(alpha, multiplication);
+
             //???
-            return alpha + multiplication;
+            //return alpha + multiplication;
+            return result;
         }
 
         public Complex GetS21(float currentF)
@@ -393,7 +399,7 @@ namespace GraphicsModule.Models
             // Значение S21 инициализируется в конструкторе
 
             return result;
-        }
+        }        
 
         public Complex S11(float currentF)
         {

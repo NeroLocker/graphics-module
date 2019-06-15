@@ -8,7 +8,8 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using GraphicsModule.Models;
 using GraphicsModule.Interfaces;
-using GraphicsModule.Painters;
+using GraphicsModule.Models;
+using GraphicsModule.Models.Painters;
 
 namespace GraphicsModule
 {
@@ -35,6 +36,15 @@ namespace GraphicsModule
 
         public ResultsPage()
         {
+            var z0 = 50f;
+            var z1 = 75f;
+            var z2 = 50f;
+            var z01 = z1;
+            var z02 = z2;
+            var s21 = 10f;
+            var l = 75;
+            var fn = 20f;
+            UserParameters = new Parameters(z0, z1, z2, z01, z02, s21, l, fn);
             InitializeComponent();
         }
   
@@ -46,6 +56,7 @@ namespace GraphicsModule
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
             IPlotPainter phaseResponsePlotPainter = new PhaseResponsePlotPainter();
+            IPlotPainter frequencyResponsePlotPainter = new FrequencyResponsePlotPainter();
             IRestrictiveFramePainter concreteFramePainter = new ConcreteFramePainter();
             ICoordinatesPainter coordinatesPainter = new PhaseCoordinatesPainter();
 
@@ -57,9 +68,9 @@ namespace GraphicsModule
             Plot plot = new Plot(PlotType.PhaseResponse, keeper.paints["Black Paint"], frame, 2f);
             Coordinates coordinates = new Coordinates(plot.Type);
 
-            WorkingSpace workingSpace = new WorkingSpace(phaseResponsePlotPainter, concreteFramePainter, coordinatesPainter, canvas);
+            WorkingSpace workingSpace = new WorkingSpace(frequencyResponsePlotPainter, concreteFramePainter, coordinatesPainter, canvas);
             workingSpace.PaintFrame(frame);
-            workingSpace.PaintPlot(plot);
+            workingSpace.PaintPlot(plot, UserParameters);
             workingSpace.PaintCoordinates(coordinates, frame);
 
             //if (TrigonometricSwitch.IsToggled)

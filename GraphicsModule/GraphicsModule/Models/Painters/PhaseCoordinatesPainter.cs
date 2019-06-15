@@ -5,7 +5,7 @@ using GraphicsModule.Interfaces;
 using GraphicsModule.Models;
 using SkiaSharp;
 
-namespace GraphicsModule.Painters
+namespace GraphicsModule.Models.Painters
 {   
     /// <summary>
     /// Отрисовщик координат для фазово-частотной характеристики.

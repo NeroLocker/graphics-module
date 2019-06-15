@@ -5,7 +5,7 @@ using System.Text;
 using GraphicsModule.Interfaces;
 using GraphicsModule.Models;
 
-namespace GraphicsModule
+namespace GraphicsModule.Models.Painters
 {
     /// <summary>
     /// Отрисовщик рамки.

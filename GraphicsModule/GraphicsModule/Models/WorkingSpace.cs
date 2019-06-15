@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using GraphicsModule.Interfaces;
-using GraphicsModule.Painters;
+using GraphicsModule.Models.Painters;
 
 namespace GraphicsModule.Models
 {
@@ -50,9 +50,9 @@ namespace GraphicsModule.Models
         /// Рисует график.
         /// </summary>
         /// <param name="plot">График.</param>
-        public void PaintPlot(Plot plot)
+        public void PaintPlot(Plot plot, Parameters parameters)
         {
-            PlotPainter.Paint(plot, _canvas);
+            PlotPainter.Paint(plot, parameters, _canvas);
         }
 
         /// <summary>
