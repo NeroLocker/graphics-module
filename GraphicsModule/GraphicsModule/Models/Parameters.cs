@@ -191,7 +191,10 @@ namespace GraphicsModule.Models
         private float K
         {
             // k = 10^(-S21/20)
-            get => (float)(Math.Pow(10, -(S21 / 20)));
+            //get => (float)(Math.Pow(10, -(S21 / 20)));
+            // ??
+            //get => (float)((Z1c - Z1pi)/(Z1c + Z1pi));
+            get => 0.99f;
             set
             {
                 if (!(value >= 0 && value < 1))
@@ -225,10 +228,12 @@ namespace GraphicsModule.Models
         /// </summary>
         /// <param name="currentF"></param>
         /// <returns></returns>
-        private float Theta(float currentF)
+        public Complex Theta(float currentF)
         {
+            Complex i = Complex.Sqrt(-1);
             
-            return (float)((360 * currentF * Math.Sqrt(Er)*L)/C);
+            Complex result = ((i * GetOmega(currentF) * Math.Sqrt(Er) * L) / C);
+            return result;
         }
 
         # region Нагрузочные резисторы
@@ -246,7 +251,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private float Z1pi
         {
-            get { return (float)(Z0 * ((1 / N - K) / KHatch)); }
+            get { return Z0 * (1/N - K)/KHatch; }
         }
 
         /// <summary>
@@ -254,7 +259,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private float Z2c
         {
-            get { return (float)((Z0 * KHatch) / (1 / N - K)); }
+            get { return ((Z0 * KHatch)/(1/N - K)); }
         }
 
         /// <summary>
@@ -262,7 +267,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private float Z2pi
         {
-            get { return (float)(Z0 * ((N - K) / KHatch)); }
+            get { return Z0 * (N - K)/KHatch; }
         }
 
         /// <summary>
@@ -270,7 +275,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private float Zm
         {
-            get { return (float)((Z0 * KHatch) / K); }
+            get { return ((Z0 * KHatch) / K); }
         }
 
         /// <summary>
@@ -278,66 +283,70 @@ namespace GraphicsModule.Models
         /// </summary>
         private float Z12
         {
-            get { return (float)((Z0 * K) / KHatch); }
+            get { return ((Z0 * K) / KHatch); }
         }
 
         #endregion
 
         # region Параметры с тильдами (~)
-        private float W11tilda
+        private float W11Tilda
         {
-            get { return (float)((Z0 * KHatch) / N); }
+            get { return ((Z0 * KHatch) / N); }
         }
 
-        private float W22tilda
+        private float W22Tilda
         {
             get { return (float)(Z0 * KHatch * N); }
         }
 
-        private float Rho11tilda
+        private float Rho11Tilda
         {
             get { return (float)(Z0 / (N * KHatch)); }
         }
-        private float Rho22tilda
+        private float Rho22Tilda
         {
             get { return (float)((Z0 * N) / KHatch); }
         }
 
-        private float Utilda
+        private float UTilda
         {
-            get { return (float)((Z0 * KHatch) / K); }
+            //get { return (float)((Z0 * KHatch) / K); }
+            //UTilda = Zm
+            get => Zm;
         }
 
-        private float Rtilda
+        private float RTilda
         {
-            get { return (float)((Z0 * K) / KHatch); }
+            //get { return (float)((Z0 * K) / KHatch); }
+            // RTilda = z12
+            get => Z12;
         }
         
         # endregion
 
         private float Rho11
         {
-            get { return (float)(Rho11tilda / Z01); }
+            get { return (Rho11Tilda / Z01); }
         }
 
         private float Rho22
         {
-            get { return (float)(Rho22tilda / Z02); }
+            get { return (Rho22Tilda / Z02); }
         }
 
         private float R
         {
-            get { return (float)(Rtilda / Math.Sqrt(Z01 * Z02)); }
+            get { return (float)(RTilda / Math.Sqrt(Z01 * Z02)); }
         }
 
         private float W11
         {
-            get { return (float)(W11tilda / Z01); }
+            get { return (W11Tilda / Z01); }
         }
 
         private float W22
         {
-            get { return (float)(W22tilda / Z02); }
+            get { return (W22Tilda / Z02); }
         }
 
         private float V
@@ -347,7 +356,51 @@ namespace GraphicsModule.Models
 
         #endregion
 
+        public float GetOmega(float currentF)
+        {
+            float result = (float)(2 * Math.PI * currentF * Math.Pow(10, 9));
+            return result;
+        }
+
         # region S-параметры
+
+        public Complex GetZCT(float currentF)
+        {
+            Complex currentTheta = Theta(currentF);
+            //гиперболический котангенс
+            Complex cothOfTheta = 1/Complex.Tanh(currentTheta);
+
+            Complex result = Z0/KHatch * cothOfTheta;
+
+            return result;
+        }
+
+        public Complex GetZCS(float currentF)
+        {
+            Complex currentTheta = Theta(currentF);
+            //гиперболический косеканс 
+            Complex cschOfTheta = 1 / Complex.Sinh(currentTheta);
+
+            Complex result = Z0 / KHatch * cschOfTheta;
+
+            return result;
+        }
+
+        public Complex GetZ12(float currentF)
+        {
+            Complex result = GetZCT(currentF) * K;
+
+            return result;
+        }
+
+        public Complex GetZ0(float currentF)
+        {
+            Complex sqrt = Math.Sqrt(Z01 * Z02);
+            Complex result = GetZ12(currentF)/(sqrt);
+
+            return result;
+        }
+
         /// <summary>
         /// Возвращает общий знаменатель A для всех S-параметров.
         /// </summary>
@@ -355,13 +408,20 @@ namespace GraphicsModule.Models
         /// <returns>Параметр A.</returns>
         public Complex GetA(float currentF)
         {
+            Complex i = Complex.Sqrt(-1);
+
+            Complex currentTheta = Theta(currentF);
+
+            Complex sinOfTheta = Complex.Sin(currentTheta);
+            Complex cosOfTheta = Complex.Cos(currentTheta);
+
             // Обозначим комплексные части выражения А переменными
             // TODO: изменить тип данных alpha
-            Complex alpha = Math.Pow(((R - 1/V) * Math.Sin(Theta(currentF))), 2);
-            
+            Complex alpha = Complex.Pow(((R - 1 / V) * sinOfTheta), 2);            
 
-            Complex beta = new Complex(2 * Math.Cos(Theta(currentF)), (Rho11 + 1/W11) * Math.Sin(Theta(currentF)));
-            Complex gamma = new Complex(2 * Math.Cos(Theta(currentF)), (Rho22 + 1/W22) * Math.Sin(Theta(currentF)));
+            Complex beta = 2 * cosOfTheta + i * (Rho11 + 1/W11) * sinOfTheta;
+
+            Complex gamma = 2 * cosOfTheta + i * (Rho22 + 1/W22) * sinOfTheta;
 
             Complex multiplication = Complex.Multiply(beta, gamma);
 
@@ -373,32 +433,53 @@ namespace GraphicsModule.Models
         }
 
         public Complex GetS21(float currentF)
-        {            
-            double realPart = (-2 * (Rho11/V + R/W11) * Math.Pow(Math.Sin(Theta(currentF)), 2));
-            double imaginaryPart = ((R + 1/V) * Math.Sin(2 * Theta(currentF)));
-            // Числитель выражения
-            Complex numerator = new Complex(realPart, imaginaryPart);
+        {
+            Complex i = Complex.Sqrt(-1);
 
-            Complex result = (numerator / GetA(currentF));
+            Complex currentTheta = Theta(currentF);
+
+            Complex sinThetaOfPowerOf2 = Complex.Pow(Complex.Sin(currentTheta), 2);
+            Complex sin2Theta = Complex.Sin(2 * currentTheta);
+
+            Complex numerator = -2 * (Rho11/V + R/W11) * sinThetaOfPowerOf2 + i * (R + 1/V) * sin2Theta;
+
+            Complex A = GetA(currentF);
+
+            Complex result = Complex.Divide(numerator, A);
 
             // S12 = S21
             // Значение S21 инициализируется в конструкторе
 
             return result;
-        }        
-        public Complex S12(float currentF)
-        {
-            // Числитель выражения
-            Complex numerator = new Complex((-2*(Rho11/V + R/W11)*Math.Pow(Math.Sin(Theta(currentF)),2)), ((R + 1/V) * Math.Sin(2 * Theta(currentF))));
-
-            // Считаем
-            Complex res = (numerator / GetA(currentF));
-
-            // S12 = S21
-            // Значение S21 инициализируется в конструкторе
-
-            return res;
         }
+
+        public Complex GetS14(float currentF)
+        {
+            Complex i = Complex.Sqrt(-1);
+
+            Complex currentTheta = Theta(currentF);
+
+            Complex sinTheta = Complex.Sin(currentTheta);
+
+            Complex A = GetA(currentF);
+
+            Complex result = -i * ((2 * (R - 1/V) * sinTheta)/A);
+
+            return result;
+        }
+        //public Complex S12(float currentF)
+        //{
+        //    // Числитель выражения
+        //    Complex numerator = new Complex((-2 * (Rho11 / V + R / W11) * Math.Pow(Math.Sin(Theta(currentF)), 2)), ((R + 1 / V) * Math.Sin(2 * Theta(currentF))));
+
+        //    // Считаем
+        //    Complex res = (numerator / GetA(currentF));
+
+        //    // S12 = S21
+        //    // Значение S21 инициализируется в конструкторе
+
+        //    return res;
+        //}
         #endregion
     }
 }

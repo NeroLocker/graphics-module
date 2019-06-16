@@ -37,12 +37,12 @@ namespace GraphicsModule
         public ResultsPage()
         {
             var z0 = 50f;
-            var z1 = 75f;
-            var z2 = 50f;
+            var z1 = 120f;
+            var z2 = 61f;
             var z01 = z1;
             var z02 = z2;
             var s21 = 10f;
-            var l = 75;
+            var l = 4.5E-3f;
             var fn = 20f;
             UserParameters = new Parameters(z0, z1, z2, z01, z02, s21, l, fn);
             InitializeComponent();

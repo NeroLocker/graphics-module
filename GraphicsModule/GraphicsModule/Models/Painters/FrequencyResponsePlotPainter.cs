@@ -21,31 +21,52 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas">Холст.</param>
         public void Paint(Plot plot, Parameters parameters, SKCanvas canvas)
         {
-            List<float> pointList = new List<float>();
-            for (float i = -200; i <= 200; i++)
+            List<float> phasePointList = new List<float>();
+            List<Complex> complexList = new List<Complex>();
+            Dictionary<float, float> xandydic = new Dictionary<float, float>();
+
+            float counter = 0;
+            while (counter <= 20)
             {
-                Complex S21 = parameters.GetS21(i);
-                float value = (float)(20 * Math.Log(S21.Magnitude));
-                value = Math.Abs(value);
-                pointList.Add(value);
+                Complex S14 = parameters.GetS14(counter);
+                complexList.Add(S14);
+                float currentMagnitude = (float)(20 * Math.Log10(S14.Magnitude));
+                float currentPhase = (float)(Math.Atan2(S14.Imaginary, S14.Real) * 180/Math.PI);
+                xandydic.Add(counter, currentMagnitude);
+                phasePointList.Add(currentPhase);
+                counter += 0.04f;
             }
 
+
+
+            //float counter = 0;
+            //while (counter <= 20)
+            //{
+            //    Complex S21 = parameters.GetS21(counter);
+            //    complexList.Add(S21);
+            //    float value = (float)(20 * Math.Log10(S21.Magnitude));
+            //    value += 0;
+            //    pointList.Add(value);
+            //    counter += 0.04f;
+            //}
+
             int b = 0;
-            int counter = 1;
-            for (float i = plot.FirstPointX; i < plot.SecondPointX; i++)
-            {                
-                float x = i;
-                try
-                {
-                    float y = pointList[counter];
-                    canvas.DrawCircle(x, y, plot.LineThickness, plot.Paint);
-                    counter += 1;
-                }
-                catch(ArgumentOutOfRangeException e)
-                {
-                    break;
-                }
-            }                    
+            //float counter2 = 0.8f;
+
+            //while (counter2 <= plot.SecondPointX)
+            //{
+            //    float x = counter2 * 8;
+            //    try
+            //    {
+            //        float y = pointList[Convert.ToInt32(counter2)] * 8;
+            //        canvas.DrawCircle(x, y, 1f, plot.Paint);
+            //        counter2 += 0.04f;
+            //    }
+            //    catch (ArgumentOutOfRangeException e)
+            //    {
+            //        break;
+            //    }
+            //}
         }
     }
 }
