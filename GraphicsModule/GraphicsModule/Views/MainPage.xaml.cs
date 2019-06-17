@@ -14,7 +14,7 @@ namespace GraphicsModule
     {
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private async void OnContinueButtonClicked(object sender, EventArgs e)
@@ -34,6 +34,17 @@ namespace GraphicsModule
                 await Navigation.PushAsync(new ResultsPage(userParameters));
             }
             
+        }
+
+        private void OnByDefaultButtonClicked(object sender, EventArgs e)
+        {
+            z0Entry.Text = "50";
+            z1Entry.Text = "75";
+            z2Entry.Text = "50";
+            z2Entry.Text = "75";
+            s21Entry.Text = "10";
+            lEntry.Text = "75";
+            fnEntry.Text = "20";
         }
 
         /// <summary>

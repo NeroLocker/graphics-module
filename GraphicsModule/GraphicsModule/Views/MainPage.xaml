@@ -63,6 +63,14 @@
                        HorizontalOptions="FillAndExpand" />
             </Grid>
 
+            <Grid>
+                <Button Text="По умолчанию" 
+                        HorizontalOptions="FillAndExpand" 
+                        FontSize="{StaticResource Key=FontSize}" 
+                        Grid.Column="1" 
+                        Clicked="OnByDefaultButtonClicked"></Button>
+            </Grid>
+
             <Button Text="Дальше" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Clicked="OnContinueButtonClicked"></Button>
         </StackLayout>
     </ContentPage.Content>
