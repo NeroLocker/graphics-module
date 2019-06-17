@@ -29,13 +29,13 @@
             <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
                 <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
 
-                    <Label Text="/S/"
+                    <Label Text="АЧХ"
                    FontSize="{StaticResource Key=FontSize}"
                    HorizontalOptions="StartAndExpand"/>
 
                     <Switch 
-                        x:Name="TrigonometricSwitch"
-                        Toggled="OnTrigonometricSwitchToggled"
+                        x:Name="FrequencyResponseSwitch"
+                        Toggled="OnFrequencyResponseSwitchToggled"
                         HorizontalOptions="EndAndExpand"/>
 
                 </StackLayout>
@@ -44,13 +44,13 @@
             <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
                 <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
 
-                    <Label Text="arg(S)"
+                    <Label Text="ФЧХ"
                    FontSize="{StaticResource Key=FontSize}"
                    HorizontalOptions="StartAndExpand"/>
 
                     <Switch 
-                        x:Name="OtherSwitch"
-                        Toggled="OnOtherSwitchToggled"
+                        x:Name="PhaseResponseSwitch"
+                        Toggled="OnPhaseResponseSwitchToggled"
                 HorizontalOptions="EndAndExpand"/>
 
                 </StackLayout>

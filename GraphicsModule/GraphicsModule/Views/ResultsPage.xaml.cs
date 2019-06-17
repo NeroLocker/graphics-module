@@ -68,30 +68,38 @@ namespace GraphicsModule
             IPlotPainter phaseResponsePlotPainter = new PhaseResponsePlotPainter();
             IPlotPainter frequencyResponsePlotPainter = new FrequencyResponsePlotPainter();
             IRestrictiveFramePainter concreteFramePainter = new ConcreteFramePainter();
-            ICoordinatesPainter coordinatesPainter = new PhaseCoordinatesPainter();
+            ICoordinatesPainter phaseCoordinatesPainter = new PhaseCoordinatesPainter();        
+            ICoordinatesPainter frequencyCoordinatesPainter = new PhaseCoordinatesPainter();        
 
             SKCanvas canvas = args.Surface.Canvas;
             canvas.Clear();
-
+           
             PaintsKeeper keeper = new PaintsKeeper();
             RestrictiveFrame frame = new RestrictiveFrame(args.Info, 0.1f);
-            Plot plot = new Plot(PlotType.PhaseResponse, keeper.paints["Black Paint"], frame, 2f);
-            Coordinates coordinates = new Coordinates(plot.Type);
-
-            WorkingSpace workingSpace = new WorkingSpace(frequencyResponsePlotPainter, concreteFramePainter, coordinatesPainter, canvas);
-            workingSpace.PaintFrame(frame);
-            workingSpace.PaintPlot(plot, UserParameters);
-            workingSpace.PaintCoordinates(coordinates, frame);
-
-            //if (TrigonometricSwitch.IsToggled)
-            //{               
-            //    painter.Paint("Trigonometric");              
-            //}
             
-            //if (OtherSwitch.IsToggled)
-            //{               
-            //    painter.Paint("Other");
-            //}
+            if (FrequencyResponseSwitch.IsToggled)
+            {
+                WorkingSpace workingSpace = new WorkingSpace(frequencyResponsePlotPainter, concreteFramePainter, phaseCoordinatesPainter, canvas);
+
+                Plot plot = new Plot(PlotType.FrequencyResponse, frame, 2f);
+                Coordinates coordinates = new Coordinates(plot.Type);
+
+                workingSpace.PaintFrame(frame);
+                workingSpace.PaintPlot(plot, UserParameters);
+                workingSpace.PaintCoordinates(coordinates, UserParameters, frame);
+            }
+
+            if (PhaseResponseSwitch.IsToggled)
+            {
+                WorkingSpace workingSpace = new WorkingSpace(phaseResponsePlotPainter, concreteFramePainter, phaseCoordinatesPainter, canvas);
+
+                Plot plot = new Plot(PlotType.PhaseResponse, frame, 2f);
+                Coordinates coordinates = new Coordinates(plot.Type);
+
+                workingSpace.PaintFrame(frame);
+                workingSpace.PaintPlot(plot, UserParameters);
+                workingSpace.PaintCoordinates(coordinates, UserParameters, frame);
+            }
         }
 
         /// <summary>
@@ -99,14 +107,14 @@ namespace GraphicsModule
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnTrigonometricSwitchToggled(object sender, EventArgs e)
+        private void OnFrequencyResponseSwitchToggled(object sender, EventArgs e)
         {
-            if (TrigonometricSwitch.IsToggled)
+            if (FrequencyResponseSwitch.IsToggled)
             {
-                TrigonometricSwitch.IsEnabled = false;
-                OtherSwitch.IsEnabled = true;
+                FrequencyResponseSwitch.IsEnabled = false;
+                PhaseResponseSwitch.IsEnabled = true;
 
-                OtherSwitch.IsToggled = false;
+                PhaseResponseSwitch.IsToggled = false;
 
                 OutputCanvasView.InvalidateSurface();
             }
@@ -117,14 +125,14 @@ namespace GraphicsModule
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnOtherSwitchToggled(object sender, EventArgs e)
+        private void OnPhaseResponseSwitchToggled(object sender, EventArgs e)
         {
-            if (OtherSwitch.IsToggled)
+            if (PhaseResponseSwitch.IsToggled)
             {
-                OtherSwitch.IsEnabled = false;
-                TrigonometricSwitch.IsEnabled = true;
+                PhaseResponseSwitch.IsEnabled = false;
+                FrequencyResponseSwitch.IsEnabled = true;
 
-                TrigonometricSwitch.IsToggled = false;
+                FrequencyResponseSwitch.IsToggled = false;
 
                 OutputCanvasView.InvalidateSurface();
             }

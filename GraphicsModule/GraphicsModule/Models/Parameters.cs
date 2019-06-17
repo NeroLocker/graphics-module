@@ -10,6 +10,7 @@ namespace GraphicsModule.Models
     /// </summary>
     public class Parameters
     {
+        private float _step = 0.04f;
 
         // Может быть больше единицы
         /// <summary>
@@ -93,8 +94,8 @@ namespace GraphicsModule.Models
             S21 = s21;
             L = l * Math.Pow(10, -4);
 
-            FStart = 0;
-            FEnd = fEnd;
+            FStart = 0.001;
+            FEnd = 20;
 
             C = 299792458;
         }
@@ -223,9 +224,8 @@ namespace GraphicsModule.Models
 
         private double RTilda
         {
-            //get { return ((Z0 * K) / KHatch); }
+            get { return ((Z0 * GetK()) / KHatch); }
             // RTilda = z12
-            get => Z12;
         }
         
         # endregion
@@ -262,7 +262,7 @@ namespace GraphicsModule.Models
 
         #endregion
 
-        public double GetOmega(double currentF)
+        private double GetOmega(double currentF)
         {
             // Точно правильно!
             double result = (2 * Math.PI * currentF * Math.Pow(10, 9));
@@ -272,49 +272,12 @@ namespace GraphicsModule.Models
 
         # region S-параметры
 
-        public Complex GetZCT(float currentF)
-        {
-            Complex currentTheta = GetTheta(currentF);
-            //гиперболический котангенс
-            Complex cothOfTheta = 1/Complex.Tanh(currentTheta);
-
-            Complex result = Z0/KHatch * cothOfTheta;
-
-            return result;
-        }
-
-        public Complex GetZCS(float currentF)
-        {
-            Complex currentTheta = GetTheta(currentF);
-            //гиперболический косеканс 
-            Complex cschOfTheta = 1 / Complex.Sinh(currentTheta);
-
-            Complex result = Z0 / KHatch * cschOfTheta;
-
-            return result;
-        }
-
-        public Complex GetZ12(float currentF)
-        {
-            Complex result = GetZCT(currentF) * GetK();
-
-            return result;
-        }
-
-        public Complex GetZ0(float currentF)
-        {
-            Complex sqrt = Math.Sqrt(Z01 * Z02);
-            Complex result = GetZ12(currentF)/(sqrt);
-
-            return result;
-        }
-
         /// <summary>
         /// Возвращает общий знаменатель A для всех S-параметров.
         /// </summary>
         /// <param name="currentF">Текущая частота.</param>
         /// <returns>Параметр A.</returns>
-        public Complex GetA(double currentF)
+        private Complex GetA(double currentF)
         {
             // Точно правильно
             Complex i = Complex.Sqrt(-1);
@@ -336,7 +299,7 @@ namespace GraphicsModule.Models
             return result;
         }
 
-        public Complex GetS21(double currentF)
+        private Complex GetS21(double currentF)
         {
             Complex i = Complex.Sqrt(-1);
 
@@ -373,7 +336,7 @@ namespace GraphicsModule.Models
         //    return result;
         //}
 
-        public Complex GetS31(double currentF)
+        private Complex GetS31(double currentF)
         {
             Complex i = Complex.Sqrt(-1);
             Complex currentTheta = GetTheta(currentF);
@@ -387,6 +350,118 @@ namespace GraphicsModule.Models
             Complex result = Complex.Divide(numerator, A);
 
             return result;
+        }
+
+        public List<float> GetListOfMagnitudesOfS21()
+        {
+            List<float> magnitudesList = new List<float>();
+
+            float counter = (float)FStart;
+            while (counter <= (float)FEnd)
+            {
+                Complex currentS21 = GetS21(counter);
+
+                // Модуль
+                float currentMagnitude = (float)(20 * Math.Log10(currentS21.Magnitude));
+                magnitudesList.Add(currentMagnitude);
+                counter += _step;
+            }
+
+            return magnitudesList;
+        }
+
+        public List<float> GetListOfMagnitudesOfS31()
+        {
+            List<float> magnitudesList = new List<float>();
+
+            float counter = (float)FStart;
+            while (counter <= (float)FEnd)
+            {
+                Complex currentS31 = GetS31(counter);
+
+                // Модуль
+                float currentMagnitude = (float)(20 * Math.Log10(currentS31.Magnitude));
+                magnitudesList.Add(currentMagnitude);
+                counter += _step;
+            }
+
+            return magnitudesList;
+        }
+
+        public List<float> GetListOfPhasesOfS21()
+        {
+            List<float> phasesList = new List<float>();
+
+            float previousPhase = 0;
+
+            float counter = (float)FStart;
+            while (counter <= (float)FEnd)
+            {
+                Complex currentS21 = GetS21(counter);
+
+                // Фаза
+                float currentPhase = (float)(Math.Atan(currentS21.Imaginary / currentS21.Real) * 180 / Math.PI);
+
+                currentPhase *= (float)Math.Pow(10, 11);
+
+                if (counter != 0)
+                {
+                    previousPhase = currentPhase;
+                }
+
+                if ((currentPhase - previousPhase) > 195)
+                {
+                    currentPhase -= 360;
+                }
+
+                if ((currentPhase - previousPhase) > 195)
+                {
+                    currentPhase -= 360;
+                }
+
+                phasesList.Add(currentPhase);
+                counter += _step;
+            }
+
+            return phasesList;
+        }
+
+
+        public List<float> GetListOfPhasesOfS31()
+        {
+            List<float> phasesList = new List<float>();
+
+            float previousPhase = 0;
+
+            float counter = (float)FStart;
+            while (counter <= (float)FEnd)
+            {
+                Complex currentS31 = GetS31(counter);
+
+                // Фаза
+                // Для перевода в градусы домножить на 180/Pi
+                float currentPhase = (float)(Math.Atan(currentS31.Imaginary / currentS31.Real) * 180 / Math.PI);
+
+                if (counter != 0)
+                {
+                    previousPhase = currentPhase;
+                }
+
+                if ((currentPhase - previousPhase) > 195)
+                {
+                    currentPhase -= 360;
+                }
+
+                if ((currentPhase - previousPhase) > 195)
+                {
+                    currentPhase -= 360;
+                }
+
+                phasesList.Add(currentPhase);
+                counter += _step;
+            }
+
+            return phasesList;
         }
         #endregion
     }

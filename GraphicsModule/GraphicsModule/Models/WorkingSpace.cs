@@ -69,9 +69,9 @@ namespace GraphicsModule.Models
         /// </summary>
         /// <param name="coordinates">Координаты.</param>
         /// <param name="frame">Рамка.</param>
-        public void PaintCoordinates(Coordinates coordinates, RestrictiveFrame frame)
+        public void PaintCoordinates(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame)
         {
-            CoordinatesPainter.Paint(coordinates, frame, _canvas);
+            CoordinatesPainter.Paint(coordinates, parameters, frame, _canvas);
         }
     }
 }

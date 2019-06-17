@@ -11,6 +11,6 @@ namespace GraphicsModule.Interfaces
     /// </summary>
     public interface ICoordinatesPainter
     {
-        void Paint(Coordinates coordinates, RestrictiveFrame frame, SKCanvas canvas);
+        void Paint(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas);
     }
 }

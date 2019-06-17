@@ -13,7 +13,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Содержит информацию о служебном рабочем пространстве.
         /// </summary>
-        private SKImageInfo _info;
+        public SKImageInfo _info;
 
         /// <summary>
         /// Краска для линий.

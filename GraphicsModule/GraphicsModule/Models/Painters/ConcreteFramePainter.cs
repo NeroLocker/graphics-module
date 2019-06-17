@@ -27,6 +27,9 @@ namespace GraphicsModule.Models.Painters
             var paints = new PaintsKeeper();
 
             canvas.DrawRect(firstPointX, firstPointY, secondPointX, secondPointY, frame.Paint);
+
+            float centerOfYAxis = (firstPointY + secondPointY) / 2f;
+            canvas.DrawLine(firstPointX, centerOfYAxis, firstPointX + secondPointX, centerOfYAxis, frame.Paint);
         }
     }
 }

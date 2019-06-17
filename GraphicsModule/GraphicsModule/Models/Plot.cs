@@ -52,7 +52,12 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Краска, используемая для отрисовки линий.
         /// </summary>
-        public SKPaint Paint { get; private set; }
+        public SKPaint RedPaint { get; private set; }
+
+        /// <summary>
+        /// Краска, используемая для отрисовки линий.
+        /// </summary>
+        public SKPaint BluePaint { get; private set; }
 
         /// <summary>
         /// Конструктор.
@@ -61,10 +66,10 @@ namespace GraphicsModule.Models
         /// <param name="paint">Краска для линий.</param>
         /// <param name="frame">Рамка.</param>
         /// <param name="lineThickness">Толщина линий.</param>
-        public Plot(PlotType type, SKPaint paint, RestrictiveFrame frame, float lineThickness)
+        public Plot(PlotType type, RestrictiveFrame frame, float lineThickness)
         {
             Type = type;
-            Paint = paint;
+
 
             Frame = frame;
             FirstPointX = Frame.GetFirstPointX();
@@ -74,6 +79,15 @@ namespace GraphicsModule.Models
             SecondPointY = Frame.GetFirstPointY() + Frame.GetSecondPointY();
 
             LineThickness = lineThickness;
+
+            PaintsKeeper keeper = new PaintsKeeper();
+            RedPaint = keeper.paints["Red Paint"];
+            BluePaint = keeper.paints["Blue Paint"];
+        }
+
+        public float GetCenterPointOfYAxis()
+        {
+            return (FirstPointY + SecondPointY) / 2;
         }
     }
 }
