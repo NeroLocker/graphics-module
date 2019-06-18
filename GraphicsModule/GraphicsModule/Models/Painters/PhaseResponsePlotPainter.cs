@@ -17,7 +17,7 @@ namespace GraphicsModule.Models.Painters
         private Plot _plot;
         private Parameters _parameters;
 
-        private List<float> _phasePointListOfS21 = new List<float>();
+        //private List<float> _phasePointListOfS21 = new List<float>();
         private List<float> _phasePointListOfS31 = new List<float>();
 
         /// <summary>
@@ -33,8 +33,12 @@ namespace GraphicsModule.Models.Painters
             _parameters = parameters;
             _canvas = canvas;
 
-            _phasePointListOfS21 = parameters.GetListOfPhasesOfS21();
             _phasePointListOfS31 = parameters.GetListOfPhasesOfS31();
+
+            List<float> sortedPointListOfS31 = _phasePointListOfS31;
+            sortedPointListOfS31.Sort();
+            float maxValue = sortedPointListOfS31[sortedPointListOfS31.Count - 1];
+            float minValue = sortedPointListOfS31[0];
 
             PaintsKeeper keeper = new PaintsKeeper();
 
@@ -53,13 +57,21 @@ namespace GraphicsModule.Models.Painters
 
                 try
                 {
-                    float y = plot.GetCenterPointOfYAxis();
-                    y += _phasePointListOfS21[Convert.ToInt32(counter)] * 1;
-                    _canvas.DrawPoint(x, y, plot.BluePaint);
+                    float y = _plot.GetCenterPointOfYAxis();
 
-                    y = plot.GetCenterPointOfYAxis();
-                    y += _phasePointListOfS31[Convert.ToInt32(counter)] * 1;
-                    _canvas.DrawPoint(x, y, plot.RedPaint);
+                    
+                    y += _phasePointListOfS31[Convert.ToInt32(counter)];
+                    _canvas.DrawPoint(x, y, _plot.RedPaint);
+
+                    if (_phasePointListOfS31[Convert.ToInt32(counter)] == maxValue)
+                    {
+                        _canvas.DrawLine(x, y, _plot.FirstPointX, y, _plot.GrayPaint);
+                    }
+
+                    if (_phasePointListOfS31[Convert.ToInt32(counter)] == minValue)
+                    {
+                        _canvas.DrawLine(x, y, _plot.FirstPointX, y, _plot.GrayPaint);
+                    }
                     counter += 0.04f;
                 }
                 catch (ArgumentOutOfRangeException e)

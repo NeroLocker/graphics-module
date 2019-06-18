@@ -21,42 +21,104 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Коэффициент импедансной связи.
         /// </summary>
-        private double _k;
+        private Complex _k;
+        private Complex _z0;
+        private Complex _z1;
+        private Complex _z2;
+        private Complex _s21;
+        private Complex _l;
 
         /// <summary>
         /// Характеристический импеданс.
         /// </summary>
-        public double Z0 { get; private set; }
+        public Complex Z0
+        {
+            get => _z0;
+            private set
+            {
+                if (!(value.Real >= 40 && value.Real <= 70))
+                {
+                    throw new ArgumentException("Not in range");
+                }
+
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Don't do it");
+                }
+                _z0 = value;
+            }
+        }
 
         /// <summary>
         /// Характеристический импеданс первой линии.
         /// </summary>
-        public double Z1 { get; private set; }
+        public Complex Z1
+        {
+            get => _z1; private set
+            {
+                if (!(value.Real >= 30 && value.Real <= 80))
+                {
+                    throw new ArgumentException("Not in range");
+                }
+
+                _z1 = value;
+
+            }
+        }
 
         /// <summary>
         /// Характеристический импеданс второй линии.
         /// </summary>
-        public double Z2 { get; private set; }
+        public Complex Z2
+        {
+            get => _z2; 
+            private set
+            {
+                if (!(value.Real >= 30 && value.Real <= 80))
+                {
+                    throw new ArgumentException("Not in range");
+                }
+
+                _z2 = value;
+            }
+        }
 
         /// <summary>
         /// Номинал нагрузочного резистора Z01.
         /// </summary>
-        public double Z01 { get; private set; }
+        public Complex Z01 { get; private set; }
 
         /// <summary>
         /// Номинал нагрузочного резистора Z02.
         /// </summary>
-        public double Z02 { get; private set; }
+        public Complex Z02 { get; private set; }
 
         /// <summary>
         /// Коэффициент связи 1-ой и 2-ой линии.
         /// </summary>
-        public double S21 { get; private set; }
+        public Complex S21
+        {
+            get => _s21; private set
+            {
+                if (!(value.Real >= 3 && value.Real <= 10))
+                {
+                    throw new ArgumentException("Not in range");
+                }
+
+                _s21 = value;
+            }
+        }
 
         /// <summary>
         /// Геометрическая длина схемы отрезка СЛ.
         /// </summary>
-        public double L { get; private set; }
+        public Complex L { get => _l; private set {
+                if (!(value.Real >= 45 && value.Real <= 75))
+                {
+                    throw new ArgumentException("Not in range");
+                }
+
+                _l = value * Math.Pow(10, -4); } }
 
         /// <summary>
         /// Начальная частота Fn.
@@ -71,7 +133,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Скорость света.
         /// </summary>
-        public double C { get; private set; }
+        public Complex C { get; private set; }
 
         /// <summary>
         /// Конструктор, инициализирующий поля класса входными данными пользователя.
@@ -84,7 +146,7 @@ namespace GraphicsModule.Models
         /// <param name="s21"></param>
         /// <param name="l"></param>
         /// <param name="fEnd"></param>
-        public Parameters(double z0, double z1, double z2, double z01, double z02, double s21, double l, double fEnd)
+        public Parameters(double z0, double z1, double z2, double z01, double z02, double s21, double l)
         {
             Z0 = z0;
             Z1 = z1;
@@ -92,7 +154,7 @@ namespace GraphicsModule.Models
             Z01 = z01;
             Z02 = z02;
             S21 = s21;
-            L = l * Math.Pow(10, -4);
+            L = l;
 
             FStart = 0.001;
             FEnd = 20;
@@ -105,10 +167,10 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Коэффициент импедансной связи.
         /// </summary>
-        private double GetK()
+        private Complex GetK()
         {
             // k = 10^(-S21/20)
-            double result = (Math.Pow(10, -(S21 / 20)));
+            Complex result = (Complex.Pow(10, -(S21 / 20)));
 
             return result;
         }
@@ -116,18 +178,18 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Характеристический коэффициент k'.
         /// </summary>
-        private double KHatch
-        {           
-            get { return (Math.Sqrt(1 - GetK() * GetK())); }            
+        private Complex KHatch
+        {
+            get { return (Complex.Sqrt(1 - GetK() * GetK())); }
         }
 
         /// <summary>
         /// Коэффициент трансформации(симметрии).
         /// </summary>
-        private double N
+        private Complex N
         {
             // n
-            get { return (Math.Sqrt(Z2 / Z1)); }
+            get { return (Complex.Sqrt(Z2 / Z1)); }
         }
 
         /// <summary>
@@ -137,7 +199,7 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public Complex GetTheta(double currentF)
         {
-            Complex i = Complex.Sqrt(-1);            
+            Complex i = Complex.Sqrt(-1);
             Complex result = ((i * GetOmega(currentF) * Math.Sqrt(Er) * L) / C);
 
             return result;
@@ -148,7 +210,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Номинал нагрузочного резистора Z1c.
         /// </summary>
-        private double Z1c
+        private Complex Z1c
         {
             get { return ((Z0 * KHatch) / (N - GetK())); }
         }
@@ -156,31 +218,31 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Номинал нагрузочного резистора Z1π.
         /// </summary>
-        private double Z1pi
+        private Complex Z1pi
         {
-            get { return Z0 * (1/N - GetK())/KHatch; }
+            get { return Z0 * (1 / N - GetK()) / KHatch; }
         }
 
         /// <summary>
         /// Номинал нагрузочного резистора Z2c.
         /// </summary>
-        private double Z2c
+        private Complex Z2c
         {
-            get { return ((Z0 * KHatch)/(1/N - GetK())); }
+            get { return ((Z0 * KHatch) / (1 / N - GetK())); }
         }
 
         /// <summary>
         /// Номинал нагрузочного резистора Z2π.
         /// </summary>
-        private double Z2pi
+        private Complex Z2pi
         {
-            get { return Z0 * (N - GetK())/KHatch; }
+            get { return Z0 * (N - GetK()) / KHatch; }
         }
 
         /// <summary>
         /// Номинал нагрузочного резистора Zm.
         /// </summary>
-        private double Zm
+        private Complex Zm
         {
             get { return ((Z0 * KHatch) / GetK()); }
         }
@@ -188,7 +250,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Номинал нагрузочного резистора Z12.
         /// </summary>
-        private double Z12
+        private Complex Z12
         {
             get { return ((Z0 * GetK()) / KHatch); }
         }
@@ -196,76 +258,76 @@ namespace GraphicsModule.Models
         #endregion
 
         # region Параметры с тильдами (~)
-        private double W11Tilda
+        private Complex W11Tilda
         {
             get { return ((Z0 * KHatch) / N); }
         }
 
-        private double W22Tilda
+        private Complex W22Tilda
         {
             get { return (Z0 * KHatch * N); }
         }
 
-        private double Rho11Tilda
+        private Complex Rho11Tilda
         {
             get { return (Z0 / (N * KHatch)); }
         }
-        private double Rho22Tilda
+        private Complex Rho22Tilda
         {
             get { return ((Z0 * N) / KHatch); }
         }
 
-        private double UTilda
+        private Complex UTilda
         {
             //get { return ((Z0 * KHatch) / K); }
             //UTilda = Zm
             get => Zm;
         }
 
-        private double RTilda
+        private Complex RTilda
         {
             get { return ((Z0 * GetK()) / KHatch); }
             // RTilda = z12
         }
-        
-        # endregion
 
-        private double Rho11
+        #endregion
+
+        private Complex Rho11
         {
             get { return (Rho11Tilda / Z01); }
         }
 
-        private double Rho22
+        private Complex Rho22
         {
             get { return (Rho22Tilda / Z02); }
         }
 
-        private double R
+        private Complex R
         {
-            get { return (RTilda / Math.Sqrt(Z01 * Z02)); }
+            get { return (RTilda / Complex.Sqrt(Z01 * Z02)); }
         }
 
-        private double W11
+        private Complex W11
         {
             get { return (W11Tilda / Z01); }
         }
 
-        private double W22
+        private Complex W22
         {
             get { return (W22Tilda / Z02); }
         }
 
-        private double V
+        private Complex V
         {
-            get { return (Zm / Math.Sqrt(Z01 * Z02)); }
+            get { return (Zm / Complex.Sqrt(Z01 * Z02)); }
         }
 
         #endregion
 
-        private double GetOmega(double currentF)
+        private Complex GetOmega(Complex currentF)
         {
             // Точно правильно!
-            double result = (2 * Math.PI * currentF * Math.Pow(10, 9));
+            Complex result = (2 * Math.PI * currentF * Complex.Pow(10, 9));
 
             return result;
         }
@@ -286,11 +348,11 @@ namespace GraphicsModule.Models
             Complex sinTheta = Complex.Sin(currentTheta);
             Complex cosTheta = Complex.Cos(currentTheta);
 
-            Complex alpha = Complex.Pow((R - 1 / V) * sinTheta, 2);            
+            Complex alpha = Complex.Pow((R - 1 / V) * sinTheta, 2);
 
-            Complex beta = 2 * cosTheta + i * (Rho11 + 1/W11) * sinTheta;
+            Complex beta = 2 * cosTheta + i * (Rho11 + 1 / W11) * sinTheta;
 
-            Complex gamma = 2 * cosTheta + i * (Rho22 + 1/W22) * sinTheta;
+            Complex gamma = 2 * cosTheta + i * (Rho22 + 1 / W22) * sinTheta;
 
             Complex multiplication = Complex.Multiply(beta, gamma);
 
@@ -308,7 +370,7 @@ namespace GraphicsModule.Models
             Complex sinThetaOfPowerOf2 = Complex.Pow(Complex.Sin(currentTheta), 2);
             Complex sin2Theta = Complex.Sin(2 * currentTheta);
 
-            Complex numerator = -2 * (Rho11/V + R/W11) * sinThetaOfPowerOf2 + i * (R + 1/V) * sin2Theta;
+            Complex numerator = -2 * (Rho11 / V + R / W11) * sinThetaOfPowerOf2 + i * (R + 1 / V) * sin2Theta;
 
             Complex A = GetA(currentF);
 
@@ -402,7 +464,7 @@ namespace GraphicsModule.Models
                 // Фаза
                 float currentPhase = (float)(Math.Atan(currentS21.Imaginary / currentS21.Real) * 180 / Math.PI);
 
-                currentPhase *= (float)Math.Pow(10, 11);
+                //currentPhase *= (float)Math.Pow(10, 11);
 
                 if (counter != 0)
                 {

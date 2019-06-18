@@ -23,10 +23,17 @@ namespace GraphicsModule.Models
                 Color = SKColors.Black
             };
 
+            SKPaint grayPaint = new SKPaint
+            {
+                Style = SKPaintStyle.Fill,
+                Color = SKColors.Gray
+            };
+
             SKPaint redPaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
-                Color = SKColors.Red
+                Color = SKColors.Red,
+                StrokeWidth = 2
             };
 
             SKPaint bluePaint = new SKPaint
@@ -61,6 +68,7 @@ namespace GraphicsModule.Models
             paints.Add("Green Paint", greenPaint);
             paints.Add("Axes Paint", axesPaint);
             paints.Add("Text Paint", textPaint);
+            paints.Add("Gray Paint", grayPaint);
         }
     }
 }

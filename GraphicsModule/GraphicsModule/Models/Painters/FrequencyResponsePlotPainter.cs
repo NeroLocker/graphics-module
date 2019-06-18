@@ -34,12 +34,11 @@ namespace GraphicsModule.Models.Painters
             _parameters = parameters;
             _canvas = canvas;
 
-            _magnitudePointListOfS21 = parameters.GetListOfMagnitudesOfS21();
+            //_magnitudePointListOfS21 = parameters.GetListOfMagnitudesOfS21();
             _magnitudePointListOfS31 = parameters.GetListOfMagnitudesOfS31();
 
             PaintsKeeper keeper = new PaintsKeeper();
 
-            SKPaint bluePaint = keeper.paints["Blue Paint"];
             SKPaint redPaint = keeper.paints["Red Paint"];
 
             float coef = 1.62f;
@@ -54,13 +53,9 @@ namespace GraphicsModule.Models.Painters
 
                 try
                 {
-                    float y = plot.GetCenterPointOfYAxis();
-                    y += _magnitudePointListOfS21[Convert.ToInt32(counter)] * 1;
-                    _canvas.DrawPoint(x, y, plot.BluePaint);
-
-                    y = plot.GetCenterPointOfYAxis();
+                    float y = _plot.GetCenterPointOfYAxis();
                     y+= _magnitudePointListOfS31[Convert.ToInt32(counter)] * 1;
-                    _canvas.DrawPoint(x, y, plot.RedPaint);
+                    _canvas.DrawPoint(x, y, _plot.RedPaint);
                     counter += 0.04f;
                 }
                 catch (ArgumentOutOfRangeException e)

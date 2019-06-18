@@ -21,14 +21,16 @@
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z0Entry"
                        Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand" />
+                       HorizontalOptions="FillAndExpand"
+                       MaxLength="3"/>
                 
                 <Entry Placeholder="S21, дБ"
                        Grid.Column="1"
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="s21Entry"
                        Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand" />
+                       HorizontalOptions="FillAndExpand"
+                       MaxLength="3"/>
             </Grid>
 
             <Grid>
@@ -37,14 +39,16 @@
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z1Entry"
                        Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand" />
+                       HorizontalOptions="FillAndExpand"
+                       MaxLength="3"/>
                 
                 <Entry Placeholder="Z2, Ом"
                        Grid.Column="1"
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z2Entry"
                        Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand" />
+                       HorizontalOptions="FillAndExpand" 
+                       MaxLength="3"/>
             </Grid>
 
             <Grid>
@@ -53,21 +57,21 @@
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="lEntry"
                        Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand" />
-                
-                <Entry Placeholder="fn[0..fn], ГГц"
-                       Grid.Column="1"
-                       FontSize="{StaticResource Key=FontSize}"
-                       x:Name="fnEntry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand" />
+                       HorizontalOptions="FillAndExpand"
+                       MaxLength="3"/>
+                <Label HorizontalOptions="FillAndExpand"
+                       Text=""
+                       Grid.Column="1">
+                    
+                </Label>
+                               
             </Grid>
 
             <Grid>
                 <Button Text="По умолчанию" 
-                        HorizontalOptions="FillAndExpand" 
+                        HorizontalOptions="StartAndExpand" 
                         FontSize="{StaticResource Key=FontSize}" 
-                        Grid.Column="1" 
+                        Grid.Column="0" 
                         Clicked="OnByDefaultButtonClicked"></Button>
             </Grid>
 

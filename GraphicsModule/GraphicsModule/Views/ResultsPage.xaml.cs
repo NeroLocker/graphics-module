@@ -8,7 +8,6 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using GraphicsModule.Models;
 using GraphicsModule.Interfaces;
-using GraphicsModule.Models;
 using GraphicsModule.Models.Painters;
 
 namespace GraphicsModule
@@ -32,30 +31,6 @@ namespace GraphicsModule
             {
                 UserParameters = userParameters;
             }
-        }
-
-        public ResultsPage()
-        {
-            //var z0 = 50;
-            //var z1 = 120;
-            //var z2 = 61;
-            //var z01 = z1;
-            //var z02 = z2;
-            //var s21 = 10;
-            //var l = 4.5E-3;
-            //var fn = 20;
-
-            var z0 = 50;
-            var z1 = 75;
-            var z2 = 50;
-            var z01 = z1;
-            var z02 = z2;
-            var s21 = 3;
-            var l = 7.5E-3;
-            var fn = 20;
-
-            UserParameters = new Parameters(z0, z1, z2, z01, z02, s21, l, fn);
-            InitializeComponent();
         }
   
         /// <summary>

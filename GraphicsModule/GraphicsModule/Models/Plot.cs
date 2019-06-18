@@ -60,6 +60,11 @@ namespace GraphicsModule.Models
         public SKPaint BluePaint { get; private set; }
 
         /// <summary>
+        /// Краска, используемая для отрисовки линий.
+        /// </summary>
+        public SKPaint GrayPaint { get; private set; }
+
+        /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="type">Тип графика.</param>
@@ -83,6 +88,7 @@ namespace GraphicsModule.Models
             PaintsKeeper keeper = new PaintsKeeper();
             RedPaint = keeper.paints["Red Paint"];
             BluePaint = keeper.paints["Blue Paint"];
+            GrayPaint = keeper.paints["Gray Paint"];
         }
 
         public float GetCenterPointOfYAxis()

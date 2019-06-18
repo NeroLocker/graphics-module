@@ -21,19 +21,38 @@ namespace GraphicsModule
         {
             if (CheckFields())
             {
-                var z0 = float.Parse(z0Entry.Text);
-                var z1 = float.Parse(z1Entry.Text);
-                var z2 = float.Parse(z2Entry.Text);
-                var z01 = z1;
-                var z02 = z2;
-                var s21 = float.Parse(s21Entry.Text);
-                var l = float.Parse(lEntry.Text);
-                var fn = float.Parse(fnEntry.Text);
+                if (TryParse())
+                {
+                    var z0 = float.Parse(z0Entry.Text);
+                    var z1 = float.Parse(z1Entry.Text);
+                    var z2 = float.Parse(z2Entry.Text);
+                    var z01 = z1;
+                    var z02 = z2;
+                    var s21 = float.Parse(s21Entry.Text);
+                    var l = float.Parse(lEntry.Text);
 
-                Parameters userParameters = new Parameters(z0, z1, z2, z01, z02, s21, l, fn);
-                await Navigation.PushAsync(new ResultsPage(userParameters));
+                    try
+                    {
+                        Parameters userParameters = new Parameters(z0, z1, z2, z01, z02, s21, l);
+                        await Navigation.PushAsync(new ResultsPage(userParameters));
+                    }
+
+                    catch (ArgumentException)
+                    {
+                        await DisplayAlert("Предупреждение", "Одно из введенных чисел не в допустимом диапазоне", "Ок");
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Предупреждение", "Вы заполнили не все поля", "Ок");
+                }
+
+                
             }
-            
+            else
+            {
+                await DisplayAlert("Предупреждение", "Один из параметров не число", "Ок");
+            }
         }
 
         private void OnByDefaultButtonClicked(object sender, EventArgs e)
@@ -41,10 +60,8 @@ namespace GraphicsModule
             z0Entry.Text = "50";
             z1Entry.Text = "75";
             z2Entry.Text = "50";
-            z2Entry.Text = "75";
             s21Entry.Text = "10";
             lEntry.Text = "75";
-            fnEntry.Text = "20";
         }
 
         /// <summary>
@@ -53,7 +70,28 @@ namespace GraphicsModule
         /// <returns></returns>
         private bool CheckFields()
         {
-            if(z0Entry.Text.Length == 0)
+            if (z0Entry == null)
+            {
+                return false;
+            }
+            if (z1Entry.Text == null)
+            {
+                return false;
+            }
+            if (z2Entry.Text == null)
+            {
+                return false;
+            }
+            if (s21Entry.Text == null)
+            {
+                return false;
+            }
+            if (lEntry.Text == null)
+            {
+                return false;
+            }
+
+            if (z0Entry.Text.Length == 0)
             {
                 return false;
             }
@@ -73,12 +111,29 @@ namespace GraphicsModule
             {
                 return false;
             }
-            if(fnEntry.Text.Length == 0)
-            {
-                return false;
-            }
 
             return true;
         }
+
+
+        private bool TryParse()
+        {
+            try
+            {
+                var z0 = float.Parse(z0Entry.Text);
+                var z1 = float.Parse(z1Entry.Text);
+                var z2 = float.Parse(z2Entry.Text);
+                var s21 = float.Parse(s21Entry.Text);
+                var l = float.Parse(lEntry.Text);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+            
+            return true;
+        }
+
+
     }
 }
