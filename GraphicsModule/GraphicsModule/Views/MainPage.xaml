@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GraphicsModule.MainPage"
-             Title="Введите параметры">
+             Title="Graphics Module v.1.0">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -13,10 +13,23 @@
     
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource Key=StackLayoutPadding}">
+            <Label Text="Схема устройства" 
+                   
+                   FontSize="{StaticResource Key=FontSize}"
+                   HorizontalOptions="StartAndExpand"
+                   />
+            
             <Image Source="coupler.png" HorizontalOptions="Center"></Image>
+
+            <Label Text="Ввод параметров" 
+                   
+                   FontSize="{StaticResource Key=FontSize}"
+                   HorizontalOptions="StartAndExpand"
+                   />
 
             <Grid>
                 <Entry Placeholder="Z0, Ом"
+                       
                        Grid.Column="0"
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z0Entry"
@@ -25,6 +38,7 @@
                        MaxLength="3"/>
                 
                 <Entry Placeholder="S21, дБ"
+                       
                        Grid.Column="1"
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="s21Entry"
@@ -35,6 +49,7 @@
 
             <Grid>
                 <Entry Placeholder="Z1, Ом"
+                       
                        Grid.Column="0"
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z1Entry"
@@ -43,6 +58,7 @@
                        MaxLength="3"/>
                 
                 <Entry Placeholder="Z2, Ом"
+                       
                        Grid.Column="1"
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z2Entry"
@@ -53,6 +69,7 @@
 
             <Grid>
                 <Entry Placeholder="l, мм"
+                       
                        Grid.Column="0"
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="lEntry"
@@ -60,6 +77,7 @@
                        HorizontalOptions="FillAndExpand"
                        MaxLength="3"/>
                 <Label HorizontalOptions="FillAndExpand"
+                       
                        Text=""
                        Grid.Column="1">
                     
@@ -68,7 +86,8 @@
             </Grid>
 
             <Grid>
-                <Button Text="По умолчанию" 
+                <Button Text="По умолчанию"
+                        
                         HorizontalOptions="StartAndExpand" 
                         FontSize="{StaticResource Key=FontSize}" 
                         Grid.Column="0" 
