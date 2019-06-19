@@ -23,13 +23,7 @@ namespace GraphicsModule.Models.Painters
             var firstPointY = frame.GetFirstPointY();
             var secondPointX = frame.GetSecondPointX();
             var secondPointY = frame.GetSecondPointY();
-
-            var paints = new PaintsKeeper();
-
             canvas.DrawRect(firstPointX, firstPointY, secondPointX, secondPointY, frame.Paint);
-
-            //float centerOfYAxis = (firstPointY + secondPointY) / 2f;
-            //canvas.DrawLine(firstPointX, centerOfYAxis, firstPointX + secondPointX, centerOfYAxis, frame.Paint);
         }
     }
 }

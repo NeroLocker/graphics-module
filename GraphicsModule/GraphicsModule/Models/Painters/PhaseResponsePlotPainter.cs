@@ -13,13 +13,6 @@ namespace GraphicsModule.Models.Painters
     /// </summary>
     public class PhaseResponsePlotPainter : IPlotPainter
     {
-        private SKCanvas _canvas;
-        private Plot _plot;
-        private Parameters _parameters;
-
-        //private List<float> _phasePointListOfS21 = new List<float>();
-        private List<float> _phasePointListOfS31 = new List<float>();
-
         /// <summary>
         /// Рисует график.
         /// </summary>
@@ -29,14 +22,12 @@ namespace GraphicsModule.Models.Painters
         public void Paint(Plot plot, Parameters parameters, SKCanvas canvas)
         {
             // ось X
-            _plot = plot;
-            _parameters = parameters;
-            _canvas = canvas;
+            List<float> phasePointListOfS31 = parameters.GetListOfPhasesOfS31();
 
-            _phasePointListOfS31 = parameters.GetListOfPhasesOfS31();
-
-            List<float> sortedPointListOfS31 = _phasePointListOfS31;
+            Parameters parametersClone = (Parameters)parameters.Clone();
+            List<float> sortedPointListOfS31 = parametersClone.GetListOfPhasesOfS31();
             sortedPointListOfS31.Sort();
+
             float maxValue = sortedPointListOfS31[sortedPointListOfS31.Count - 1];
             float minValue = sortedPointListOfS31[0];
 
@@ -47,30 +38,27 @@ namespace GraphicsModule.Models.Painters
 
             float coef = 1.62f;
 
-            int b = 0;
-
             float counter = 1;
-            while (counter <= _plot.SecondPointX)
+            while (counter <= plot.SecondPointX)
             {
-                float x = _plot.FirstPointX;
+                float x = plot.FirstPointX;
                 x += counter * coef;
 
                 try
                 {
-                    float y = _plot.GetCenterPointOfYAxis();
+                    float y = plot.GetCenterPointOfYAxis();
 
-                    
-                    y += _phasePointListOfS31[Convert.ToInt32(counter)];
-                    _canvas.DrawPoint(x, y, _plot.RedPaint);
+                    y += phasePointListOfS31[Convert.ToInt32(counter)];
+                    canvas.DrawPoint(x, y, plot.RedPaint);
 
-                    if (_phasePointListOfS31[Convert.ToInt32(counter)] == maxValue)
+                    if (phasePointListOfS31[Convert.ToInt32(counter)] == maxValue)
                     {
-                        _canvas.DrawLine(x, y, _plot.FirstPointX, y, _plot.GrayPaint);
+                        canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
                     }
 
-                    if (_phasePointListOfS31[Convert.ToInt32(counter)] == minValue)
+                    if (phasePointListOfS31[Convert.ToInt32(counter)] == minValue)
                     {
-                        _canvas.DrawLine(x, y, _plot.FirstPointX, y, _plot.GrayPaint);
+                        canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
                     }
                     counter += 0.04f;
                 }
@@ -78,10 +66,7 @@ namespace GraphicsModule.Models.Painters
                 {
                     break;
                 }
-
             }
-
         }
-
     }
 }

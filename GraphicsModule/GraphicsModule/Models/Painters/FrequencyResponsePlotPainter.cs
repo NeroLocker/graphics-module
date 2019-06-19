@@ -13,14 +13,6 @@ namespace GraphicsModule.Models.Painters
     /// </summary>
     public class FrequencyResponsePlotPainter : IPlotPainter
     {
-        private SKCanvas _canvas;
-        private Plot _plot;
-        private Parameters _parameters;
-
-        private List<float> _magnitudePointListOfS21 = new List<float>();
-
-        private List<float> _magnitudePointListOfS31 = new List<float>();
-
         /// <summary>
         /// Рисует амплитудно-частотную характеристику.
         /// </summary>
@@ -30,42 +22,51 @@ namespace GraphicsModule.Models.Painters
         public void Paint(Plot plot, Parameters parameters, SKCanvas canvas)
         {
             // ось X
-            _plot = plot;
-            _parameters = parameters;
-            _canvas = canvas;
-
+            
             //_magnitudePointListOfS21 = parameters.GetListOfMagnitudesOfS21();
-            _magnitudePointListOfS31 = parameters.GetListOfMagnitudesOfS31();
+            List<float> magnitudePointListOfS31 = parameters.GetListOfMagnitudesOfS31();
+
+            Parameters parametersClone = (Parameters)parameters.Clone();
+            List<float> sortedPointListOfS31 = parametersClone.GetListOfMagnitudesOfS31();
+            sortedPointListOfS31.Sort();
+
+            float maxValue = sortedPointListOfS31[sortedPointListOfS31.Count - 1];
+            float minValue = sortedPointListOfS31[0];
 
             PaintsKeeper keeper = new PaintsKeeper();
 
             SKPaint redPaint = keeper.paints["Red Paint"];
 
             float coef = 1.62f;
-
-            int b = 0;
-
-            float counter = 1;
-            while (counter <= _plot.SecondPointX)
+            float counter = 0;
+            while (counter <= plot.SecondPointX)
             {
-                float x = _plot.FirstPointX;
+                float x = plot.FirstPointX;
                 x += counter * coef;
-
+                
                 try
                 {
-                    float y = _plot.GetCenterPointOfYAxis();
-                    y+= _magnitudePointListOfS31[Convert.ToInt32(counter)] * 1;
-                    _canvas.DrawPoint(x, y, _plot.RedPaint);
+                    float y = plot.GetCenterPointOfYAxis();
+                    y += magnitudePointListOfS31[Convert.ToInt32(counter)] * 1;
+                    canvas.DrawPoint(x, y, plot.RedPaint);
+
+                    if (magnitudePointListOfS31[Convert.ToInt32(counter)] == maxValue)
+                    {
+                        canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
+                    }
+
+                    if (magnitudePointListOfS31[Convert.ToInt32(counter)] == minValue)
+                    {
+                        canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
+                    }
+
                     counter += 0.04f;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
                     break;
                 }
-
             }
-
         }
-
     }
 }

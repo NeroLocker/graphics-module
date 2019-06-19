@@ -8,7 +8,7 @@ namespace GraphicsModule.Models
     /// <summary>
     /// Класс параметров, который содержит все данные, касающиеся расчета.
     /// </summary>
-    public class Parameters
+    public class Parameters : ICloneable
     {
         private float _step = 0.04f;
 
@@ -123,17 +123,17 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Начальная частота Fn.
         /// </summary>
-        public double FStart { get; private set; }
+        private double FStart { get; set; }
 
         /// <summary>
         /// Конечная частота Fn.
         /// </summary>
-        public double FEnd { get; private set; }
+        private double FEnd { get; set; }
 
         /// <summary>
         /// Скорость света.
         /// </summary>
-        public Complex C { get; private set; }
+        private Complex C { get; set; }
 
         /// <summary>
         /// Конструктор, инициализирующий поля класса входными данными пользователя.
@@ -197,7 +197,7 @@ namespace GraphicsModule.Models
         /// </summary>
         /// <param name="currentF"></param>
         /// <returns></returns>
-        public Complex GetTheta(double currentF)
+        private Complex GetTheta(double currentF)
         {
             Complex i = Complex.Sqrt(-1);
             Complex result = ((i * GetOmega(currentF) * Math.Sqrt(Er) * L) / C);
@@ -526,5 +526,10 @@ namespace GraphicsModule.Models
             return phasesList;
         }
         #endregion
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

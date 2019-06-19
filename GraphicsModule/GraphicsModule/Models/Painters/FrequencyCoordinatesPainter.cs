@@ -8,9 +8,9 @@ using SkiaSharp;
 namespace GraphicsModule.Models.Painters
 {   
     /// <summary>
-    /// Отрисовщик координат для фазово-частотной характеристики.
+    /// Отрисовщик координат для амплитудно-частотной характеристики.
     /// </summary>
-    public class PhaseCoordinatesPainter : ICoordinatesPainter
+    public class FrequencyCoordinatesPainter : ICoordinatesPainter
     {
         public void Paint(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {         
@@ -53,7 +53,7 @@ namespace GraphicsModule.Models.Painters
         {
             PaintsKeeper keeper = new PaintsKeeper();
 
-            List<float> pointListOfS31 = parameters.GetListOfPhasesOfS31();
+            List<float> pointListOfS31 = parameters.GetListOfMagnitudesOfS31();
 
             pointListOfS31.Sort();
             float maximumValueOfS31 = pointListOfS31[pointListOfS31.Count - 1];

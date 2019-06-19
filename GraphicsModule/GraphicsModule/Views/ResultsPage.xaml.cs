@@ -38,14 +38,8 @@ namespace GraphicsModule
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
+        private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
-            IPlotPainter phaseResponsePlotPainter = new PhaseResponsePlotPainter();
-            IPlotPainter frequencyResponsePlotPainter = new FrequencyResponsePlotPainter();
-            IRestrictiveFramePainter concreteFramePainter = new ConcreteFramePainter();
-            ICoordinatesPainter phaseCoordinatesPainter = new PhaseCoordinatesPainter();        
-            ICoordinatesPainter frequencyCoordinatesPainter = new PhaseCoordinatesPainter();        
-
             SKCanvas canvas = args.Surface.Canvas;
             canvas.Clear();
            
@@ -54,7 +48,7 @@ namespace GraphicsModule
             
             if (FrequencyResponseSwitch.IsToggled)
             {
-                WorkingSpace workingSpace = new WorkingSpace(frequencyResponsePlotPainter, concreteFramePainter, phaseCoordinatesPainter, canvas);
+                WorkingSpace workingSpace = new WorkingSpace(new FrequencyResponsePlotPainter(), new ConcreteFramePainter(), new FrequencyCoordinatesPainter(), canvas);
 
                 Plot plot = new Plot(PlotType.FrequencyResponse, frame, 2f);
                 Coordinates coordinates = new Coordinates(plot.Type);
@@ -66,7 +60,7 @@ namespace GraphicsModule
 
             if (PhaseResponseSwitch.IsToggled)
             {
-                WorkingSpace workingSpace = new WorkingSpace(phaseResponsePlotPainter, concreteFramePainter, phaseCoordinatesPainter, canvas);
+                WorkingSpace workingSpace = new WorkingSpace(new PhaseResponsePlotPainter(), new ConcreteFramePainter(), new PhaseCoordinatesPainter(), canvas);
 
                 Plot plot = new Plot(PlotType.PhaseResponse, frame, 2f);
                 Coordinates coordinates = new Coordinates(plot.Type);

@@ -74,17 +74,13 @@ namespace GraphicsModule.Models
         public Plot(PlotType type, RestrictiveFrame frame, float lineThickness)
         {
             Type = type;
-
-
             Frame = frame;
             FirstPointX = Frame.GetFirstPointX();
             FirstPointY = Frame.GetFirstPointY();
             // Странно работает здесь
             SecondPointX = Frame.GetFirstPointX() + Frame.GetSecondPointX();
             SecondPointY = Frame.GetFirstPointY() + Frame.GetSecondPointY();
-
             LineThickness = lineThickness;
-
             PaintsKeeper keeper = new PaintsKeeper();
             RedPaint = keeper.paints["Red Paint"];
             BluePaint = keeper.paints["Blue Paint"];
