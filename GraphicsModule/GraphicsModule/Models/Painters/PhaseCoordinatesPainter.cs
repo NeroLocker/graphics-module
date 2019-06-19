@@ -53,12 +53,6 @@ namespace GraphicsModule.Models.Painters
         {
             PaintsKeeper keeper = new PaintsKeeper();
 
-            List<float> pointListOfS31 = parameters.GetListOfPhasesOfS31();
-
-            pointListOfS31.Sort();
-            float maximumValueOfS31 = pointListOfS31[pointListOfS31.Count - 1];
-            float minimumValueOfS31 = pointListOfS31[0];
-
             // отрисовка
             float margin = 0.6f;
 
@@ -85,15 +79,6 @@ namespace GraphicsModule.Models.Painters
                 valueToShow += 30;
                 currentPoint += 30;
             }
-
-            float shiftForMaxMinValues = frame.GetFirstPointX() + frame.GetFirstPointX() * 0.3f;
-            // max
-            canvas.DrawText($"{minimumValueOfS31.ToString("#")}", shiftForMaxMinValues, centerOfYAxis + minimumValueOfS31, keeper.paints["Text Paint"]);
-            //canvas.DrawLine(frame.GetFirstPointX(), centerOfYAxis + minimumValueOfS31, frame.GetFirstPointY() + frame.GetSecondPointY(), centerOfYAxis + minimumValueOfS31, frame.Paint);
-
-
-            // min
-            canvas.DrawText($"{maximumValueOfS31.ToString("#")}", shiftForMaxMinValues, centerOfYAxis + maximumValueOfS31, keeper.paints["Text Paint"]);
 
             // Название
             shift -= frame.GetFirstPointX() * 0.15f;
