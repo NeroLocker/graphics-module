@@ -31,12 +31,12 @@ namespace GraphicsModule.Models.Painters
             float maxValue = sortedPointListOfS31[sortedPointListOfS31.Count - 1];
             float minValue = sortedPointListOfS31[0];
 
-            PaintsKeeper keeper = new PaintsKeeper();
-
-            SKPaint bluePaint = keeper.paints["Blue Paint"];
-            SKPaint redPaint = keeper.paints["Red Paint"];
-
             float coef = 1.62f;
+
+            float markpointX = plot.SecondPointX / 4;
+            float markpointY = plot.SecondPointY / 4;
+
+            canvas.DrawText("|S31|", markpointX, markpointY, plot.TextPaint);
 
             float counter = 1;
             while (counter <= plot.SecondPointX)

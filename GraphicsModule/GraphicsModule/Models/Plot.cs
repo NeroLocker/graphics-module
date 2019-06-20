@@ -64,6 +64,8 @@ namespace GraphicsModule.Models
         /// </summary>
         public SKPaint GrayPaint { get; private set; }
 
+        public SKPaint TextPaint { get; private set; }
+
         /// <summary>
         /// Конструктор.
         /// </summary>
@@ -85,6 +87,8 @@ namespace GraphicsModule.Models
             RedPaint = keeper.paints["Red Paint"];
             BluePaint = keeper.paints["Blue Paint"];
             GrayPaint = keeper.paints["Gray Paint"];
+
+            TextPaint = keeper.paints["Text Paint"];
         }
 
         public float GetCenterPointOfYAxis()
