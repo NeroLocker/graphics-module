@@ -199,8 +199,8 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         private Complex GetTheta(double currentF)
         {
-            Complex i = Complex.Sqrt(-1);
-            Complex result = ((i * GetOmega(currentF) * Math.Sqrt(Er) * L) / C);
+            
+            Complex result = ((GetOmega(currentF) * Math.Sqrt(Er) * L) / C);
 
             return result;
         }
