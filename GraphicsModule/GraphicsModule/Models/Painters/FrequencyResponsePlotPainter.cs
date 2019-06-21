@@ -38,13 +38,19 @@ namespace GraphicsModule.Models.Painters
 
             canvas.DrawText("|S31|", markpointX, markpointY, plot.TextPaint);
 
-            float coef = 1.62f;
+
+            // Помечаем нулевую отметку на оси Y
+            canvas.DrawLine(plot.FirstPointX, plot.GetCenterPointOfYAxis(), plot.SecondPointX, plot.GetCenterPointOfYAxis(), plot.TextPaint);
+
+            //float coef = 1.62f;
+            float coef = 1f;
+
             float counter = 0;
             while (counter <= plot.SecondPointX)
             {
                 float x = plot.FirstPointX;
-                x += counter * coef;
-                
+                x += counter;
+
                 try
                 {
                     float y = plot.GetCenterPointOfYAxis();
@@ -63,11 +69,12 @@ namespace GraphicsModule.Models.Painters
 
                     counter += 0.04f;
                 }
-                catch (ArgumentOutOfRangeException e)
+                catch (ArgumentOutOfRangeException)
                 {
                     break;
                 }
             }
+
         }
     }
 }

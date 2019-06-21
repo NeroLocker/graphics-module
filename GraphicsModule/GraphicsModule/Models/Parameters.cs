@@ -199,7 +199,7 @@ namespace GraphicsModule.Models
         private Complex GetK()
         {
             // k = 10^(-S21/20)
-            Complex result = (Complex.Pow(10, -(S21 / 20)));
+            Complex result = Complex.Pow(10, -(S21 / 20));
 
             return result;
         }
@@ -209,7 +209,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private Complex KHatch
         {
-            get { return (Complex.Sqrt(1 - GetK() * GetK())); }
+            get { return Complex.Sqrt(1 - GetK() * GetK()); }
         }
 
         /// <summary>
@@ -228,7 +228,6 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         private Complex GetTheta(double currentF)
         {
-            
             Complex result = ((GetOmega(currentF) * Math.Sqrt(Er) * L) / C);
 
             return result;
@@ -377,7 +376,12 @@ namespace GraphicsModule.Models
             Complex sinTheta = Complex.Sin(currentTheta);
             Complex cosTheta = Complex.Cos(currentTheta);
 
-            Complex alpha = Complex.Pow((R - 1 / V) * sinTheta, 2);
+            Complex a = Complex.Pow(R - 1/V, 2);
+            Complex b = Complex.Pow(Complex.Sin(currentTheta), 2);
+
+            //Complex alpha = Complex.Pow((R - 1 / V) * sinTheta, 2);
+
+            Complex alpha = Complex.Multiply(a, b);
 
             Complex beta = 2 * cosTheta + i * (Rho11 + 1 / W11) * sinTheta;
 
@@ -556,6 +560,10 @@ namespace GraphicsModule.Models
         }
         #endregion
 
+        /// <summary>
+        /// Возвращает клон объекта.
+        /// </summary>
+        /// <returns></returns>
         public object Clone()
         {
             return this.MemberwiseClone();
