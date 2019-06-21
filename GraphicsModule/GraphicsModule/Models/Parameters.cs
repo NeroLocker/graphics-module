@@ -10,6 +10,9 @@ namespace GraphicsModule.Models
     /// </summary>
     public class Parameters : ICloneable
     {
+        /// <summary>
+        /// Шаг расчета параметров.
+        /// </summary>
         private float _step = 0.04f;
 
         // Может быть больше единицы
@@ -22,10 +25,15 @@ namespace GraphicsModule.Models
         /// Коэффициент импедансной связи.
         /// </summary>
         private Complex _k;
+
         private Complex _z0;
+
         private Complex _z1;
+
         private Complex _z2;
+
         private Complex _s21;
+
         private Complex _l;
 
         /// <summary>
@@ -38,13 +46,14 @@ namespace GraphicsModule.Models
             {
                 if (!(value.Real >= 40 && value.Real <= 70))
                 {
-                    throw new ArgumentException("Not in range");
+                    throw new ArgumentException("Value is not in valid range");
                 }
 
                 if (value == null)
                 {
-                    throw new ArgumentNullException("Don't do it");
+                    throw new ArgumentNullException("Value can not be null");
                 }
+
                 _z0 = value;
             }
         }
@@ -54,15 +63,20 @@ namespace GraphicsModule.Models
         /// </summary>
         public Complex Z1
         {
-            get => _z1; private set
+            get => _z1;
+            private set
             {
                 if (!(value.Real >= 30 && value.Real <= 80))
                 {
-                    throw new ArgumentException("Not in range");
+                    throw new ArgumentException("Value is not in valid range");
+                }
+
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Value can not be null");
                 }
 
                 _z1 = value;
-
             }
         }
 
@@ -76,7 +90,12 @@ namespace GraphicsModule.Models
             {
                 if (!(value.Real >= 30 && value.Real <= 80))
                 {
-                    throw new ArgumentException("Not in range");
+                    throw new ArgumentException("Value is not in valid range");
+                }
+
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Value can not be null");
                 }
 
                 _z2 = value;
@@ -102,7 +121,12 @@ namespace GraphicsModule.Models
             {
                 if (!(value.Real >= 3 && value.Real <= 10))
                 {
-                    throw new ArgumentException("Not in range");
+                    throw new ArgumentException("Value is not in valid range");
+                }
+
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Value can not be null");
                 }
 
                 _s21 = value;
@@ -115,7 +139,12 @@ namespace GraphicsModule.Models
         public Complex L { get => _l; private set {
                 if (!(value.Real >= 45 && value.Real <= 75))
                 {
-                    throw new ArgumentException("Not in range");
+                    throw new ArgumentException("Value is not in valid range");
+                }
+
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Value can not be null");
                 }
 
                 _l = value * Math.Pow(10, -4); } }
