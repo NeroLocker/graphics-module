@@ -57,11 +57,11 @@ namespace GraphicsModule
 
         private void OnByDefaultButtonClicked(object sender, EventArgs e)
         {
-            z0Entry.Text = "50";
+            z0Entry.Text = "61";
             z1Entry.Text = "75";
             z2Entry.Text = "50";
-            s21Entry.Text = "10";
-            lEntry.Text = "75";
+            s21Entry.Text = "5";
+            lEntry.Text = "15";
         }
 
         /// <summary>

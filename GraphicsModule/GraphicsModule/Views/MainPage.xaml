@@ -34,7 +34,7 @@
                        HorizontalOptions="FillAndExpand"
                        MaxLength="3"/>
                 
-                <Entry Placeholder="S21, дБ"                       
+                <Entry Placeholder="|S21|, дБ"                       
                        Grid.Column="1"
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="s21Entry"

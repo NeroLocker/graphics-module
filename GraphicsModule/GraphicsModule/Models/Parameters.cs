@@ -19,7 +19,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Диэлектрическая проницаемость среды.
         /// </summary>
-        private double Er = 2.8f;
+        private double Er = 1f;
 
         /// <summary>
         /// Коэффициент импедансной связи.
@@ -193,23 +193,15 @@ namespace GraphicsModule.Models
 
         # region Параметры, вычисляемые формулами
 
-        /// <summary>
-        /// Коэффициент импедансной связи.
-        /// </summary>
-        private Complex GetK()
-        {
-            // k = 10^(-S21/20)
-            Complex result = Complex.Pow(10, -(S21 / 20));
-
-            return result;
-        }
 
         /// <summary>
-        /// Характеристический коэффициент k'.
+        /// Возвращает характеристический коэффициент k'.
         /// </summary>
-        private Complex KHatch
+        private Complex GetKHatch()
         {
-            get { return Complex.Sqrt(1 - GetK() * GetK()); }
+            Complex kHatch = Complex.Sqrt(1 - GetK() * GetK());
+
+            return kHatch;
         }
 
         /// <summary>
@@ -221,17 +213,6 @@ namespace GraphicsModule.Models
             get { return (Complex.Sqrt(Z2 / Z1)); }
         }
 
-        /// <summary>
-        /// Электрическая длина отрезка СЛ.
-        /// </summary>
-        /// <param name="currentF"></param>
-        /// <returns></returns>
-        private Complex GetTheta(double currentF)
-        {
-            Complex result = ((GetOmega(currentF) * Math.Sqrt(Er) * L) / C);
-
-            return result;
-        }
 
         # region Нагрузочные резисторы
 
@@ -240,7 +221,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private Complex Z1c
         {
-            get { return ((Z0 * KHatch) / (N - GetK())); }
+            get { return ((Z0 * GetKHatch()) / (N - GetK())); }
         }
 
         /// <summary>
@@ -248,7 +229,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private Complex Z1pi
         {
-            get { return Z0 * (1 / N - GetK()) / KHatch; }
+            get { return Z0 * (1 / N - GetK()) / GetKHatch(); }
         }
 
         /// <summary>
@@ -256,7 +237,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private Complex Z2c
         {
-            get { return ((Z0 * KHatch) / (1 / N - GetK())); }
+            get { return ((Z0 * GetKHatch()) / (1 / N - GetK())); }
         }
 
         /// <summary>
@@ -264,7 +245,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private Complex Z2pi
         {
-            get { return Z0 * (N - GetK()) / KHatch; }
+            get { return Z0 * (N - GetK()) / GetKHatch(); }
         }
 
         /// <summary>
@@ -272,7 +253,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private Complex Zm
         {
-            get { return ((Z0 * KHatch) / GetK()); }
+            get { return ((Z0 * GetKHatch()) / GetK()); }
         }
 
         /// <summary>
@@ -280,7 +261,7 @@ namespace GraphicsModule.Models
         /// </summary>
         private Complex Z12
         {
-            get { return ((Z0 * GetK()) / KHatch); }
+            get { return ((Z0 * GetK()) / GetKHatch()); }
         }
 
         #endregion
@@ -288,21 +269,21 @@ namespace GraphicsModule.Models
         # region Параметры с тильдами (~)
         private Complex W11Tilda
         {
-            get { return ((Z0 * KHatch) / N); }
+            get { return ((Z0 * GetKHatch()) / N); }
         }
 
         private Complex W22Tilda
         {
-            get { return (Z0 * KHatch * N); }
+            get { return (Z0 * GetKHatch() * N); }
         }
 
         private Complex Rho11Tilda
         {
-            get { return (Z0 / (N * KHatch)); }
+            get { return (Z0 / (N * GetKHatch())); }
         }
         private Complex Rho22Tilda
         {
-            get { return ((Z0 * N) / KHatch); }
+            get { return ((Z0 * N) / GetKHatch()); }
         }
 
         private Complex UTilda
@@ -314,7 +295,7 @@ namespace GraphicsModule.Models
 
         private Complex RTilda
         {
-            get { return ((Z0 * GetK()) / KHatch); }
+            get { return ((Z0 * GetK()) / GetKHatch()); }
             // RTilda = z12
         }
 
@@ -352,12 +333,39 @@ namespace GraphicsModule.Models
 
         #endregion
 
+        /// <summary>
+        /// Возвращает значение ω для текущего fn.
+        /// </summary>
+        /// <param name="currentF"></param>
+        /// <returns></returns>
         private Complex GetOmega(Complex currentF)
         {
-            // Точно правильно!
-            Complex result = (2 * Math.PI * currentF * Complex.Pow(10, 9));
+            Complex omega = (2 * Math.PI * currentF * Complex.Pow(10, 9));
 
-            return result;
+            return omega;
+        }
+
+        /// <summary>
+        /// Возвращает электрическую длину отрезка СЛ (рад).
+        /// </summary>
+        /// <param name="currentF"></param>
+        /// <returns></returns>
+        private Complex GetTheta(double currentF)
+        {
+            Complex theta = ((GetOmega(currentF) * Math.Sqrt(Er) * L) / C);
+
+            return theta;
+        }
+
+        /// <summary>
+        /// Возвращает коэффициент импедансной связи.
+        /// </summary>
+        private Complex GetK()
+        {
+            // k = 10^(-S21/20)
+            Complex k = Complex.Pow(10, -S21/20);
+
+            return k;
         }
 
         # region S-параметры
