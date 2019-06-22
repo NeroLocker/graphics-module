@@ -199,7 +199,8 @@ namespace GraphicsModule.Models
         /// </summary>
         private Complex GetKHatch()
         {
-            Complex kHatch = Complex.Sqrt(1 - GetK() * GetK());
+            Complex k = GetK();
+            Complex kHatch = Complex.Sqrt(1 - Complex.Pow(k, 2));
 
             return kHatch;
         }
@@ -352,7 +353,9 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         private Complex GetTheta(double currentF)
         {
-            Complex theta = ((GetOmega(currentF) * Math.Sqrt(Er) * L) / C);
+            Complex omega = GetOmega(currentF);
+
+            Complex theta = ((omega * Math.Sqrt(Er) * L) / C);
 
             return theta;
         }
