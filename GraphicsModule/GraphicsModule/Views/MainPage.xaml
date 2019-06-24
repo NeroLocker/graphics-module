@@ -26,10 +26,10 @@
                    />
 
             <Grid>
-                <Entry Placeholder="Z0, Ом"                       
+                <Entry Placeholder="Zo, Ом"                       
                        Grid.Column="0"
                        FontSize="{StaticResource Key=FontSize}"
-                       x:Name="z0Entry"
+                       x:Name="zoEntry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
                        MaxLength="3"/>

@@ -23,7 +23,7 @@ namespace GraphicsModule
             {
                 if (TryParse())
                 {
-                    var z0 = float.Parse(z0Entry.Text);
+                    var zo = float.Parse(zoEntry.Text);
                     var z1 = float.Parse(z1Entry.Text);
                     var z2 = float.Parse(z2Entry.Text);
                     var z01 = z1;
@@ -33,7 +33,7 @@ namespace GraphicsModule
 
                     try
                     {
-                        Parameters userParameters = new Parameters(z0, z1, z2, z01, z02, s21, l);
+                        Parameters userParameters = new Parameters(zo, z1, z2, z01, z02, s21, l);
                         await Navigation.PushAsync(new ResultsPage(userParameters));
                     }
 
@@ -57,7 +57,7 @@ namespace GraphicsModule
 
         private void OnByDefaultButtonClicked(object sender, EventArgs e)
         {
-            z0Entry.Text = "61";
+            zoEntry.Text = "61";
             z1Entry.Text = "75";
             z2Entry.Text = "50";
             s21Entry.Text = "5";
@@ -70,7 +70,7 @@ namespace GraphicsModule
         /// <returns></returns>
         private bool CheckFields()
         {
-            if (z0Entry == null)
+            if (zoEntry == null)
             {
                 return false;
             }
@@ -91,7 +91,7 @@ namespace GraphicsModule
                 return false;
             }
 
-            if (z0Entry.Text.Length == 0)
+            if (zoEntry.Text.Length == 0)
             {
                 return false;
             }
@@ -120,7 +120,7 @@ namespace GraphicsModule
         {
             try
             {
-                var z0 = float.Parse(z0Entry.Text);
+                var z0 = float.Parse(zoEntry.Text);
                 var z1 = float.Parse(z1Entry.Text);
                 var z2 = float.Parse(z2Entry.Text);
                 var s21 = float.Parse(s21Entry.Text);
