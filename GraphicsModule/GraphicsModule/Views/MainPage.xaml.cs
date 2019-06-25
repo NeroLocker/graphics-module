@@ -23,17 +23,19 @@ namespace GraphicsModule
             {
                 if (TryParse())
                 {
-                    var zo = float.Parse(zoEntry.Text);
+                    var fMin = float.Parse(fMinEntry.Text);
+                    var fMax = float.Parse(fMaxEntry.Text);
+                    var l = float.Parse(lEntry.Text);
+                    var eR = float.Parse(eREntry.Text);
+                    var s21 = float.Parse(s21Entry.Text);
+                    var z01 = float.Parse(z01Entry.Text);
+                    var z02 = float.Parse(z02Entry.Text);
                     var z1 = float.Parse(z1Entry.Text);
                     var z2 = float.Parse(z2Entry.Text);
-                    var z01 = z1;
-                    var z02 = z2;
-                    var s21 = float.Parse(s21Entry.Text);
-                    var l = float.Parse(lEntry.Text);
 
                     try
                     {
-                        Parameters userParameters = new Parameters(zo, z1, z2, z01, z02, s21, l);
+                        Parameters userParameters = new Parameters(fMin, fMax, l, eR, s21, z01, z02, z1, z2);
                         await Navigation.PushAsync(new ResultsPage(userParameters));
                     }
 
@@ -57,11 +59,15 @@ namespace GraphicsModule
 
         private void OnByDefaultButtonClicked(object sender, EventArgs e)
         {
-            zoEntry.Text = "61";
-            z1Entry.Text = "75";
-            z2Entry.Text = "50";
-            s21Entry.Text = "5";
+            fMinEntry.Text = "0";
+            fMaxEntry.Text = "20";
             lEntry.Text = "15";
+            eREntry.Text = "1";
+            z1Entry.Text = "57";
+            z2Entry.Text = "29";
+            z01Entry.Text = "50";
+            z02Entry.Text = "25";
+            s21Entry.Text = "3";            
         }
 
         /// <summary>
@@ -70,7 +76,20 @@ namespace GraphicsModule
         /// <returns></returns>
         private bool CheckFields()
         {
-            if (zoEntry == null)
+            # region Проверка на null
+            if (fMinEntry == null)
+            {
+                return false;
+            }
+            if (fMaxEntry.Text == null)
+            {
+                return false;
+            }
+            if (lEntry.Text == null)
+            {
+                return false;
+            }
+            if (eREntry.Text == null)
             {
                 return false;
             }
@@ -82,20 +101,38 @@ namespace GraphicsModule
             {
                 return false;
             }
+            if (z01Entry.Text == null)
+            {
+                return false;
+            }
+            if (z02Entry.Text == null)
+            {
+                return false;
+            }
             if (s21Entry.Text == null)
             {
                 return false;
-            }
-            if (lEntry.Text == null)
-            {
-                return false;
-            }
+            }            
+            # endregion
 
-            if (zoEntry.Text.Length == 0)
+            # region Проверка на длину строки
+            if (fMinEntry.Text.Length == 0)
             {
                 return false;
             }
-            if(z1Entry.Text.Length == 0)
+            if (fMaxEntry.Text.Length == 0)
+            {
+                return false;
+            }
+            if (z01Entry.Text.Length == 0)
+            {
+                return false;
+            }
+            if (z02Entry.Text.Length == 0)
+            {
+                return false;
+            }
+            if (z1Entry.Text.Length == 0)
             {
                 return false;
             }
@@ -111,6 +148,11 @@ namespace GraphicsModule
             {
                 return false;
             }
+            if (eREntry.Text.Length == 0)
+            {
+                return false;
+            }
+            # endregion
 
             return true;
         }
@@ -120,11 +162,15 @@ namespace GraphicsModule
         {
             try
             {
-                var z0 = float.Parse(zoEntry.Text);
+                var fMin = float.Parse(fMinEntry.Text);
+                var fMax = float.Parse(fMaxEntry.Text);
+                var l = float.Parse(lEntry.Text);
+                var eR = float.Parse(eREntry.Text);
+                var s21 = float.Parse(s21Entry.Text);
+                var z01 = float.Parse(z01Entry.Text);
+                var z02 = float.Parse(z02Entry.Text);
                 var z1 = float.Parse(z1Entry.Text);
                 var z2 = float.Parse(z2Entry.Text);
-                var s21 = float.Parse(s21Entry.Text);
-                var l = float.Parse(lEntry.Text);
             }
             catch (FormatException)
             {
@@ -133,7 +179,5 @@ namespace GraphicsModule
             
             return true;
         }
-
-
     }
 }

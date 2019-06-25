@@ -24,26 +24,39 @@ namespace GraphicsModule.Models.Painters
             // ось X
             
             //_magnitudePointListOfS21 = parameters.GetListOfMagnitudesOfS21();
-            List<float> magnitudePointListOfS31 = parameters.GetListOfMagnitudesOfS31();
+            List<float> magnitudePointListOfS12 = new List<float>();
+            List<float> sortedPointListOfS12 = new List<float>();
+
+
+            float counter1 = 0;
+            while(counter1 < parameters.Fmax)
+            {
+                magnitudePointListOfS12.Add(parameters.GetMagnitude(ParameterType.S12, counter1));
+                counter1 += 0.04f;
+            }
+            for (float i = (float)parameters.Fmin; i < (float)parameters.Fmax; i++)
+            {
+                
+            }
 
             Parameters parametersClone = (Parameters)parameters.Clone();
-            List<float> sortedPointListOfS31 = parametersClone.GetListOfMagnitudesOfS31();
-            sortedPointListOfS31.Sort();
+            for (float i = (float)parameters.Fmin; i < (float)parameters.Fmax; i++)
+            {
+                sortedPointListOfS12.Add(parametersClone.GetMagnitude(ParameterType.S12, i));
+            }
+            sortedPointListOfS12.Sort();
 
-            float maxValue = sortedPointListOfS31[sortedPointListOfS31.Count - 1];
-            float minValue = sortedPointListOfS31[0];
+            float maxValue = sortedPointListOfS12[sortedPointListOfS12.Count - 1];
+            float minValue = sortedPointListOfS12[0];
 
             float markpointX = plot.SecondPointX / 4;
             float markpointY = plot.SecondPointY / 4;
 
-            canvas.DrawText("|S31|", markpointX, markpointY, plot.TextPaint);
+            canvas.DrawText("|S12|", markpointX, markpointY, plot.TextPaint);
 
 
             // Помечаем нулевую отметку на оси Y
             canvas.DrawLine(plot.FirstPointX, plot.GetCenterPointOfYAxis(), plot.SecondPointX, plot.GetCenterPointOfYAxis(), plot.TextPaint);
-
-            //float coef = 1.62f;
-            float coef = 1f;
 
             float counter = 0;
             while (counter <= plot.SecondPointX)
@@ -54,18 +67,18 @@ namespace GraphicsModule.Models.Painters
                 try
                 {
                     float y = plot.GetCenterPointOfYAxis();
-                    y += magnitudePointListOfS31[Convert.ToInt32(counter)] * 1;
+                    y += magnitudePointListOfS12[Convert.ToInt32(counter)];
                     canvas.DrawPoint(x, y, plot.RedPaint);
 
-                    if (magnitudePointListOfS31[Convert.ToInt32(counter)] == maxValue)
-                    {
-                        canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
-                    }
+                    //if (magnitudePointListOfS12[Convert.ToInt32(counter)] == maxValue)
+                    //{
+                    //    canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
+                    //}
 
-                    if (magnitudePointListOfS31[Convert.ToInt32(counter)] == minValue)
-                    {
-                        canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
-                    }
+                    //if (magnitudePointListOfS12[Convert.ToInt32(counter)] == minValue)
+                    //{
+                    //    canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
+                    //}
 
                     counter += 0.04f;
                 }

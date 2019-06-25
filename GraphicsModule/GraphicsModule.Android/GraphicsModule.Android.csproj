@@ -96,15 +96,14 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\coupler.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphicsModule\GraphicsModule.csproj">
       <Project>{F8941BD4-1356-4CF5-BF73-1E2B6EF9D9EE}</Project>
       <Name>GraphicsModule</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\coupler.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.png" />

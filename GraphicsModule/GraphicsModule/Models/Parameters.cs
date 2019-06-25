@@ -44,7 +44,7 @@ namespace GraphicsModule.Models
             get => _z1;
             private set
             {
-                if (!(value.Real >= 30 && value.Real <= 80))
+                if (!(value.Real >= 1 && value.Real <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -66,7 +66,7 @@ namespace GraphicsModule.Models
             get => _z2; 
             private set
             {
-                if (!(value.Real >= 30 && value.Real <= 80))
+                if (!(value.Real >= 1 && value.Real <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -97,7 +97,7 @@ namespace GraphicsModule.Models
         {
             get => _s21; private set
             {
-                if (!(value.Real >= 3 && value.Real <= 10))
+                if (!(value.Real >= 2 && value.Real <= 10))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -115,7 +115,7 @@ namespace GraphicsModule.Models
         /// Геометрическая длина схемы отрезка СЛ.
         /// </summary>
         public Complex L { get => _l; private set {
-                if (!(value.Real >= 45 && value.Real <= 75))
+                if (!(value.Real >= 10 && value.Real <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -130,12 +130,12 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Начальная частота Fi.
         /// </summary>
-        private double Fmin { get; set; }
+        public double Fmin { get; private set; }
 
         /// <summary>
         /// Конечная частота Fi.
         /// </summary>
-        private double Fmax { get; set; }
+        public double Fmax { get; private set; }
 
         /// <summary>
         /// Скорость света.
@@ -364,7 +364,7 @@ namespace GraphicsModule.Models
         /// </summary>
         /// <param name="currentF">Текущая частота.</param>
         /// <returns>Параметр A.</returns>
-        private Complex GetA(double currentF)
+        public Complex GetA(double currentF)
         {
             Complex r = GetR();
             Complex v = GetV();
@@ -554,118 +554,206 @@ namespace GraphicsModule.Models
 
             return s14;
         }
-       
-        public List<float> GetListOfMagnitudesOfS21()
+
+        /// <summary>
+        /// Возвращает модуль определенного S-параметра для текущего Fi.
+        /// </summary>
+        /// <param name="type">Тип S-параметра.</param>
+        /// <param name="currentF">Текущая частота.</param>
+        /// <returns></returns>
+        public float GetMagnitude(ParameterType type, double currentF)
         {
-            List<float> magnitudesList = new List<float>();
+            float currentMagnitude;
 
-            float counter = (float)Fmin;
-            while (counter <= (float)Fmax)
+            switch (type)
             {
-                Complex currentS21 = GetS21(counter);
-
-                // Модуль
-                float currentMagnitude = (float)(20 * Math.Log10(currentS21.Magnitude));
-                magnitudesList.Add(currentMagnitude);
-                counter += _step;
+                case ParameterType.S11:
+                    Complex s11 = GetS11(currentF);
+                    currentMagnitude = (float)(20 * Math.Log10(s11.Magnitude));
+                    break;
+                case ParameterType.S22:
+                    Complex s22 = GetS22(currentF);
+                    currentMagnitude = (float)(20 * Math.Log10(s22.Magnitude));
+                    break;
+                case ParameterType.S12:
+                    Complex s12 = GetS12(currentF);
+                    currentMagnitude = (float)(20 * Math.Log10(s12.Magnitude));
+                    break;
+                case ParameterType.S13:
+                    Complex s13 = GetS13(currentF);
+                    currentMagnitude = (float)(20 * Math.Log10(s13.Magnitude));
+                    break;
+                case ParameterType.S24:
+                    Complex s24 = GetS24(currentF);
+                    currentMagnitude = (float)(20 * Math.Log10(s24.Magnitude));
+                    break;
+                case ParameterType.S14:
+                    Complex s14 = GetS14(currentF);
+                    currentMagnitude = (float)(20 * Math.Log10(s14.Magnitude));
+                    break;
+                default:
+                    throw new InvalidOperationException("Type is not valid.");
             }
 
-            return magnitudesList;
+            return currentMagnitude;          
         }
 
-        public List<float> GetListOfMagnitudesOfS31()
+        /// <summary>
+        /// Возвращает фазу определенного S-параметра для текущего Fi.
+        /// </summary>
+        /// <param name="type">Тип S-параметра.</param>
+        /// <param name="currentF">Текущая частота.</param>
+        /// <returns></returns>
+        public float GetPhase(ParameterType type, double currentF)
         {
-            List<float> magnitudesList = new List<float>();
+            float currentPhase;
 
-            float counter = (float)Fmin;
-            while (counter <= (float)Fmax)
+            switch (type)
             {
-                Complex currentS31 = GetS31(counter);
-
-                // Модуль
-                float currentMagnitude = (float)(20 * Math.Log10(currentS31.Magnitude));
-                magnitudesList.Add(currentMagnitude);
-                counter += _step;
+                case ParameterType.S11:
+                    Complex s11 = GetS11(currentF);
+                    currentPhase = (float)(s11.Phase * 180 / Math.PI);
+                    break;
+                case ParameterType.S22:
+                    Complex s22 = GetS22(currentF);
+                    currentPhase = (float)(s22.Phase * 180 / Math.PI);
+                    break;
+                case ParameterType.S12:
+                    Complex s12 = GetS12(currentF);
+                    currentPhase = (float)(s12.Phase * 180 / Math.PI);
+                    break;
+                case ParameterType.S13:
+                    Complex s13 = GetS13(currentF);
+                    currentPhase = (float)(s13.Phase * 180 / Math.PI);
+                    break;
+                case ParameterType.S24:
+                    Complex s24 = GetS24(currentF);
+                    currentPhase = (float)(s24.Phase * 180 / Math.PI);
+                    break;
+                case ParameterType.S14:
+                    Complex s14 = GetS14(currentF);
+                    currentPhase = (float)(s14.Phase * 180 / Math.PI);
+                    break;
+                default:
+                    throw new InvalidOperationException("Type is not valid.");
             }
 
-            return magnitudesList;
-        }
-
-        public List<float> GetListOfPhasesOfS21()
-        {
-            List<float> phasesList = new List<float>();
-
-            float previousPhase = 0;
-
-            float counter = (float)Fmin;
-            while (counter <= (float)Fmax)
-            {
-                Complex currentS21 = GetS21(counter);
-
-                // Фаза
-                float currentPhase = (float)(Math.Atan(currentS21.Imaginary / currentS21.Real) * 180 / Math.PI);
-
-                //currentPhase *= (float)Math.Pow(10, 11);
-
-                if (counter != 0)
-                {
-                    previousPhase = currentPhase;
-                }
-
-                if ((currentPhase - previousPhase) > 195)
-                {
-                    currentPhase -= 360;
-                }
-
-                if ((currentPhase - previousPhase) > 195)
-                {
-                    currentPhase -= 360;
-                }
-
-                phasesList.Add(currentPhase);
-                counter += _step;
-            }
-
-            return phasesList;
+            return currentPhase;          
         }
 
 
-        public List<float> GetListOfPhasesOfS31()
-        {
-            List<float> phasesList = new List<float>();
+        //public List<float> GetListOfMagnitudesOfS21()
+        //{
+        //    List<float> magnitudesList = new List<float>();
 
-            float previousPhase = 0;
+        //    float counter = (float)Fmin;
+        //    while (counter <= (float)Fmax)
+        //    {
+        //        Complex currentS21 = GetS21(counter);
 
-            float counter = (float)Fmin;
-            while (counter <= (float)Fmax)
-            {
-                Complex currentS31 = GetS31(counter);
+        //        // Модуль
+        //        float currentMagnitude = (float)(20 * Math.Log10(currentS21.Magnitude));
+        //        magnitudesList.Add(currentMagnitude);
+        //        counter += _step;
+        //    }
 
-                // Фаза
-                // Для перевода в градусы домножить на 180/Pi
-                float currentPhase = (float)(Math.Atan(currentS31.Imaginary / currentS31.Real) * 180 / Math.PI);
+        //    return magnitudesList;
+        //}
 
-                if (counter != 0)
-                {
-                    previousPhase = currentPhase;
-                }
+        //public List<float> GetListOfMagnitudesOfS31()
+        //{
+        //    List<float> magnitudesList = new List<float>();
 
-                if ((currentPhase - previousPhase) > 195)
-                {
-                    currentPhase -= 360;
-                }
+        //    float counter = (float)Fmin;
+        //    while (counter <= (float)Fmax)
+        //    {
+        //        Complex currentS31 = GetS31(counter);
 
-                if ((currentPhase - previousPhase) > 195)
-                {
-                    currentPhase -= 360;
-                }
+        //        // Модуль
+        //        float currentMagnitude = (float)(20 * Math.Log10(currentS31.Magnitude));
+        //        magnitudesList.Add(currentMagnitude);
+        //        counter += _step;
+        //    }
 
-                phasesList.Add(currentPhase);
-                counter += _step;
-            }
+        //    return magnitudesList;
+        //}
 
-            return phasesList;
-        }
+        //public List<float> GetListOfPhasesOfS21()
+        //{
+        //    List<float> phasesList = new List<float>();
+
+        //    float previousPhase = 0;
+
+        //    float counter = (float)Fmin;
+        //    while (counter <= (float)Fmax)
+        //    {
+        //        Complex currentS21 = GetS21(counter);
+
+        //        // Фаза
+        //        float currentPhase = (float)(Math.Atan(currentS21.Imaginary / currentS21.Real) * 180 / Math.PI);
+
+        //        //currentPhase *= (float)Math.Pow(10, 11);
+
+        //        if (counter != 0)
+        //        {
+        //            previousPhase = currentPhase;
+        //        }
+
+        //        if ((currentPhase - previousPhase) > 195)
+        //        {
+        //            currentPhase -= 360;
+        //        }
+
+        //        if ((currentPhase - previousPhase) > 195)
+        //        {
+        //            currentPhase -= 360;
+        //        }
+
+        //        phasesList.Add(currentPhase);
+        //        counter += _step;
+        //    }
+
+        //    return phasesList;
+        //}
+
+
+        //public List<float> GetListOfPhasesOfS31()
+        //{
+        //    List<float> phasesList = new List<float>();
+
+        //    float previousPhase = 0;
+
+        //    float counter = (float)Fmin;
+        //    while (counter <= (float)Fmax)
+        //    {
+        //        Complex currentS31 = GetS31(counter);
+
+        //        // Фаза
+        //        // Для перевода в градусы домножить на 180/Pi
+        //        float currentPhase = (float)(Math.Atan(currentS31.Imaginary / currentS31.Real) * 180 / Math.PI);
+
+        //        if (counter != 0)
+        //        {
+        //            previousPhase = currentPhase;
+        //        }
+
+        //        if ((currentPhase - previousPhase) > 195)
+        //        {
+        //            currentPhase -= 360;
+        //        }
+
+        //        if ((currentPhase - previousPhase) > 195)
+        //        {
+        //            currentPhase -= 360;
+        //        }
+
+        //        phasesList.Add(currentPhase);
+        //        counter += _step;
+        //    }
+
+        //    return phasesList;
+        //}
+        //
         #endregion
 
         /// <summary>

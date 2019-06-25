@@ -12,80 +12,88 @@
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <StackLayout Margin="{StaticResource Key=StackLayoutPadding}">
-            <Label Text="Схема устройства"                    
+        <ScrollView>
+            <StackLayout Margin="{StaticResource Key=StackLayoutPadding}">
+                <Label Text="Схема устройства"                    
                    FontSize="{StaticResource Key=FontSize}"
                    HorizontalOptions="StartAndExpand"
                    />
-            
-            <Image Source="coupler.png" HorizontalOptions="Center"></Image>
-
-            <Label Text="Ввод параметров"                    
+                <Image Source="coupler.png" HorizontalOptions="Center"></Image>
+                <Label Text="Ввод параметров"                    
                    FontSize="{StaticResource Key=FontSize}"
                    HorizontalOptions="StartAndExpand"
                    />
-
-            <Grid>
-                <Entry Placeholder="Zo, Ом"                       
-                       Grid.Column="0"
-                       FontSize="{StaticResource Key=FontSize}"
-                       x:Name="zoEntry"
+                <Entry 
+                        Placeholder="Fmin, ГГц"
+                        FontSize="{StaticResource Key=FontSize}"
+                       x:Name="fMinEntry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
                        MaxLength="3"/>
-                
-                <Entry Placeholder="|S21|, дБ"                       
-                       Grid.Column="1"
+                <Entry Placeholder="Fmax, ГГц"        
                        FontSize="{StaticResource Key=FontSize}"
-                       x:Name="s21Entry"
+                       x:Name="fMaxEntry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
                        MaxLength="3"/>
-            </Grid>
-
-            <Grid>
-                <Entry Placeholder="Z1, Ом"                       
-                       Grid.Column="0"
-                       FontSize="{StaticResource Key=FontSize}"
-                       x:Name="z1Entry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand"
-                       MaxLength="3"/>
-                
-                <Entry Placeholder="Z2, Ом"                       
-                       Grid.Column="1"
-                       FontSize="{StaticResource Key=FontSize}"
-                       x:Name="z2Entry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand" 
-                       MaxLength="3"/>
-            </Grid>
-
-            <Grid>
                 <Entry Placeholder="l, мм"                       
-                       Grid.Column="0"
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="lEntry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
                        MaxLength="3"/>
-                <Label HorizontalOptions="FillAndExpand"                       
+                <Entry Placeholder="Er"                       
+                       FontSize="{StaticResource Key=FontSize}"
+                       x:Name="eREntry"
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"
+                       MaxLength="3"/>
+                <Entry Placeholder="Z1, Ом"                       
+                       FontSize="{StaticResource Key=FontSize}"
+                       x:Name="z1Entry"
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"
+                       MaxLength="3"/>
+                <Entry Placeholder="Z2, Ом"                       
+                       FontSize="{StaticResource Key=FontSize}"
+                       x:Name="z2Entry"
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand" 
+                       MaxLength="3"/>
+                <Entry Placeholder="Z01, Ом"                       
+                       FontSize="{StaticResource Key=FontSize}"
+                       x:Name="z01Entry"
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"
+                       MaxLength="3"/>
+                <Entry Placeholder="Z02, Ом"                       
+                       FontSize="{StaticResource Key=FontSize}"
+                       x:Name="z02Entry"
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand" 
+                       MaxLength="3"/>
+                <Entry Placeholder="|S21|, дБ"                       
+                       FontSize="{StaticResource Key=FontSize}"
+                       x:Name="s21Entry"
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"
+                       MaxLength="3"/>
+                <Grid>
+                    <Label HorizontalOptions="FillAndExpand"                       
                        Text=""
                        Grid.Column="1">
-                    
-                </Label>
-                               
-            </Grid>
 
-            <Grid>
-                <Button Text="По умолчанию"                        
-                        HorizontalOptions="StartAndExpand" 
+                    </Label>
+                </Grid>
+                <Grid>
+                    <Button Text="По умолчанию"                        
+                        HorizontalOptions="EndAndExpand" 
                         FontSize="{StaticResource Key=FontSize}" 
-                        Grid.Column="0" 
+                        Grid.Column="1" 
                         Clicked="OnByDefaultButtonClicked"></Button>
-            </Grid>
-
-            <Button Text="Дальше" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Clicked="OnContinueButtonClicked"></Button>
+                </Grid>
+                <Button Text="Рассчитать" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Clicked="OnContinueButtonClicked"></Button>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

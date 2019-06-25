@@ -102,7 +102,8 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public float GetSecondPointY()
         {
-            return (_info.Height * (1 - 2 * _margin));
+            var value = (_info.Height * (1 - 2 * _margin));
+            return value;
         }
     }
 }
