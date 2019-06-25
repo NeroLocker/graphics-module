@@ -13,7 +13,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Шаг расчета параметров.
         /// </summary>
-        private float _step = 0.04f;
+        private double _step = 0.04f;
 
         // Может быть больше единицы
         /// <summary>
@@ -24,27 +24,27 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Коэффициент импедансной связи.
         /// </summary>
-        private Complex _k;
+        private double _k;
 
-        private Complex _z0;
+        private double _z0;
 
-        private Complex _z1;
+        private double _z1;
 
-        private Complex _z2;
+        private double _z2;
 
-        private Complex _s21;
+        private double _s21;
 
-        private Complex _l;
+        private double _l;
 
         /// <summary>
         /// Характеристический импеданс первой линии.
         /// </summary>
-        public Complex Z1
+        public double Z1
         {
             get => _z1;
             private set
             {
-                if (!(value.Real >= 1 && value.Real <= 100))
+                if (!(value >= 1 && value <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -61,12 +61,12 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Характеристический импеданс второй линии.
         /// </summary>
-        public Complex Z2
+        public double Z2
         {
             get => _z2; 
             private set
             {
-                if (!(value.Real >= 1 && value.Real <= 100))
+                if (!(value >= 1 && value <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -83,21 +83,21 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Номинал нагрузочного резистора Z01.
         /// </summary>
-        public Complex Z01 { get; private set; }
+        public double Z01 { get; private set; }
 
         /// <summary>
         /// Номинал нагрузочного резистора Z02.
         /// </summary>
-        public Complex Z02 { get; private set; }
+        public double Z02 { get; private set; }
 
         /// <summary>
         /// Коэффициент связи 1-ой и 2-ой линии.
         /// </summary>
-        public Complex S21
+        public double S21
         {
             get => _s21; private set
             {
-                if (!(value.Real >= 2 && value.Real <= 10))
+                if (!(value >= 2 && value <= 10))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -114,8 +114,8 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Геометрическая длина схемы отрезка СЛ.
         /// </summary>
-        public Complex L { get => _l; private set {
-                if (!(value.Real >= 10 && value.Real <= 100))
+        public double L { get => _l; private set {
+                if (!(value >= 10 && value <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -125,7 +125,7 @@ namespace GraphicsModule.Models
                     throw new ArgumentNullException("Value can not be null");
                 }
 
-                _l = value * Math.Pow(10, -4); } }
+                _l = value * Math.Pow(10, -3); } }
 
         /// <summary>
         /// Начальная частота Fi.
@@ -140,7 +140,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Скорость света.
         /// </summary>
-        private Complex C { get; set; }
+        private double C { get; set; }
 
         /// <summary>
         /// Конструктор, инициализирующий поля класса входными данными пользователя.
@@ -155,7 +155,7 @@ namespace GraphicsModule.Models
         /// <param name="fEnd"></param>
         public Parameters(double fmin, double fmax, double l, double er, double s21, double z01, double z02, double z1, double z2)
         {
-            Fmin = fmin;
+            Fmin = fmin + 0.04;
             Fmax = fmax;
             L = l;
             Er = er;
@@ -165,7 +165,7 @@ namespace GraphicsModule.Models
             Z1 = z1;
             Z2 = z2;
 
-            C = 299792458;  
+            C = 2.998E8;  
         }
 
         # region Параметры, вычисляемые формулами
@@ -174,12 +174,12 @@ namespace GraphicsModule.Models
         /// Возвращает коэффициент симметрии n.
         /// </summary>
         /// <returns></returns>
-        private Complex GetN()
+        private double GetN()
         {
-            Complex z2 = Z2;
-            Complex z1 = Z1;
+            double z2 = Z2;
+            double z1 = Z1;
 
-            Complex n = Complex.Sqrt(z2/z1);
+            double n = Math.Sqrt(z2/z1);
             return n;
         }
 
@@ -187,12 +187,12 @@ namespace GraphicsModule.Models
         /// Возващает характеристическое сопротивление СЛ Zo.
         /// </summary>
         /// <returns></returns>
-        private Complex GetZo()
+        private double GetZo()
         {
-            Complex z2 = Z2;
-            Complex z1 = Z1;
+            double z2 = Z2;
+            double z1 = Z1;
 
-            Complex zo = Complex.Sqrt(z1 * z2);
+            double zo = Math.Sqrt(z1 * z2);
             return zo;
         }
 
@@ -200,22 +200,22 @@ namespace GraphicsModule.Models
         /// Возвращает среднее геометрическое сопротивление нагрузок Z0.
         /// </summary>
         /// <returns></returns>
-        private Complex GetZ0()
+        private double GetZ0()
         {
-            Complex z01 = Z01;
-            Complex z02 = Z02;
+            double z01 = Z01;
+            double z02 = Z02;
 
-            Complex z0 = Complex.Sqrt(z01 * z02);
+            double z0 = Math.Sqrt(z01 * z02);
             return z0;
         }
 
         /// <summary>
         /// Возвращает характеристический коэффициент k'.
         /// </summary>
-        private Complex GetKHatch()
+        private double GetKHatch()
         {
-            Complex k = GetK();
-            Complex kHatch = Complex.Sqrt(1 - Complex.Pow(k, 2));
+            double k = GetK();
+            double kHatch = Math.Sqrt(1 - Math.Pow(k, 2));
 
             return kHatch;
         }
@@ -224,14 +224,14 @@ namespace GraphicsModule.Models
         /// Возвращает ρ11.
         /// </summary>
         /// <returns></returns>
-        private Complex GetRho11()
+        private double GetRho11()
         {
-            Complex zo = GetZo();
-            Complex z01 = Z01;
-            Complex n = GetN();
-            Complex kHatch = GetKHatch();
+            double zo = GetZo();
+            double z01 = Z01;
+            double n = GetN();
+            double kHatch = GetKHatch();
 
-            Complex rho11 = zo/(z01 * n * kHatch);
+            double rho11 = zo/(z01 * n * kHatch);
 
             return rho11;
         }
@@ -240,14 +240,14 @@ namespace GraphicsModule.Models
         /// Возвращает ρ22.
         /// </summary>
         /// <returns></returns>
-        private Complex GetRho22()
+        private double GetRho22()
         {
-            Complex zo = GetZo();
-            Complex z02 = Z02;
-            Complex n = GetN();
-            Complex kHatch = GetKHatch();
+            double zo = GetZo();
+            double z02 = Z02;
+            double n = GetN();
+            double kHatch = GetKHatch();
 
-            Complex rho22 = (zo * n)/(z02 * kHatch);
+            double rho22 = (zo * n)/(z02 * kHatch);
 
             return rho22;
         }
@@ -256,14 +256,14 @@ namespace GraphicsModule.Models
         /// Возвращает r.
         /// </summary>
         /// <returns></returns>
-        private Complex GetR()
+        private double GetR()
         {
-            Complex zo = GetZo();
-            Complex z0 = GetZ0();
-            Complex k = GetK();
-            Complex kHatch = GetKHatch();
+            double zo = GetZo();
+            double z0 = GetZ0();
+            double k = GetK();
+            double kHatch = GetKHatch();
 
-            Complex r = (zo * k)/(z0 * kHatch);
+            double r = (zo * k)/(z0 * kHatch);
 
             return r;
         }
@@ -272,14 +272,14 @@ namespace GraphicsModule.Models
         /// Возвращает W11.
         /// </summary>
         /// <returns></returns>
-        private Complex GetW11()
+        private double GetW11()
         {
-            Complex zo = GetZo();
-            Complex kHatch = GetKHatch();
-            Complex z01 = Z01;
-            Complex n = GetN();
+            double zo = GetZo();
+            double kHatch = GetKHatch();
+            double z01 = Z01;
+            double n = GetN();
             
-            Complex w11 = (zo * kHatch)/(z01 * n);
+            double w11 = (zo * kHatch)/(z01 * n);
 
             return w11;
         }
@@ -288,14 +288,14 @@ namespace GraphicsModule.Models
         /// Возвращает W22.
         /// </summary>
         /// <returns></returns>
-        private Complex GetW22()
+        private double GetW22()
         {
-            Complex zo = GetZo();
-            Complex kHatch = GetKHatch();
-            Complex z02 = Z02;
-            Complex n = GetN();
+            double zo = GetZo();
+            double kHatch = GetKHatch();
+            double z02 = Z02;
+            double n = GetN();
 
-            Complex w22 = (zo * kHatch * n)/(z02);
+            double w22 = (zo * kHatch * n)/(z02);
 
             return w22;
         }
@@ -304,14 +304,14 @@ namespace GraphicsModule.Models
         /// Возвращает v.
         /// </summary>
         /// <returns></returns>
-        private Complex GetV()
+        private double GetV()
         {
-            Complex zo = GetZo();
-            Complex kHatch = GetKHatch();
-            Complex z0 = GetZ0();
-            Complex k = GetK();
+            double zo = GetZo();
+            double kHatch = GetKHatch();
+            double z0 = GetZ0();
+            double k = GetK();
 
-            Complex v = (zo * kHatch)/(z0 * k);
+            double v = (zo * kHatch)/(z0 * k);
 
             return v;
         }
@@ -325,9 +325,9 @@ namespace GraphicsModule.Models
         /// </summary>
         /// <param name="currentF"></param>
         /// <returns></returns>
-        private Complex GetOmega(Complex currentF)
+        private double GetOmega(double currentF)
         {
-            Complex omega = (2 * Math.PI * currentF * Complex.Pow(10, 9));
+            double omega = (2 * Math.PI * currentF * Math.Pow(10, 9));
 
             return omega;
         }
@@ -337,11 +337,11 @@ namespace GraphicsModule.Models
         /// </summary>
         /// <param name="currentF"></param>
         /// <returns></returns>
-        private Complex GetTheta(double currentF)
+        private double GetTheta(double currentF)
         {
-            Complex omega = GetOmega(currentF);
+            double omega = GetOmega(currentF);
 
-            Complex theta = ((omega * Math.Sqrt(Er) * L) / C);
+            double theta = ((omega * Math.Sqrt(Er) * L) / C);
 
             return theta;
         }
@@ -349,10 +349,10 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Возвращает коэффициент импедансной связи.
         /// </summary>
-        private Complex GetK()
+        private double GetK()
         {
             // k = 10^(-S21/20)
-            Complex k = Complex.Pow(10, -S21/20);
+            double k = Math.Pow(10, -S21/20);
 
             return k;
         }
@@ -366,21 +366,21 @@ namespace GraphicsModule.Models
         /// <returns>Параметр A.</returns>
         public Complex GetA(double currentF)
         {
-            Complex r = GetR();
-            Complex v = GetV();
-            Complex rho11 = GetRho11();
-            Complex w11 = GetW11();
+            double r = GetR();
+            double v = GetV();
+            double rho11 = GetRho11();
+            double w11 = GetW11();
 
-            Complex rho22 = GetRho22();
-            Complex w22 = GetW22();
+            double rho22 = GetRho22();
+            double w22 = GetW22();
 
-            Complex theta = GetTheta(currentF);
-            Complex sinOfTheta = Complex.Sin(theta);
-            Complex cosOfTheta = Complex.Cos(theta);
+            double theta = GetTheta(currentF);
+            double sinOfTheta = Math.Sin(theta);
+            double cosOfTheta = Math.Cos(theta);
 
             Complex i = Complex.Sqrt(-1);
 
-            Complex alpha = Complex.Pow((r - 1/v) * sinOfTheta, 2);
+            double alpha = Math.Pow((r - 1/v) * sinOfTheta, 2);
             Complex beta = 2 * cosOfTheta + i * ((rho11 + 1/w11) * sinOfTheta);
             Complex gamma = 2 * cosOfTheta + i * ((rho22 + 1/w22) * sinOfTheta);
 
@@ -397,23 +397,23 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public Complex GetS11(double currentF)
         {
-            Complex r = GetR();
-            Complex v = GetV();
-            Complex rho11 = GetRho11();
-            Complex w11 = GetW11();
-            Complex rho22 = GetRho22();
-            Complex w22 = GetW22();
+            double r = GetR();
+            double v = GetV();
+            double rho11 = GetRho11();
+            double w11 = GetW11();
+            double rho22 = GetRho22();
+            double w22 = GetW22();
 
-            Complex theta = GetTheta(currentF);
-            Complex sinOfTheta = Complex.Sin(theta);
+            double theta = GetTheta(currentF);
+            double sinOfTheta = Math.Sin(theta);
 
             Complex i = Complex.Sqrt(-1);
 
-            Complex alpha = Complex.Pow(r, 2) - 1/Complex.Pow(v, 2);
-            Complex beta = rho11 - 1/w11;
-            Complex gamma = rho22 + 1/w22;
+            double alpha = Math.Pow(r, 2) - 1/Math.Pow(v, 2);
+            double beta = rho11 - 1/w11;
+            double gamma = rho22 + 1/w22;
 
-            Complex numerator = (alpha - beta * gamma) * Complex.Pow(sinOfTheta, 2) + i * beta * Complex.Sin(2 * theta);
+            Complex numerator = (alpha - beta * gamma) * Math.Pow(sinOfTheta, 2) + i * beta * Math.Sin(2 * theta);
             Complex a = GetA(currentF);
 
             Complex s11 = Complex.Divide(numerator, a);
@@ -428,23 +428,23 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public Complex GetS22(double currentF)
         {
-            Complex r = GetR();
-            Complex v = GetV();
-            Complex rho11 = GetRho11();
-            Complex w11 = GetW11();
-            Complex rho22 = GetRho22();
-            Complex w22 = GetW22();
+            double r = GetR();
+            double v = GetV();
+            double rho11 = GetRho11();
+            double w11 = GetW11();
+            double rho22 = GetRho22();
+            double w22 = GetW22();
 
-            Complex theta = GetTheta(currentF);
-            Complex sinOfTheta = Complex.Sin(theta);
+            double theta = GetTheta(currentF);
+            double sinOfTheta = Math.Sin(theta);
 
             Complex i = Complex.Sqrt(-1);
 
-            Complex alpha = Complex.Pow(r, 2) - 1 / Complex.Pow(v, 2);
-            Complex beta = rho11 - 1 / w11;
-            Complex gamma = rho22 + 1 / w22;
+            double alpha = Math.Pow(r, 2) - 1 / Math.Pow(v, 2);
+            double beta = rho11 - 1 / w11;
+            double gamma = rho22 + 1 / w22;
 
-            Complex numerator = (alpha - beta * gamma) * Complex.Pow(sinOfTheta, 2) + i * gamma * Complex.Sin(2 * theta);
+            Complex numerator = (alpha - beta * gamma) * Math.Pow(sinOfTheta, 2) + i * gamma * Math.Sin(2 * theta);
             Complex a = GetA(currentF);
 
             Complex s22 = Complex.Divide(numerator, a);
@@ -459,17 +459,17 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public Complex GetS12(double currentF)
         {
-            Complex r = GetR();
-            Complex v = GetV();
-            Complex rho11 = GetRho11();
-            Complex w11 = GetW11();
+            double r = GetR();
+            double v = GetV();
+            double rho11 = GetRho11();
+            double w11 = GetW11();
 
-            Complex theta = GetTheta(currentF);
-            Complex sinOfTheta = Complex.Sin(theta);
+            double theta = GetTheta(currentF);
+            double sinOfTheta = Math.Sin(theta);
 
             Complex i = Complex.Sqrt(-1);
 
-            Complex numerator = -2 * (rho11/v + r/w11) * Complex.Pow(sinOfTheta, 2) + i * (r + 1/v) * Complex.Sin(2 * theta);
+            Complex numerator = -2 * (rho11/v + r/w11) * Math.Pow(sinOfTheta, 2) + i * (r + 1/v) * Math.Sin(2 * theta);
             Complex a = GetA(currentF);
 
             Complex s12 = Complex.Divide(numerator, a);
@@ -485,17 +485,17 @@ namespace GraphicsModule.Models
         public Complex GetS13(double currentF)
         {
 
-            Complex rho22 = GetRho22();
-            Complex w22 = GetW22();
+            double rho22 = GetRho22();
+            double w22 = GetW22();
 
-            Complex theta = GetTheta(currentF);
-            Complex sinOfTheta = Complex.Sin(theta);
+            double theta = GetTheta(currentF);
+            double sinOfTheta = Math.Sin(theta);
 
             Complex i = Complex.Sqrt(-1);
 
-            Complex gamma = rho22 + 1 / w22;
+            double gamma = rho22 + 1 / w22;
 
-            Complex cosOfTheta = Complex.Cos(theta);
+            double cosOfTheta = Math.Cos(theta);
 
             Complex numerator = 2 * (2 * cosOfTheta + i * gamma * sinOfTheta);
             Complex a = GetA(currentF);
@@ -513,17 +513,17 @@ namespace GraphicsModule.Models
         public Complex GetS24(double currentF)
         {
 
-            Complex rho11 = GetRho11();
-            Complex w11 = GetW11();
+            double rho11 = GetRho11();
+            double w11 = GetW11();
 
-            Complex theta = GetTheta(currentF);
-            Complex sinOfTheta = Complex.Sin(theta);
+            double theta = GetTheta(currentF);
+            double sinOfTheta = Math.Sin(theta);
 
             Complex i = Complex.Sqrt(-1);
 
-            Complex beta = rho11 - 1 / w11;
+            double beta = rho11 - 1 / w11;
 
-            Complex cosOfTheta = Complex.Cos(theta);
+            double cosOfTheta = Math.Cos(theta);
 
             Complex numerator = 2 * (2 * cosOfTheta + i * beta * sinOfTheta);
             Complex a = GetA(currentF);
@@ -540,11 +540,11 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public Complex GetS14(double currentF)
         {
-            Complex r = GetR();
-            Complex v = GetV();
+            double r = GetR();
+            double v = GetV();
             Complex i = Complex.Sqrt(-1);
-            Complex theta = GetTheta(currentF);
-            Complex sinOfTheta = Complex.Sin(theta);
+            double theta = GetTheta(currentF);
+            double sinOfTheta = Math.Sin(theta);
 
             
             Complex numerator = -i * 2 * (r - 1/v) * sinOfTheta;
@@ -561,35 +561,35 @@ namespace GraphicsModule.Models
         /// <param name="type">Тип S-параметра.</param>
         /// <param name="currentF">Текущая частота.</param>
         /// <returns></returns>
-        public float GetMagnitude(ParameterType type, double currentF)
+        public double GetMagnitude(ParameterType type, double currentF)
         {
-            float currentMagnitude;
+            double currentMagnitude;
 
             switch (type)
             {
                 case ParameterType.S11:
                     Complex s11 = GetS11(currentF);
-                    currentMagnitude = (float)(20 * Math.Log10(s11.Magnitude));
+                    currentMagnitude = (20 * Math.Log10(s11.Magnitude));
                     break;
                 case ParameterType.S22:
                     Complex s22 = GetS22(currentF);
-                    currentMagnitude = (float)(20 * Math.Log10(s22.Magnitude));
+                    currentMagnitude = (20 * Math.Log10(s22.Magnitude));
                     break;
                 case ParameterType.S12:
                     Complex s12 = GetS12(currentF);
-                    currentMagnitude = (float)(20 * Math.Log10(s12.Magnitude));
+                    currentMagnitude = (20 * Math.Log10(s12.Magnitude));
                     break;
                 case ParameterType.S13:
                     Complex s13 = GetS13(currentF);
-                    currentMagnitude = (float)(20 * Math.Log10(s13.Magnitude));
+                    currentMagnitude = (20 * Math.Log10(s13.Magnitude));
                     break;
                 case ParameterType.S24:
                     Complex s24 = GetS24(currentF);
-                    currentMagnitude = (float)(20 * Math.Log10(s24.Magnitude));
+                    currentMagnitude = (20 * Math.Log10(s24.Magnitude));
                     break;
                 case ParameterType.S14:
                     Complex s14 = GetS14(currentF);
-                    currentMagnitude = (float)(20 * Math.Log10(s14.Magnitude));
+                    currentMagnitude = (20 * Math.Log10(s14.Magnitude));
                     break;
                 default:
                     throw new InvalidOperationException("Type is not valid.");
@@ -604,35 +604,35 @@ namespace GraphicsModule.Models
         /// <param name="type">Тип S-параметра.</param>
         /// <param name="currentF">Текущая частота.</param>
         /// <returns></returns>
-        public float GetPhase(ParameterType type, double currentF)
+        public double GetPhase(ParameterType type, double currentF)
         {
-            float currentPhase;
+            double currentPhase;
 
             switch (type)
             {
                 case ParameterType.S11:
                     Complex s11 = GetS11(currentF);
-                    currentPhase = (float)(s11.Phase * 180 / Math.PI);
+                    currentPhase = (s11.Phase * 180 / Math.PI);
                     break;
                 case ParameterType.S22:
                     Complex s22 = GetS22(currentF);
-                    currentPhase = (float)(s22.Phase * 180 / Math.PI);
+                    currentPhase = (s22.Phase * 180 / Math.PI);
                     break;
                 case ParameterType.S12:
                     Complex s12 = GetS12(currentF);
-                    currentPhase = (float)(s12.Phase * 180 / Math.PI);
+                    currentPhase = (s12.Phase * 180 / Math.PI);
                     break;
                 case ParameterType.S13:
                     Complex s13 = GetS13(currentF);
-                    currentPhase = (float)(s13.Phase * 180 / Math.PI);
+                    currentPhase = (s13.Phase * 180 / Math.PI);
                     break;
                 case ParameterType.S24:
                     Complex s24 = GetS24(currentF);
-                    currentPhase = (float)(s24.Phase * 180 / Math.PI);
+                    currentPhase = (s24.Phase * 180 / Math.PI);
                     break;
                 case ParameterType.S14:
                     Complex s14 = GetS14(currentF);
-                    currentPhase = (float)(s14.Phase * 180 / Math.PI);
+                    currentPhase = (s14.Phase * 180 / Math.PI);
                     break;
                 default:
                     throw new InvalidOperationException("Type is not valid.");
@@ -640,120 +640,6 @@ namespace GraphicsModule.Models
 
             return currentPhase;          
         }
-
-
-        //public List<float> GetListOfMagnitudesOfS21()
-        //{
-        //    List<float> magnitudesList = new List<float>();
-
-        //    float counter = (float)Fmin;
-        //    while (counter <= (float)Fmax)
-        //    {
-        //        Complex currentS21 = GetS21(counter);
-
-        //        // Модуль
-        //        float currentMagnitude = (float)(20 * Math.Log10(currentS21.Magnitude));
-        //        magnitudesList.Add(currentMagnitude);
-        //        counter += _step;
-        //    }
-
-        //    return magnitudesList;
-        //}
-
-        //public List<float> GetListOfMagnitudesOfS31()
-        //{
-        //    List<float> magnitudesList = new List<float>();
-
-        //    float counter = (float)Fmin;
-        //    while (counter <= (float)Fmax)
-        //    {
-        //        Complex currentS31 = GetS31(counter);
-
-        //        // Модуль
-        //        float currentMagnitude = (float)(20 * Math.Log10(currentS31.Magnitude));
-        //        magnitudesList.Add(currentMagnitude);
-        //        counter += _step;
-        //    }
-
-        //    return magnitudesList;
-        //}
-
-        //public List<float> GetListOfPhasesOfS21()
-        //{
-        //    List<float> phasesList = new List<float>();
-
-        //    float previousPhase = 0;
-
-        //    float counter = (float)Fmin;
-        //    while (counter <= (float)Fmax)
-        //    {
-        //        Complex currentS21 = GetS21(counter);
-
-        //        // Фаза
-        //        float currentPhase = (float)(Math.Atan(currentS21.Imaginary / currentS21.Real) * 180 / Math.PI);
-
-        //        //currentPhase *= (float)Math.Pow(10, 11);
-
-        //        if (counter != 0)
-        //        {
-        //            previousPhase = currentPhase;
-        //        }
-
-        //        if ((currentPhase - previousPhase) > 195)
-        //        {
-        //            currentPhase -= 360;
-        //        }
-
-        //        if ((currentPhase - previousPhase) > 195)
-        //        {
-        //            currentPhase -= 360;
-        //        }
-
-        //        phasesList.Add(currentPhase);
-        //        counter += _step;
-        //    }
-
-        //    return phasesList;
-        //}
-
-
-        //public List<float> GetListOfPhasesOfS31()
-        //{
-        //    List<float> phasesList = new List<float>();
-
-        //    float previousPhase = 0;
-
-        //    float counter = (float)Fmin;
-        //    while (counter <= (float)Fmax)
-        //    {
-        //        Complex currentS31 = GetS31(counter);
-
-        //        // Фаза
-        //        // Для перевода в градусы домножить на 180/Pi
-        //        float currentPhase = (float)(Math.Atan(currentS31.Imaginary / currentS31.Real) * 180 / Math.PI);
-
-        //        if (counter != 0)
-        //        {
-        //            previousPhase = currentPhase;
-        //        }
-
-        //        if ((currentPhase - previousPhase) > 195)
-        //        {
-        //            currentPhase -= 360;
-        //        }
-
-        //        if ((currentPhase - previousPhase) > 195)
-        //        {
-        //            currentPhase -= 360;
-        //        }
-
-        //        phasesList.Add(currentPhase);
-        //        counter += _step;
-        //    }
-
-        //    return phasesList;
-        //}
-        //
         #endregion
 
         /// <summary>

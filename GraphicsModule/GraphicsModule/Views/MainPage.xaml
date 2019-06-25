@@ -29,55 +29,55 @@
                        x:Name="fMinEntry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
-                       MaxLength="3"/>
+                       MaxLength="10"/>
                 <Entry Placeholder="Fmax, ГГц"        
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="fMaxEntry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
-                       MaxLength="3"/>
+                       MaxLength="10"/>
                 <Entry Placeholder="l, мм"                       
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="lEntry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
-                       MaxLength="3"/>
+                       MaxLength="10"/>
                 <Entry Placeholder="Er"                       
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="eREntry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
-                       MaxLength="3"/>
+                       MaxLength="10"/>
                 <Entry Placeholder="Z1, Ом"                       
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z1Entry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
-                       MaxLength="3"/>
+                       MaxLength="10"/>
                 <Entry Placeholder="Z2, Ом"                       
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z2Entry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand" 
-                       MaxLength="3"/>
+                       MaxLength="10"/>
                 <Entry Placeholder="Z01, Ом"                       
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z01Entry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
-                       MaxLength="3"/>
+                       MaxLength="10"/>
                 <Entry Placeholder="Z02, Ом"                       
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="z02Entry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand" 
-                       MaxLength="3"/>
+                       MaxLength="10"/>
                 <Entry Placeholder="|S21|, дБ"                       
                        FontSize="{StaticResource Key=FontSize}"
                        x:Name="s21Entry"
                        Keyboard="Numeric"
                        HorizontalOptions="FillAndExpand"
-                       MaxLength="3"/>
+                       MaxLength="10"/>
                 <Grid>
                     <Label HorizontalOptions="FillAndExpand"                       
                        Text=""

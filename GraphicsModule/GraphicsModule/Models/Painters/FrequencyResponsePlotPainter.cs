@@ -24,19 +24,15 @@ namespace GraphicsModule.Models.Painters
             // ось X
             
             //_magnitudePointListOfS21 = parameters.GetListOfMagnitudesOfS21();
-            List<float> magnitudePointListOfS12 = new List<float>();
-            List<float> sortedPointListOfS12 = new List<float>();
+            List<double> magnitudePointListOfS12 = new List<double>();
+            List<double> sortedPointListOfS12 = new List<double>();
 
 
-            float counter1 = 0;
+            float counter1 = (float)parameters.Fmin;
             while(counter1 < parameters.Fmax)
             {
                 magnitudePointListOfS12.Add(parameters.GetMagnitude(ParameterType.S12, counter1));
                 counter1 += 0.04f;
-            }
-            for (float i = (float)parameters.Fmin; i < (float)parameters.Fmax; i++)
-            {
-                
             }
 
             Parameters parametersClone = (Parameters)parameters.Clone();
@@ -46,8 +42,8 @@ namespace GraphicsModule.Models.Painters
             }
             sortedPointListOfS12.Sort();
 
-            float maxValue = sortedPointListOfS12[sortedPointListOfS12.Count - 1];
-            float minValue = sortedPointListOfS12[0];
+            double maxValue = sortedPointListOfS12[sortedPointListOfS12.Count - 1];
+            double minValue = sortedPointListOfS12[0];
 
             float markpointX = plot.SecondPointX / 4;
             float markpointY = plot.SecondPointY / 4;
@@ -67,7 +63,7 @@ namespace GraphicsModule.Models.Painters
                 try
                 {
                     float y = plot.GetCenterPointOfYAxis();
-                    y += magnitudePointListOfS12[Convert.ToInt32(counter)];
+                    y += (float)magnitudePointListOfS12[Convert.ToInt32(counter)];
                     canvas.DrawPoint(x, y, plot.RedPaint);
 
                     //if (magnitudePointListOfS12[Convert.ToInt32(counter)] == maxValue)
