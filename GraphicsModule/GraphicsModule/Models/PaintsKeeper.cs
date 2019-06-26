@@ -11,24 +11,13 @@ namespace GraphicsModule.Models
     public class PaintsKeeper
     {
         public Dictionary<string, SKPaint> paints = new Dictionary<string, SKPaint>();
+        public List<SKPaint> paintsListForPlots = new List<SKPaint>();
 
         /// <summary>
         /// Инициализирует словарь красок.
         /// </summary>
         public PaintsKeeper()
         {
-            SKPaint blackPaint = new SKPaint
-            {
-                Style = SKPaintStyle.Fill,
-                Color = SKColors.Black
-            };
-
-            SKPaint grayPaint = new SKPaint
-            {
-                Style = SKPaintStyle.Fill,
-                Color = SKColors.Gray
-            };
-
             SKPaint redPaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
@@ -36,16 +25,39 @@ namespace GraphicsModule.Models
                 StrokeWidth = 2
             };
 
+            SKPaint blackPaint = new SKPaint
+            {
+                Style = SKPaintStyle.Fill,
+                Color = SKColors.Black,
+                StrokeWidth = 2
+            };
+
             SKPaint bluePaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
-                Color = SKColors.Blue
+                Color = SKColors.Blue,
+                StrokeWidth = 2
             };
-
+                                  
             SKPaint greenPaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
-                Color = SKColors.Green
+                Color = SKColors.Green,
+                StrokeWidth = 2
+            };
+
+            SKPaint yellowPaint = new SKPaint
+            {
+                Style = SKPaintStyle.Fill,
+                Color = SKColors.Yellow,
+                StrokeWidth = 2
+            };
+
+            SKPaint purplePaint = new SKPaint
+            {
+                Style = SKPaintStyle.Fill,
+                Color = SKColors.Purple,
+                StrokeWidth = 2
             };
 
             SKPaint axesPaint = new SKPaint
@@ -62,13 +74,32 @@ namespace GraphicsModule.Models
                 TextSize = 24
             };
 
-            paints.Add("Black Paint", blackPaint);
+            SKPaint grayPaint = new SKPaint
+            {
+                Style = SKPaintStyle.Fill,
+                Color = SKColors.Gray
+            };
+
             paints.Add("Red Paint", redPaint);
+            paints.Add("Black Paint", blackPaint);            
             paints.Add("Blue Paint", bluePaint);
             paints.Add("Green Paint", greenPaint);
+            paints.Add("Yellow Paint", yellowPaint);
+            paints.Add("Purple Paint", purplePaint);
             paints.Add("Axes Paint", axesPaint);
             paints.Add("Text Paint", textPaint);
             paints.Add("Gray Paint", grayPaint);
+
+
+            foreach (KeyValuePair<string, SKPaint> keyValue in paints)
+            {
+                if (keyValue.Key == "Axes Paint")
+                {
+                    break;
+                }
+
+                paintsListForPlots.Add(keyValue.Value);
+            } 
         }
     }
 }

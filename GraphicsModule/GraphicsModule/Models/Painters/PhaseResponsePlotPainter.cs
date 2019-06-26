@@ -21,52 +21,75 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas">Холст.</param>
         public void Paint(Plot plot, Parameters parameters, SKCanvas canvas)
         {
-            //// ось X
-            //List<float> phasePointListOfS31 = parameters.GetListOfPhasesOfS31();
+            PaintsKeeper keeper = new PaintsKeeper();
+            int counter = 0;
+            foreach (ParameterType currentType in (ParameterType[])Enum.GetValues(typeof(ParameterType)))
+            {
+                SKPaint currentPaint = keeper.paintsListForPlots[counter];
+                PaintSParameter(currentType, currentPaint, plot, parameters, canvas);
+                counter += 1;
+            }
+        }
 
-            //Parameters parametersClone = (Parameters)parameters.Clone();
-            //List<float> sortedPointListOfS31 = parametersClone.GetListOfPhasesOfS31();
-            //sortedPointListOfS31.Sort();
+        /// <summary>
+        /// Рисует ФЧХ для параметра.
+        /// </summary>
+        /// <param name="plot"></param>
+        /// <param name="parameters"></param>
+        /// <param name="canvas"></param>
+        private void PaintSParameter(ParameterType type, SKPaint paint, Plot plot, Parameters parameters, SKCanvas canvas)
+        {
+            // цикл для расчета коэффициента масштабирования координат X
+            RestrictiveFrame frame = plot.Frame;
+            float scalingFactor = GetXScalingFactor(parameters, frame);
 
-            //float maxValue = sortedPointListOfS31[sortedPointListOfS31.Count - 1];
-            //float minValue = sortedPointListOfS31[0];
+            double i = plot.Frame.GetFirstPointX();
+            float j = (float)parameters.Fmin;
+            while (j * scalingFactor <= parameters.Fmax * scalingFactor)
+            {
+                float x = j;
+                float y = plot.GetCenterPointOfYAxis();
 
-            //float coef = 1.62f;
+                // Встречаем отрицательную бесконечность на 1 шаге.
+                if (parameters.GetMagnitude(ParameterType.S12, x) == Double.NegativeInfinity)
+                {
+                    i += 0.04f;
+                    j += 0.04f;
+                    continue;
+                }
 
-            //float markpointX = plot.SecondPointX / 4;
-            //float markpointY = plot.SecondPointY / 4;
+                // Инвертирование значений.
+                float currentPhase = (float)parameters.GetPhase(type, x);
+                y += -(currentPhase);
+                canvas.DrawPoint(plot.FirstPointX + x * scalingFactor, y, paint);
 
-            //canvas.DrawText("|S31|", markpointX, markpointY, plot.TextPaint);
+                i += 0.04f;
+                j += 0.04f;
+            }
 
-            //float counter = 1;
-            //while (counter <= plot.SecondPointX)
-            //{
-            //    float x = plot.FirstPointX;
-            //    x += counter * coef;
+            int b = 0;
+        }
 
-            //    try
-            //    {
-            //        float y = plot.GetCenterPointOfYAxis();
+        /// <summary>
+        /// Возвращает коэффициент масштабирования для X-точек.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="frame"></param>
+        /// <returns></returns>
+        private float GetXScalingFactor(Parameters parameters, RestrictiveFrame frame)
+        {
+            // Ненулевой
+            float scalingFactor = 0.01f;
 
-            //        y += phasePointListOfS31[Convert.ToInt32(counter)];
-            //        canvas.DrawPoint(x, y, plot.RedPaint);
+            float point = 0;
+            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointX()))
+            {
+                float x = (float)(parameters.Fmax);
+                point = frame.GetFirstPointX() + x * scalingFactor;
+                scalingFactor += 0.01f;
+            }
 
-            //        if (phasePointListOfS31[Convert.ToInt32(counter)] == maxValue)
-            //        {
-            //            canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
-            //        }
-
-            //        if (phasePointListOfS31[Convert.ToInt32(counter)] == minValue)
-            //        {
-            //            canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
-            //        }
-            //        counter += 0.04f;
-            //    }
-            //    catch (ArgumentOutOfRangeException e)
-            //    {
-            //        break;
-            //    }
-            //}
+            return scalingFactor;
         }
     }
 }

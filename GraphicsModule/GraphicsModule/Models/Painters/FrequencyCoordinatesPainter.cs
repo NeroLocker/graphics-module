@@ -12,6 +12,8 @@ namespace GraphicsModule.Models.Painters
     /// </summary>
     public class FrequencyCoordinatesPainter : ICoordinatesPainter
     {
+        private float _margin = 0.05f;
+
         public void Paint(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {         
             DrawXMarks(coordinates, parameters, frame, canvas);
@@ -29,7 +31,6 @@ namespace GraphicsModule.Models.Painters
             // Ненулевой
             float scalingFactor = 0.01f;
 
-            double i = 0;
             float point = 0;
             while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointX()))
             {
@@ -47,7 +48,6 @@ namespace GraphicsModule.Models.Painters
 
             float xScalingFactor = GetXScalingFactor(parameters, frame);
 
-            float margin = 0.05f;
             byte quantityOfIterations = 0;
             float number = 0;
             float j = (float)parameters.Fmin;
@@ -68,7 +68,7 @@ namespace GraphicsModule.Models.Painters
                 if (quantityOfIterations == 25)
                 {
                     number = Convert.ToInt32(j);
-                    canvas.DrawText($"{number}", x, frame.GetSecondPointY() + frame.GetSecondPointY() * margin, keeper.paints["Text Paint"]);
+                    canvas.DrawText($"{number}", x, frame.GetSecondPointY() + frame.GetSecondPointY() * _margin, keeper.paints["Text Paint"]);
                     quantityOfIterations = 0;
                 }                
 
@@ -76,6 +76,8 @@ namespace GraphicsModule.Models.Painters
                 j += 0.04f;
                 quantityOfIterations += 1;
             }
+
+            canvas.DrawText($"{coordinates.NameOfXAxis}", frame.GetCenterPointX(), frame.GetSecondPointY() + 2 * frame.GetSecondPointY() * _margin, keeper.paints["Text Paint"]);
         }
 
         private void DrawYMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
@@ -83,37 +85,37 @@ namespace GraphicsModule.Models.Painters
             PaintsKeeper keeper = new PaintsKeeper();
 
             // отрисовка
-            float margin = 0.6f;
-
-            float shift = frame.GetFirstPointX() - frame.GetFirstPointX() * margin;
+            float shift = frame.GetFirstPointX() - frame.GetSecondPointX() * _margin;
 
             // 0
-            float centerOfYAxis = frame.GetFirstPointY() + frame.GetHeight() / 2f;
             canvas.DrawText("0", shift, frame.GetCenterPointY(), keeper.paints["Text Paint"]);
-            canvas.DrawLine(frame.GetFirstPointX(), centerOfYAxis, frame.GetSecondPointX(), centerOfYAxis, frame.Paint);
+            canvas.DrawLine(frame.GetFirstPointX(), frame.GetCenterPointY(), frame.GetSecondPointX(), frame.GetCenterPointY(), frame.Paint);
 
+            // положительная часть оси Y
             float valueToShow = 0;
-            float currentPoint = centerOfYAxis;
+            float currentPoint = frame.GetCenterPointY();
             while (currentPoint >= frame.GetFirstPointY())
             {
                 canvas.DrawText($"{valueToShow.ToString("#")}", shift, currentPoint, keeper.paints["Text Paint"]);
-                valueToShow -= 30;
-                currentPoint -= 30;
+                valueToShow += 50;
+                currentPoint -= 50;
             }
 
+            // отрицательная часть оси Y
             valueToShow = 0;
-            currentPoint = centerOfYAxis;
-            while (currentPoint <= frame.GetFirstPointY() + frame.GetSecondPointY())
+            currentPoint = frame.GetCenterPointY();
+            while (currentPoint <= frame.GetSecondPointY())
             {
                 canvas.DrawText($"{valueToShow.ToString("#")}", shift, currentPoint, keeper.paints["Text Paint"]);
-                valueToShow += 30;
-                currentPoint += 30;
+                valueToShow -= 50;
+                currentPoint += 50;
             }
 
-            // Название
-            shift -= frame.GetFirstPointX() * 0.15f;
+            // Название оси
+            shift -= frame.GetSecondPointX() * _margin;
+
             SKPath path = new SKPath();
-            path.MoveTo(shift, centerOfYAxis);
+            path.MoveTo(shift, frame.GetCenterPointY());
             path.LineTo(shift, frame.GetFirstPointY());
             canvas.DrawTextOnPath($"{coordinates.NameOfYAxis}", path, 0, 0, keeper.paints["Text Paint"]);
             path.Close();
