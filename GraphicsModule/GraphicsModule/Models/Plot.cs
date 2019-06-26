@@ -77,14 +77,12 @@ namespace GraphicsModule.Models
         {
             Type = type;
             Frame = frame;
-            FirstPointX = Frame.GetFirstPointX();
-            FirstPointY = Frame.GetFirstPointY();
+            FirstPointX = frame.GetFirstPointX();
+            FirstPointY = frame.GetFirstPointY();
             // Странно работает здесь
-            //SecondPointX = Frame.GetFirstPointX() + Frame.GetSecondPointX();
-            //SecondPointY = Frame.GetFirstPointY() + Frame.GetSecondPointY();
             SecondPointX = Frame.GetSecondPointX();
             SecondPointY = Frame.GetSecondPointY();
-            LineThickness = lineThickness;
+
             PaintsKeeper keeper = new PaintsKeeper();
             RedPaint = keeper.paints["Red Paint"];
             BluePaint = keeper.paints["Blue Paint"];

@@ -57,7 +57,7 @@
             </Frame>
         </FlexLayout>
 
-        <skia:SKCanvasView Margin="10"
+        <skia:SKCanvasView
                                     PaintSurface="OnCanvasViewPaintSurface"
                                     x:Name="OutputCanvasView"
                                    Grid.Row="1"

@@ -22,31 +22,40 @@ namespace GraphicsModule.Models.Painters
         {
             PaintsKeeper keeper = new PaintsKeeper();
 
-            var numberOfMarks = Math.Abs(coordinates.StartPointOfXAxis) + Math.Abs(coordinates.EndPointOfXAxis);
-            var secondPointX = frame.GetFirstPointX() + frame.GetSecondPointX();
-            var secondPointY = frame.GetFirstPointY() + frame.GetSecondPointY();   
-            var step = (secondPointX - frame.GetFirstPointX()) / numberOfMarks;
-
-            float currentPoint = frame.GetFirstPointX();
-            float startPoint = currentPoint;
-            float endPoint = secondPointX;
+            // цикл для расчета коэффициента масштабирования координат X
+            float coef = 0.01f;
+            double i = 0;
+            float point = 0;
+            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointX()))
+            {
+                float x = (float)(parameters.Fmax);
+                point = frame.GetFirstPointX() + x * coef;
+                coef += 0.01f;
+            }
 
             float margin = 0.05f;
-            float markPoint = secondPointY;
-            markPoint += markPoint * margin;
+            byte quantityOfIterations = 0;
+            float number = 0;
+            float j = 0;
 
-            for (float i = coordinates.StartPointOfXAxis; i <= coordinates.EndPointOfXAxis; i++)
+            i = frame.GetFirstPointX();
+            while (i <= frame.GetSecondPointX())
             {
-                if (i == (Math.Round(coordinates.EndPointOfXAxis / 2)))
-                {
-                    string nameOfXAxis = coordinates.NameOfXAxis;
-                    float pointForNameOfAxis = markPoint + markPoint * margin;
-                    canvas.DrawText($"{nameOfXAxis}", currentPoint, pointForNameOfAxis, keeper.paints["Text Paint"]);
-                }
+                float x = j * coef;
+                x += frame.GetFirstPointX();
 
-                canvas.DrawText($"{i}", currentPoint, markPoint, keeper.paints["Text Paint"]);
-                currentPoint += step;
-            }            
+                // Через каждую 25-ю итерацию - целое число.
+                if (quantityOfIterations == 25)
+                {
+                    number = Convert.ToInt32(j);
+                    canvas.DrawText($"{number}", x, frame.GetSecondPointY() + frame.GetSecondPointY() * margin, keeper.paints["Text Paint"]);
+                    quantityOfIterations = 0;
+                }                
+
+                i += 0.04f;
+                j += 0.04f;
+                quantityOfIterations += 1;
+            }
         }
 
         private void DrawYMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)

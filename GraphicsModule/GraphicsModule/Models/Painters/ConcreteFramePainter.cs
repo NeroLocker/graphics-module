@@ -19,11 +19,10 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas">Холст.</param>
         public void Paint(RestrictiveFrame frame, SKCanvas canvas)
         {            
-            var firstPointX = frame.GetFirstPointX();
-            var firstPointY = frame.GetFirstPointY();
-            var secondPointX = frame.GetSecondPointX();
-            var secondPointY = frame.GetSecondPointY();
-            canvas.DrawRect(firstPointX, firstPointY, secondPointX, secondPointY, frame.Paint);
+            canvas.DrawLine(frame.GetFirstPointX(), frame.GetFirstPointY(), frame.GetSecondPointX(), frame.GetFirstPointY(), frame.Paint);
+            canvas.DrawLine(frame.GetSecondPointX(), frame.GetFirstPointY(), frame.GetSecondPointX(), frame.GetSecondPointY(), frame.Paint);
+            canvas.DrawLine(frame.GetSecondPointX(), frame.GetSecondPointY(), frame.GetFirstPointX(), frame.GetSecondPointY(), frame.Paint);
+            canvas.DrawLine(frame.GetFirstPointX(), frame.GetSecondPointY(), frame.GetFirstPointX(), frame.GetFirstPointY(), frame.Paint);            
         }
     }
 }

@@ -21,68 +21,35 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas">Холст.</param>
         public void Paint(Plot plot, Parameters parameters, SKCanvas canvas)
         {
-            // ось X
-            
-            //_magnitudePointListOfS21 = parameters.GetListOfMagnitudesOfS21();
-            List<double> magnitudePointListOfS12 = new List<double>();
-            List<double> sortedPointListOfS12 = new List<double>();
+            // цикл для расчета коэффициента масштабирования координат X
+            float coef = 0.01f;
 
-
-            float counter1 = (float)parameters.Fmin;
-            while(counter1 < parameters.Fmax)
+            double i = 0;
+            float point = 0;
+            while (Convert.ToInt32(point) != Convert.ToInt32(plot.SecondPointX))
             {
-                magnitudePointListOfS12.Add(parameters.GetMagnitude(ParameterType.S12, counter1));
-                counter1 += 0.04f;
+
+
+                float x = (float)(parameters.Fmax);
+                point = plot.FirstPointX + x * coef;
+
+                coef += 0.01f;
             }
 
-            Parameters parametersClone = (Parameters)parameters.Clone();
-            for (float i = (float)parameters.Fmin; i < (float)parameters.Fmax; i++)
-            {
-                sortedPointListOfS12.Add(parametersClone.GetMagnitude(ParameterType.S12, i));
-            }
-            sortedPointListOfS12.Sort();
-
-            double maxValue = sortedPointListOfS12[sortedPointListOfS12.Count - 1];
-            double minValue = sortedPointListOfS12[0];
-
-            float markpointX = plot.SecondPointX / 4;
-            float markpointY = plot.SecondPointY / 4;
-
-            canvas.DrawText("|S12|", markpointX, markpointY, plot.TextPaint);
 
 
-            // Помечаем нулевую отметку на оси Y
-            canvas.DrawLine(plot.FirstPointX, plot.GetCenterPointOfYAxis(), plot.SecondPointX, plot.GetCenterPointOfYAxis(), plot.TextPaint);
+            i = plot.FirstPointX;
+            float j = 0;
+            while (i <= plot.SecondPointX)
+            {                
+                float x = j;
+                float y = plot.GetCenterPointOfYAxis();
+                y += -(-(x * x) + 2 * x + 3);
+                canvas.DrawPoint(plot.FirstPointX + x * coef, y, plot.RedPaint);
 
-            float counter = 0;
-            while (counter <= plot.SecondPointX)
-            {
-                float x = plot.FirstPointX;
-                x += counter;
-
-                try
-                {
-                    float y = plot.GetCenterPointOfYAxis();
-                    y += (float)magnitudePointListOfS12[Convert.ToInt32(counter)];
-                    canvas.DrawPoint(x, y, plot.RedPaint);
-
-                    //if (magnitudePointListOfS12[Convert.ToInt32(counter)] == maxValue)
-                    //{
-                    //    canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
-                    //}
-
-                    //if (magnitudePointListOfS12[Convert.ToInt32(counter)] == minValue)
-                    //{
-                    //    canvas.DrawLine(x, y, plot.FirstPointX, y, plot.GrayPaint);
-                    //}
-
-                    counter += 0.04f;
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    break;
-                }
-            }
+                i += 0.04f;
+                j += 0.04f;
+            }                       
 
         }
     }

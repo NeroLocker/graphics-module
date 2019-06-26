@@ -58,18 +58,11 @@ namespace GraphicsModule.Models
             if (Type == PlotType.FrequencyResponse)
             {
                 NameOfYAxis = textData[0];
-                StartPointOfYAxis = 0;
-                EndPointOfYAxis = -30;
             }
             else
             {
                 NameOfYAxis = textData[1];
-                StartPointOfYAxis = 90;
-                EndPointOfYAxis = -180;
-            }
-            
-            StartPointOfXAxis = 0;
-            EndPointOfXAxis = 20;
+            }            
         }
 
     }

@@ -73,7 +73,8 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public float GetFirstPointX()
         {
-            return (_info.Width * _margin);
+            float value = _info.Width * (1f/8f);
+            return value;
         }
 
         /// <summary>
@@ -82,7 +83,9 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public float GetFirstPointY()
         {
-            return (_info.Height * _margin);
+            float value = _info.Height * (1f/8f);
+
+            return value;
         }
 
         /// <summary>
@@ -91,7 +94,7 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public float GetSecondPointX()
         {
-            var value = (_info.Width * (1 - 2 * _margin));
+            float value = _info.Width * (7f / 8f);
 
             return value;
         }
@@ -102,7 +105,8 @@ namespace GraphicsModule.Models
         /// <returns></returns>
         public float GetSecondPointY()
         {
-            var value = (_info.Height * (1 - 2 * _margin));
+            float value = _info.Height * (7f / 8f);
+
             return value;
         }
     }
