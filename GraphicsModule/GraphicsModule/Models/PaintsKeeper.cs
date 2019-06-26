@@ -22,42 +22,48 @@ namespace GraphicsModule.Models
             {
                 Style = SKPaintStyle.Fill,
                 Color = SKColors.Red,
-                StrokeWidth = 2
+                StrokeWidth = 2,
+                TextSize = 24
             };
 
             SKPaint blackPaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
                 Color = SKColors.Black,
-                StrokeWidth = 2
+                StrokeWidth = 2,
+                TextSize = 24
             };
 
             SKPaint bluePaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
                 Color = SKColors.Blue,
-                StrokeWidth = 2
+                StrokeWidth = 2,
+                TextSize = 24
             };
                                   
             SKPaint greenPaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
                 Color = SKColors.Green,
-                StrokeWidth = 2
+                StrokeWidth = 2,
+                TextSize = 24
             };
 
             SKPaint yellowPaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
                 Color = SKColors.Yellow,
-                StrokeWidth = 2
+                StrokeWidth = 2,
+                TextSize = 24
             };
 
             SKPaint purplePaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
                 Color = SKColors.Purple,
-                StrokeWidth = 2
+                StrokeWidth = 2,
+                TextSize = 24
             };
 
             SKPaint axesPaint = new SKPaint

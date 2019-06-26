@@ -14,6 +14,19 @@ namespace GraphicsModule.Models.Painters
     public class PhaseResponsePlotPainter : IPlotPainter
     {
         /// <summary>
+        /// Тип S-параметра.
+        /// </summary>
+        public enum ParameterTypeForPhase
+        {
+            ϕ11,
+            ϕ22,
+            ϕ12,
+            ϕ13,
+            ϕ24,
+            ϕ14
+        }
+
+        /// <summary>
         /// Рисует график.
         /// </summary>
         /// <param name="plot">График.</param>
@@ -23,11 +36,14 @@ namespace GraphicsModule.Models.Painters
         {
             PaintsKeeper keeper = new PaintsKeeper();
             int counter = 0;
+            float shift = 0.1f;
             foreach (ParameterType currentType in (ParameterType[])Enum.GetValues(typeof(ParameterType)))
             {
                 SKPaint currentPaint = keeper.paintsListForPlots[counter];
                 PaintSParameter(currentType, currentPaint, plot, parameters, canvas);
+                canvas.DrawText($"{currentType}", plot.Frame.GetFirstPointX() + plot.Frame.GetSecondPointX() * shift, plot.Frame.GetFirstPointY() + plot.Frame.GetSecondPointY() * 0.05f, currentPaint);
                 counter += 1;
+                shift += 0.1f;
             }
         }
 

@@ -23,11 +23,14 @@ namespace GraphicsModule.Models.Painters
         {
             PaintsKeeper keeper = new PaintsKeeper();
             int counter = 0;
+            float shift = 0.1f;
             foreach (ParameterType currentType in (ParameterType[])Enum.GetValues(typeof(ParameterType)))
             {
                 SKPaint currentPaint = keeper.paintsListForPlots[counter];
                 PaintSParameter(currentType, currentPaint, plot, parameters, canvas);
+                canvas.DrawText($"{currentType}", plot.Frame.GetFirstPointX() + plot.Frame.GetSecondPointX() * shift, plot.Frame.GetFirstPointY() + plot.Frame.GetSecondPointY() * 0.05f, currentPaint);
                 counter += 1;
+                shift += 0.1f;
             }
                                          
         }
