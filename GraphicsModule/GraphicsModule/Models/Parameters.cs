@@ -87,7 +87,7 @@ namespace GraphicsModule.Models
         {
             get => _s21; private set
             {
-                if (!(value >= 2 && value <= 10))
+                if (!(value >= 2 && value <= 40))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
