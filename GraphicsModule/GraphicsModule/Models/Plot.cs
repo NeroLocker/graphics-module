@@ -77,9 +77,8 @@ namespace GraphicsModule.Models
         {
             Type = type;
             Frame = frame;
-            FirstPointX = frame.GetFirstPointX();
-            FirstPointY = frame.GetFirstPointY();
-            // Странно работает здесь
+            FirstPointX = Frame.GetFirstPointX();
+            FirstPointY = Frame.GetFirstPointY();
             SecondPointX = Frame.GetSecondPointX();
             SecondPointY = Frame.GetSecondPointY();
 

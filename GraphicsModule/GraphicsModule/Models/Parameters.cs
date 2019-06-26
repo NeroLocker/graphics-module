@@ -49,11 +49,6 @@ namespace GraphicsModule.Models
                     throw new ArgumentException("Value is not in valid range");
                 }
 
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Value can not be null");
-                }
-
                 _z1 = value;
             }
         }
@@ -69,11 +64,6 @@ namespace GraphicsModule.Models
                 if (!(value >= 1 && value <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
-                }
-
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Value can not be null");
                 }
 
                 _z2 = value;
@@ -102,11 +92,6 @@ namespace GraphicsModule.Models
                     throw new ArgumentException("Value is not in valid range");
                 }
 
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Value can not be null");
-                }
-
                 _s21 = value;
             }
         }
@@ -118,11 +103,6 @@ namespace GraphicsModule.Models
                 if (!(value >= 10 && value <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
-                }
-
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Value can not be null");
                 }
 
                 _l = value * Math.Pow(10, -3); } }
@@ -155,7 +135,8 @@ namespace GraphicsModule.Models
         /// <param name="fEnd"></param>
         public Parameters(double fmin, double fmax, double l, double er, double s21, double z01, double z02, double z1, double z2)
         {
-            Fmin = fmin + 0.04;
+            //Fmin = fmin + 0.04;
+            Fmin = fmin;
             Fmax = fmax;
             L = l;
             Er = er;

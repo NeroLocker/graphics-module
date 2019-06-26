@@ -26,21 +26,14 @@ namespace GraphicsModule.Models
             StrokeWidth = 2
         };
 
-
-        /// <summary>
-        /// Отступ от всех краев служебного рабочего пространства.
-        /// </summary>
-        private float _margin;
-
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="info">Информация о служебном рабочем пространстве.</param>
         /// <param name="margin">Отступ от всех краев служебного рабочего пространства.</param>
-        public RestrictiveFrame(SKImageInfo info, float margin)
+        public RestrictiveFrame(SKImageInfo info)
         {
             _info = info;
-            _margin = margin;
         }
 
         /// <summary>
@@ -66,6 +59,29 @@ namespace GraphicsModule.Models
 
             return (yEnd - yStart);
         }
+
+        /// <summary>
+        /// Возвращает срединную координату точки по оси Y.
+        /// </summary>
+        /// <returns></returns>
+        public float GetCenterPointY()
+        {
+            float value = GetFirstPointY() + GetHeight() / 2f;
+
+            return value;
+        }
+
+        /// <summary>
+        /// Возвращает срединную координату точки по оси X.
+        /// </summary>
+        /// <returns></returns>
+        public float GetCenterPointX()
+        {
+            float value = GetFirstPointX() + GetWidth() / 2f;
+
+            return value;
+        }
+
 
         /// <summary>
         /// Считает координату X левой верхней точки.

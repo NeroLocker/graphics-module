@@ -18,32 +18,52 @@ namespace GraphicsModule.Models.Painters
             DrawYMarks(coordinates, parameters, frame, canvas);
         }
 
-        private void DrawXMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
+        /// <summary>
+        /// Возвращает коэффициент масштабирования для X-точек.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="frame"></param>
+        /// <returns></returns>
+        private float GetXScalingFactor(Parameters parameters, RestrictiveFrame frame)
         {
-            PaintsKeeper keeper = new PaintsKeeper();
+            // Ненулевой
+            float scalingFactor = 0.01f;
 
-            // цикл для расчета коэффициента масштабирования координат X
-            float coef = 0.01f;
             double i = 0;
             float point = 0;
             while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointX()))
             {
                 float x = (float)(parameters.Fmax);
-                point = frame.GetFirstPointX() + x * coef;
-                coef += 0.01f;
+                point = frame.GetFirstPointX() + x * scalingFactor;
+                scalingFactor += 0.01f;
             }
+
+            return scalingFactor;
+        }
+
+        private void DrawXMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
+        {
+            PaintsKeeper keeper = new PaintsKeeper();
+
+            float xScalingFactor = GetXScalingFactor(parameters, frame);
 
             float margin = 0.05f;
             byte quantityOfIterations = 0;
             float number = 0;
-            float j = 0;
+            float j = (float)parameters.Fmin;
 
+            double i = 0;
             i = frame.GetFirstPointX();
             while (i <= frame.GetSecondPointX())
             {
-                float x = j * coef;
-                x += frame.GetFirstPointX();
+                if (Convert.ToInt32(j) == Convert.ToInt32(parameters.Fmax))
+                {
+                    break;
+                }
 
+                float x = j * xScalingFactor;
+                x += frame.GetFirstPointX();
+         
                 // Через каждую 25-ю итерацию - целое число.
                 if (quantityOfIterations == 25)
                 {
@@ -68,8 +88,9 @@ namespace GraphicsModule.Models.Painters
             float shift = frame.GetFirstPointX() - frame.GetFirstPointX() * margin;
 
             // 0
-            float centerOfYAxis = (frame.GetFirstPointY() + frame.GetSecondPointY()) / 2f;
-            canvas.DrawText("0", shift, centerOfYAxis, keeper.paints["Text Paint"]);
+            float centerOfYAxis = frame.GetFirstPointY() + frame.GetHeight() / 2f;
+            canvas.DrawText("0", shift, frame.GetCenterPointY(), keeper.paints["Text Paint"]);
+            canvas.DrawLine(frame.GetFirstPointX(), centerOfYAxis, frame.GetSecondPointX(), centerOfYAxis, frame.Paint);
 
             float valueToShow = 0;
             float currentPoint = centerOfYAxis;

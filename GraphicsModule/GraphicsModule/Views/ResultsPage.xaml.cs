@@ -44,7 +44,7 @@ namespace GraphicsModule
             canvas.Clear();
            
             PaintsKeeper keeper = new PaintsKeeper();
-            RestrictiveFrame frame = new RestrictiveFrame(args.Info, 0.1f);
+            RestrictiveFrame frame = new RestrictiveFrame(args.Info);
             
             if (FrequencyResponseSwitch.IsToggled)
             {
