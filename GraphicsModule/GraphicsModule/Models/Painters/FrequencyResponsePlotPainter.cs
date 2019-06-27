@@ -36,23 +36,26 @@ namespace GraphicsModule.Models.Painters
         }
 
         /// <summary>
-        /// Рисует АЧХ для параметра.
+        /// Рисует АЧХ для входного параметра.
         /// </summary>
-        /// <param name="plot"></param>
-        /// <param name="parameters"></param>
-        /// <param name="canvas"></param>
+        /// <param name="type">Тип S-параметра.</param>
+        /// <param name="paint">Краска для рисования.</param>
+        /// <param name="plot">График.</param>
+        /// <param name="parameters">Параметры.</param>
+        /// <param name="canvas">Холст.</param>
         private void PaintSParameter(ParameterType type, SKPaint paint, Plot plot, Parameters parameters, SKCanvas canvas)
         {
             // цикл для расчета коэффициента масштабирования координат X
             RestrictiveFrame frame = plot.Frame;
-            float scalingFactor = GetXScalingFactor(parameters, frame);
+            float xScalingFactor = GetXScalingFactor(parameters, frame);
+            float yScalingFactor = GetYScalingFactor(parameters, frame);
 
             double i = plot.Frame.GetFirstPointX();
             float j = (float)parameters.Fmin;
-            while (j * scalingFactor <= parameters.Fmax * scalingFactor)
+            while (j * xScalingFactor <= parameters.Fmax * xScalingFactor)
             {
                 float x = j;
-                float y = plot.GetCenterPointOfYAxis();
+                //float y = plot.FirstPointY;
 
                 // Встречаем отрицательную бесконечность на 1 шаге.
                 if (parameters.GetMagnitude(ParameterType.S12, x) == Double.NegativeInfinity)
@@ -64,8 +67,15 @@ namespace GraphicsModule.Models.Painters
 
                 // Инвертирование значений.
                 float currentMagnitude = (float)parameters.GetMagnitude(type, x);
-                y += -(currentMagnitude);
-                canvas.DrawPoint(plot.FirstPointX + x * scalingFactor, y, paint);
+                float y = -(currentMagnitude);
+
+                if (plot.FirstPointY + y * yScalingFactor >= plot.SecondPointY)
+                {
+                    i += 0.04f;
+                    j += 0.04f;
+                    continue;
+                }
+                canvas.DrawPoint(plot.FirstPointX + x * xScalingFactor, plot.FirstPointY + y * yScalingFactor, paint);
 
                 i += 0.04f;
                 j += 0.04f;
@@ -73,6 +83,31 @@ namespace GraphicsModule.Models.Painters
 
             int b = 0;
         }
+
+        /// <summary>
+        /// Возвращает коэффициент масштабирования для X-точек.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="frame"></param>
+        /// <returns></returns>
+        private float GetYScalingFactor(Parameters parameters, RestrictiveFrame frame)
+        {
+            // Ненулевой
+            float scalingFactor = 0.01f;
+
+            float point = 0;
+            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointY()))
+            {
+                // Здесь макс значение по y
+                float y = (float)(30);
+
+                point = frame.GetFirstPointY() + y * scalingFactor;
+                scalingFactor += 0.01f;
+            }
+
+            return scalingFactor;
+        }
+
 
         /// <summary>
         /// Возвращает коэффициент масштабирования для X-точек.

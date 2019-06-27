@@ -30,6 +30,8 @@ namespace GraphicsModule
             if (userParameters != null)
             {
                 UserParameters = userParameters;
+
+                FrequencyResponseSwitch.IsToggled = true;
             }
         }
   

@@ -14,7 +14,18 @@ namespace GraphicsModule
     {
         public MainPage()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            // Заполняем поля стандартными значениями
+            fMinEntry.Text = "0";
+            fMaxEntry.Text = "20";
+            lEntry.Text = "15";
+            eREntry.Text = "1";
+            z1Entry.Text = "57";
+            z2Entry.Text = "29";
+            z01Entry.Text = "50";
+            z02Entry.Text = "25";
+            s21Entry.Text = "3";
         }
 
         private async void OnContinueButtonClicked(object sender, EventArgs e)

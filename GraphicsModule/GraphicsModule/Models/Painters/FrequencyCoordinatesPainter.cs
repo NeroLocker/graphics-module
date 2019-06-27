@@ -160,26 +160,6 @@ namespace GraphicsModule.Models.Painters
             path.LineTo(shiftPoint, frame.GetFirstPointY());
             canvas.DrawTextOnPath($"{coordinates.NameOfYAxis}", path, 0, 0, keeper.paints["Text Paint"]);
             path.Close();
-
-            //// положительная часть оси Y
-            //float valueToShow = 0;
-            //float currentPoint = frame.GetCenterPointY();
-            //while (currentPoint >= frame.GetFirstPointY())
-            //{
-            //    canvas.DrawText($"{valueToShow.ToString("#")}", shiftPoint, currentPoint, keeper.paints["Text Paint"]);
-            //    valueToShow += 50;
-            //    currentPoint -= 50;
-            //}
-
-            //// отрицательная часть оси Y
-            //valueToShow = 0;
-            //currentPoint = frame.GetCenterPointY();
-            //while (currentPoint <= frame.GetSecondPointY())
-            //{
-            //    canvas.DrawText($"{valueToShow.ToString("#")}", shiftPoint, currentPoint, keeper.paints["Text Paint"]);
-            //    valueToShow -= 50;
-            //    currentPoint += 50;
-            //}
         }
     }
 }

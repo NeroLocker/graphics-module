@@ -18,13 +18,13 @@ namespace GraphicsModule.Models
         /// </summary>
         public PaintsKeeper()
         {
-            SKPaint redPaint = new SKPaint
+            SKPaint indianRedPaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
-                Color = SKColors.Red,
+                Color = SKColors.IndianRed,
                 StrokeWidth = 2,
                 TextSize = 24
-            };
+            };            
 
             SKPaint blackPaint = new SKPaint
             {
@@ -41,19 +41,19 @@ namespace GraphicsModule.Models
                 StrokeWidth = 2,
                 TextSize = 24
             };
-                                  
-            SKPaint greenPaint = new SKPaint
+
+            SKPaint redPaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
-                Color = SKColors.Green,
+                Color = SKColors.Red,
                 StrokeWidth = 2,
                 TextSize = 24
             };
 
-            SKPaint yellowPaint = new SKPaint
+            SKPaint deepSkyBluePaint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
-                Color = SKColors.Yellow,
+                Color = SKColors.DeepSkyBlue,
                 StrokeWidth = 2,
                 TextSize = 24
             };
@@ -86,11 +86,11 @@ namespace GraphicsModule.Models
                 Color = SKColors.Gray
             };
 
-            paints.Add("Red Paint", redPaint);
+            paints.Add("Indian Red Paint", indianRedPaint);            
             paints.Add("Black Paint", blackPaint);            
             paints.Add("Blue Paint", bluePaint);
-            paints.Add("Green Paint", greenPaint);
-            paints.Add("Yellow Paint", yellowPaint);
+            paints.Add("Red Paint", redPaint);
+            paints.Add("Deep Sky Blue Paint", deepSkyBluePaint);
             paints.Add("Purple Paint", purplePaint);
             paints.Add("Axes Paint", axesPaint);
             paints.Add("Text Paint", textPaint);
