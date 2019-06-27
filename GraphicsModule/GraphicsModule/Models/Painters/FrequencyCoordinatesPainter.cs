@@ -42,6 +42,30 @@ namespace GraphicsModule.Models.Painters
             return scalingFactor;
         }
 
+        /// <summary>
+        /// Возвращает коэффициент масштабирования для X-точек.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="frame"></param>
+        /// <returns></returns>
+        private float GetYScalingFactor(Parameters parameters, RestrictiveFrame frame)
+        {
+            // Ненулевой
+            float scalingFactor = 0.01f;
+
+            float point = 0;
+            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointY()))
+            {
+                // Здесь макс значение по y
+                float y = (float)(30);
+
+                point = frame.GetFirstPointY() + y * scalingFactor;
+                scalingFactor += 0.01f;
+            }
+
+            return scalingFactor;
+        }
+
         private void DrawXMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
             PaintsKeeper keeper = new PaintsKeeper();
@@ -80,45 +104,82 @@ namespace GraphicsModule.Models.Painters
             canvas.DrawText($"{coordinates.NameOfXAxis}", frame.GetCenterPointX(), frame.GetSecondPointY() + 2 * frame.GetSecondPointY() * _margin, keeper.paints["Text Paint"]);
         }
 
+        /// <summary>
+        /// Рисует метки по Y.
+        /// </summary>
+        /// <param name="coordinates"></param>
+        /// <param name="parameters"></param>
+        /// <param name="frame"></param>
+        /// <param name="canvas"></param>
         private void DrawYMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
-            PaintsKeeper keeper = new PaintsKeeper();
+            float yScalingFactor = GetYScalingFactor(parameters, frame);
 
-            // отрисовка
-            float shift = frame.GetFirstPointX() - frame.GetSecondPointX() * _margin;
+            PaintsKeeper keeper = new PaintsKeeper();
+            // Смещенная точка.
+            float shiftPoint = frame.GetFirstPointX() - frame.GetSecondPointX() * _margin;
 
             // 0
-            canvas.DrawText("0", shift, frame.GetCenterPointY(), keeper.paints["Text Paint"]);
-            canvas.DrawLine(frame.GetFirstPointX(), frame.GetCenterPointY(), frame.GetSecondPointX(), frame.GetCenterPointY(), frame.Paint);
+            //canvas.DrawText("0", shiftPoint, frame.GetCenterPointY(), keeper.paints["Text Paint"]);
+            //canvas.DrawLine(frame.GetFirstPointX(), frame.GetCenterPointY(), frame.GetSecondPointX(), frame.GetCenterPointY(), frame.Paint);
 
-            // положительная часть оси Y
-            float valueToShow = 0;
-            float currentPoint = frame.GetCenterPointY();
-            while (currentPoint >= frame.GetFirstPointY())
-            {
-                canvas.DrawText($"{valueToShow.ToString("#")}", shift, currentPoint, keeper.paints["Text Paint"]);
-                valueToShow += 50;
-                currentPoint -= 50;
-            }
+            byte quantityOfIterations = 0;
+            float number = 0;
+            float j = 0;
 
-            // отрицательная часть оси Y
-            valueToShow = 0;
-            currentPoint = frame.GetCenterPointY();
-            while (currentPoint <= frame.GetSecondPointY())
+            double i = 0;
+            i = frame.GetFirstPointY();
+            while (i <= frame.GetSecondPointY())
             {
-                canvas.DrawText($"{valueToShow.ToString("#")}", shift, currentPoint, keeper.paints["Text Paint"]);
-                valueToShow -= 50;
-                currentPoint += 50;
+                if (Convert.ToInt32(j) == Convert.ToInt32(30))
+                {
+                    break;
+                }
+
+                float y = j * yScalingFactor;
+                y += frame.GetFirstPointY();
+
+                // Через каждую 25-ю итерацию - целое число.
+                if (quantityOfIterations == 25)
+                {
+                    number = Convert.ToInt32(j);
+                    canvas.DrawText($"{-number}", shiftPoint, y, keeper.paints["Text Paint"]);
+                    quantityOfIterations = 0;
+                }
+
+                i += 0.04f;
+                j += 0.04f;
+                quantityOfIterations += 1;
             }
 
             // Название оси
-            shift -= frame.GetSecondPointX() * _margin;
+            shiftPoint -= frame.GetSecondPointX() * _margin;
 
             SKPath path = new SKPath();
-            path.MoveTo(shift, frame.GetCenterPointY());
-            path.LineTo(shift, frame.GetFirstPointY());
+            path.MoveTo(shiftPoint, frame.GetCenterPointY());
+            path.LineTo(shiftPoint, frame.GetFirstPointY());
             canvas.DrawTextOnPath($"{coordinates.NameOfYAxis}", path, 0, 0, keeper.paints["Text Paint"]);
             path.Close();
+
+            //// положительная часть оси Y
+            //float valueToShow = 0;
+            //float currentPoint = frame.GetCenterPointY();
+            //while (currentPoint >= frame.GetFirstPointY())
+            //{
+            //    canvas.DrawText($"{valueToShow.ToString("#")}", shiftPoint, currentPoint, keeper.paints["Text Paint"]);
+            //    valueToShow += 50;
+            //    currentPoint -= 50;
+            //}
+
+            //// отрицательная часть оси Y
+            //valueToShow = 0;
+            //currentPoint = frame.GetCenterPointY();
+            //while (currentPoint <= frame.GetSecondPointY())
+            //{
+            //    canvas.DrawText($"{valueToShow.ToString("#")}", shiftPoint, currentPoint, keeper.paints["Text Paint"]);
+            //    valueToShow -= 50;
+            //    currentPoint += 50;
+            //}
         }
     }
 }
