@@ -21,13 +21,6 @@ namespace GraphicsModule.Models
         /// </summary>
         private double Er { get; set;}
 
-        /// <summary>
-        /// Коэффициент импедансной связи.
-        /// </summary>
-        private double _k;
-
-        private double _z0;
-
         private double _z1;
 
         private double _z2;
