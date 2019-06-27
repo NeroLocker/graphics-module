@@ -48,8 +48,8 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidSupportedAbis />
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <EnableProguard>false</EnableProguard>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <EnableProguard>true</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
