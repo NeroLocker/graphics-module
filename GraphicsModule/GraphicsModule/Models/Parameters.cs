@@ -19,7 +19,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Диэлектрическая проницаемость среды.
         /// </summary>
-        private double Er { get; set;}
+        private double Er { get; set; }
 
         private double _z1;
 
@@ -28,6 +28,10 @@ namespace GraphicsModule.Models
         private double _s21;
 
         private double _l;
+        private double _fmin;
+        private double _fmax;
+        private double _z01;
+        private double _z02;
 
         /// <summary>
         /// Характеристический импеданс первой линии.
@@ -51,7 +55,7 @@ namespace GraphicsModule.Models
         /// </summary>
         public double Z2
         {
-            get => _z2; 
+            get => _z2;
             private set
             {
                 if (!(value >= 1 && value <= 100))
@@ -66,12 +70,28 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Номинал нагрузочного резистора Z01.
         /// </summary>
-        public double Z01 { get; private set; }
+        public double Z01
+        {
+            get => _z01; private set
+            {
+                if (!(value >= 1 && value <= 100))
+                {
+                    throw new ArgumentException("Value is not in valid range");
+                }
+
+                _z01 = value;
+            }
+        }
 
         /// <summary>
         /// Номинал нагрузочного резистора Z02.
         /// </summary>
-        public double Z02 { get; private set; }
+        public double Z02 { get => _z02; private set {
+                if (!(value >= 1 && value <= 100))
+                {
+                    throw new ArgumentException("Value is not in valid range");
+                }
+                _z02 = value; } }
 
         /// <summary>
         /// Коэффициент связи 1-ой и 2-ой линии.
@@ -80,7 +100,7 @@ namespace GraphicsModule.Models
         {
             get => _s21; private set
             {
-                if (!(value >= 2 && value <= 40))
+                if (!(value >= 1 && value <= 40))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -92,23 +112,57 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Геометрическая длина схемы отрезка СЛ.
         /// </summary>
-        public double L { get => _l; private set {
-                if (!(value >= 10 && value <= 100))
+        public double L
+        {
+            get => _l;
+            private set
+            {
+                if (!(value >= 1 && value <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
 
-                _l = value * Math.Pow(10, -3); } }
+                _l = value * Math.Pow(10, -3);
+            }
+        }
 
         /// <summary>
         /// Начальная частота Fi.
         /// </summary>
-        public double Fmin { get; private set; }
+        public double Fmin
+        {
+            get => _fmin;
+            private set
+            {
+                if (!(value > -1))
+                {
+                    throw new ArgumentException("Value is not positive number");
+                }
+
+                _fmin = value;
+            }
+        }
 
         /// <summary>
         /// Конечная частота Fi.
         /// </summary>
-        public double Fmax { get; private set; }
+        public double Fmax
+        {
+            get => _fmax; private set
+            {
+                if (!(value > 0))
+                {
+                    throw new ArgumentException("Value is not positive number");
+                }
+
+                if (value - _fmin > 30)
+                {
+                    throw new ArgumentException("Difference between this value and Fmin can't be more than 30");
+                }
+
+                _fmax = value;
+            }
+        }
 
         /// <summary>
         /// Скорость света.
@@ -139,7 +193,7 @@ namespace GraphicsModule.Models
             Z1 = z1;
             Z2 = z2;
 
-            C = 2.998E8;  
+            C = 2.998E8;
         }
 
         # region Параметры, вычисляемые формулами
@@ -153,7 +207,7 @@ namespace GraphicsModule.Models
             double z2 = Z2;
             double z1 = Z1;
 
-            double n = Math.Sqrt(z2/z1);
+            double n = Math.Sqrt(z2 / z1);
             return n;
         }
 
@@ -205,7 +259,7 @@ namespace GraphicsModule.Models
             double n = GetN();
             double kHatch = GetKHatch();
 
-            double rho11 = zo/(z01 * n * kHatch);
+            double rho11 = zo / (z01 * n * kHatch);
 
             return rho11;
         }
@@ -221,7 +275,7 @@ namespace GraphicsModule.Models
             double n = GetN();
             double kHatch = GetKHatch();
 
-            double rho22 = (zo * n)/(z02 * kHatch);
+            double rho22 = (zo * n) / (z02 * kHatch);
 
             return rho22;
         }
@@ -237,7 +291,7 @@ namespace GraphicsModule.Models
             double k = GetK();
             double kHatch = GetKHatch();
 
-            double r = (zo * k)/(z0 * kHatch);
+            double r = (zo * k) / (z0 * kHatch);
 
             return r;
         }
@@ -252,8 +306,8 @@ namespace GraphicsModule.Models
             double kHatch = GetKHatch();
             double z01 = Z01;
             double n = GetN();
-            
-            double w11 = (zo * kHatch)/(z01 * n);
+
+            double w11 = (zo * kHatch) / (z01 * n);
 
             return w11;
         }
@@ -269,7 +323,7 @@ namespace GraphicsModule.Models
             double z02 = Z02;
             double n = GetN();
 
-            double w22 = (zo * kHatch * n)/(z02);
+            double w22 = (zo * kHatch * n) / (z02);
 
             return w22;
         }
@@ -285,7 +339,7 @@ namespace GraphicsModule.Models
             double z0 = GetZ0();
             double k = GetK();
 
-            double v = (zo * kHatch)/(z0 * k);
+            double v = (zo * kHatch) / (z0 * k);
 
             return v;
         }
@@ -326,7 +380,7 @@ namespace GraphicsModule.Models
         private double GetK()
         {
             // k = 10^(-S21/20)
-            double k = Math.Pow(10, -S21/20);
+            double k = Math.Pow(10, -S21 / 20);
 
             return k;
         }
@@ -354,9 +408,9 @@ namespace GraphicsModule.Models
 
             Complex i = Complex.Sqrt(-1);
 
-            double alpha = Math.Pow((r - 1/v) * sinOfTheta, 2);
-            Complex beta = 2 * cosOfTheta + i * ((rho11 + 1/w11) * sinOfTheta);
-            Complex gamma = 2 * cosOfTheta + i * ((rho22 + 1/w22) * sinOfTheta);
+            double alpha = Math.Pow((r - 1 / v) * sinOfTheta, 2);
+            Complex beta = 2 * cosOfTheta + i * ((rho11 + 1 / w11) * sinOfTheta);
+            Complex gamma = 2 * cosOfTheta + i * ((rho22 + 1 / w22) * sinOfTheta);
 
             Complex multiplication = Complex.Multiply(beta, gamma);
             Complex a = Complex.Add(alpha, multiplication);
@@ -383,9 +437,9 @@ namespace GraphicsModule.Models
 
             Complex i = Complex.Sqrt(-1);
 
-            double alpha = Math.Pow(r, 2) - 1/Math.Pow(v, 2);
-            double beta = rho11 - 1/w11;
-            double gamma = rho22 + 1/w22;
+            double alpha = Math.Pow(r, 2) - 1 / Math.Pow(v, 2);
+            double beta = rho11 - 1 / w11;
+            double gamma = rho22 + 1 / w22;
 
             Complex numerator = (alpha - beta * gamma) * Math.Pow(sinOfTheta, 2) + i * beta * Math.Sin(2 * theta);
             Complex a = GetA(currentF);
@@ -443,7 +497,7 @@ namespace GraphicsModule.Models
 
             Complex i = Complex.Sqrt(-1);
 
-            Complex numerator = -2 * (rho11/v + r/w11) * Math.Pow(sinOfTheta, 2) + i * (r + 1/v) * Math.Sin(2 * theta);
+            Complex numerator = -2 * (rho11 / v + r / w11) * Math.Pow(sinOfTheta, 2) + i * (r + 1 / v) * Math.Sin(2 * theta);
             Complex a = GetA(currentF);
 
             Complex s12 = Complex.Divide(numerator, a);
@@ -495,7 +549,7 @@ namespace GraphicsModule.Models
 
             Complex i = Complex.Sqrt(-1);
 
-            double beta = rho11 - 1 / w11;
+            double beta = rho11 + 1 / w11;
 
             double cosOfTheta = Math.Cos(theta);
 
@@ -520,8 +574,8 @@ namespace GraphicsModule.Models
             double theta = GetTheta(currentF);
             double sinOfTheta = Math.Sin(theta);
 
-            
-            Complex numerator = -i * 2 * (r - 1/v) * sinOfTheta;
+
+            Complex numerator = -i * 2 * (r - 1 / v) * sinOfTheta;
             Complex a = GetA(currentF);
 
             Complex s14 = Complex.Divide(numerator, a);
@@ -569,7 +623,7 @@ namespace GraphicsModule.Models
                     throw new InvalidOperationException("Type is not valid.");
             }
 
-            return currentMagnitude;          
+            return currentMagnitude;
         }
 
         /// <summary>
@@ -612,7 +666,7 @@ namespace GraphicsModule.Models
                     throw new InvalidOperationException("Type is not valid.");
             }
 
-            return currentPhase;          
+            return currentPhase;
         }
         #endregion
 
