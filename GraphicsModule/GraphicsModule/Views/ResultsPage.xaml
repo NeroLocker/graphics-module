@@ -17,12 +17,12 @@
 
     
     <Grid VerticalOptions="FillAndExpand">
-        
+
         <FlexLayout Direction="Column" Grid.Row="0">
 
             <Label Text="Частотные характеристики" 
                    Margin="{StaticResource Key=StackLayoutPadding}"
-                   FontSize="{StaticResource Key=FontSize}"
+                   FontSize="Medium"
                    HorizontalOptions="StartAndExpand"
                    />
 
@@ -30,7 +30,7 @@
                 <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
 
                     <Label Text="АЧХ"
-                   FontSize="{StaticResource Key=FontSize}"
+                   FontSize="Medium"
                    HorizontalOptions="StartAndExpand"/>
 
                     <Switch 
@@ -45,7 +45,7 @@
                 <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
 
                     <Label Text="ФЧХ"
-                   FontSize="{StaticResource Key=FontSize}"
+                   FontSize="Medium"
                    HorizontalOptions="StartAndExpand"/>
 
                     <Switch 
@@ -55,8 +55,51 @@
 
                 </StackLayout>
             </Frame>
+            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
+                <StackLayout Orientation="Vertical" Padding="{StaticResource Key=StackLayoutPadding}">
+                    <Label
+                    HorizontalOptions="StartAndExpand"
+                    FontSize="Medium"
+                    Text="Промежуточные расчетные параметры"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text=""
+                               x:Name="kLabel"
+                           FontSize="Default"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="Center"/>
+                        <Label Grid.Column="2" Text=""
+                               x:Name="nLabel"
+                           FontSize="Default"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="Center"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text=""
+                               x:Name="zoLabel"
+                           FontSize="Default"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="Center"/>
+                        <Label Grid.Column="2" Text=""
+                               x:Name="nInTwoPowerLabel"
+                           FontSize="Default"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="Center"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
         </FlexLayout>
-
         <skia:SKCanvasView
                                     PaintSurface="OnCanvasViewPaintSurface"
                                     x:Name="OutputCanvasView"

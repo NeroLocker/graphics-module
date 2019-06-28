@@ -207,7 +207,7 @@ namespace GraphicsModule.Models
         /// Возвращает коэффициент симметрии n.
         /// </summary>
         /// <returns></returns>
-        private double GetN()
+        public double GetN()
         {
             double z2 = Z2;
             double z1 = Z1;
@@ -220,7 +220,7 @@ namespace GraphicsModule.Models
         /// Возващает характеристическое сопротивление СЛ Zo.
         /// </summary>
         /// <returns></returns>
-        private double GetZo()
+        public double GetZo()
         {
             double z2 = Z2;
             double z1 = Z1;
@@ -382,7 +382,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Возвращает коэффициент импедансной связи.
         /// </summary>
-        private double GetK()
+        public double GetK()
         {
             // k = 10^(-S21/20)
             double k = Math.Pow(10, -S21 / 20);

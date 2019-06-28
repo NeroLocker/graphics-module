@@ -157,7 +157,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Text="|S21|, дБ:"
                            FontSize="Default"
-                           HorizontalOptions="Start"
+                           HorizontalOptions="FillAndExpand"
                            VerticalOptions="Center"/>
                     <Entry Grid.Column="1"                       
                        FontSize="Small"
