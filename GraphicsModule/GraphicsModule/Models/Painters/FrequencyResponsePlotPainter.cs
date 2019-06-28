@@ -80,8 +80,6 @@ namespace GraphicsModule.Models.Painters
                 i += 0.04f;
                 j += 0.04f;
             }
-
-            int b = 0;
         }
 
         /// <summary>
