@@ -77,6 +77,13 @@ namespace GraphicsModule.Models.Painters
                 // Инвертирование значений.
                 float currentPhase = (float)parameters.GetPhase(type, x);
                 y += -(currentPhase);
+
+                if (plot.FirstPointY + y >= plot.SecondPointY)
+                {
+                    i += 0.04f;
+                    j += 0.04f;
+                    continue;
+                }
                 canvas.DrawPoint(plot.FirstPointX + x * scalingFactor, y, paint);
 
                 i += 0.04f;
