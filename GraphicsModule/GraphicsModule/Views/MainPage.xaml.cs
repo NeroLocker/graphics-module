@@ -50,8 +50,18 @@ namespace GraphicsModule
                         await Navigation.PushAsync(new ResultsPage(userParameters));
                     }
 
-                    catch (ArgumentException)
+                    catch (ArgumentException exception)
                     {
+                        if (exception.Message == "Difference between this value and Fmin can't be more than 30")
+                        {
+                            await DisplayAlert("Предупреждение", "Difference between Fmax and Fmin can't be more than 30", "Ок");
+                            
+                        }
+                        if (exception.Message == "Difference between this value and Fmin can't be less than 5")
+                        {
+                            await DisplayAlert("Предупреждение", "Difference between Fmax and Fmin can't be less than 5", "Ок");
+                        }
+
                         await DisplayAlert("Предупреждение", "Одно или несколько введенных параметров не в допустимом диапазоне", "Ок");
                     }
                 }

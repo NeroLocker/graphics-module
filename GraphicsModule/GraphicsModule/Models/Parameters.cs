@@ -100,7 +100,7 @@ namespace GraphicsModule.Models
         {
             get => _s21; private set
             {
-                if (!(value >= 1 && value <= 40))
+                if (!(value >= 1 && value <= 100))
                 {
                     throw new ArgumentException("Value is not in valid range");
                 }
@@ -158,6 +158,11 @@ namespace GraphicsModule.Models
                 if (value - _fmin > 30)
                 {
                     throw new ArgumentException("Difference between this value and Fmin can't be more than 30");
+                }
+
+                if (value - _fmin < 5)
+                {
+                    throw new ArgumentException("Difference between this value and Fmin can't be less than 5");
                 }
 
                 _fmax = value;
