@@ -174,7 +174,7 @@ namespace GraphicsModule.Models
 
                 if (value - _fmin <= 2)
                 {
-                    throw new ArgumentException("Difference between Fmax and Fmin can't be less than 5");
+                    throw new ArgumentException("Difference between Fmax and Fmin can't be less than 2");
                 }
 
                 _fmax = value;

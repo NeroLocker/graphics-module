@@ -50,27 +50,69 @@ namespace GraphicsModule
                         await Navigation.PushAsync(new ResultsPage(userParameters));
                     }
 
-                    catch (ArgumentException exception)
+                    catch (ArgumentException argException)
                     {
-                        if (exception.Message == "Difference between this value and Fmin can't be more than 30")
+                        if (argException.Message == "Er is not in valid range")
                         {
-                            await DisplayAlert("Предупреждение", "Difference between Fmax and Fmin can't be more than 30", "Ок");
-                            
-                        }
-                        if (exception.Message == "Difference between this value and Fmin can't be less than 5")
-                        {
-                            await DisplayAlert("Предупреждение", "Difference between Fmax and Fmin can't be less than 5", "Ок");
-                        }
+                            await DisplayAlert("Предупреждение", "Er введено некорректно", "Ок");
 
-                        await DisplayAlert("Предупреждение", "Одно или несколько введенных параметров не в допустимом диапазоне", "Ок");
+                        }
+                        if (argException.Message == "Z1 is not in valid range")
+                        {
+                            await DisplayAlert("Предупреждение", "Z1 введено некорректно", "Ок");
+
+                        }
+                        if (argException.Message == "Z2 is not in valid range")
+                        {
+                            await DisplayAlert("Предупреждение", "Z2 введено некорректно", "Ок");
+
+                        }
+                        if (argException.Message == "Z01 is not in valid range")
+                        {
+                            await DisplayAlert("Предупреждение", "Z01 введено некорректно", "Ок");
+
+                        }
+                        if (argException.Message == "Z02 is not in valid range")
+                        {
+                            await DisplayAlert("Предупреждение", "Z02 введено некорректно", "Ок");
+
+                        }
+                        if (argException.Message == "S21 is not in valid range")
+                        {
+                            await DisplayAlert("Предупреждение", "S21 введено некорректно", "Ок");
+
+                        }
+                        if (argException.Message == "L is not in valid range")
+                        {
+                            await DisplayAlert("Предупреждение", "L введено некорректно", "Ок");
+
+                        }
+                        if (argException.Message == "Fmin is not positive number")
+                        {
+                            await DisplayAlert("Предупреждение", "Fmin не является положительным числом", "Ок");
+
+                        }
+                        if (argException.Message == "Fmax is not positive number")
+                        {
+                            await DisplayAlert("Предупреждение", "Fmax не является положительным числом", "Ок");
+
+                        }
+                        if (argException.Message == "Difference between Fmax and Fmin can't be more than 30")
+                        {
+                            await DisplayAlert("Предупреждение", "Разница между Fmax и Fmin не может быть больше 30", "Ок");
+
+                        }
+                        if (argException.Message == "Difference between Fmax and Fmin can't be less than 2")
+                        {
+                            await DisplayAlert("Предупреждение", "Разница между Fmax и Fmin не может быть меньше 2", "Ок");
+
+                        }                                                
                     }
                 }
                 else
                 {
                     await DisplayAlert("Предупреждение", "Один или несколько параметров введены некорректно", "Ок");
-                }
-
-                
+                }                
             }
             else
             {
