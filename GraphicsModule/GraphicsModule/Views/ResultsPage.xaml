@@ -14,53 +14,15 @@
             <x:Int32 x:Key="FrameMargin">1</x:Int32>
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    
     <Grid VerticalOptions="FillAndExpand">
-
         <FlexLayout Direction="Column" Grid.Row="0">
-
-            <Label Text="Частотные характеристики" 
-                   Margin="{StaticResource Key=StackLayoutPadding}"
-                   FontSize="Medium"
-                   HorizontalOptions="StartAndExpand"
-                   />
-
-            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
-                <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
-
-                    <Label Text="АЧХ"
-                   FontSize="Medium"
-                   HorizontalOptions="StartAndExpand"/>
-
-                    <Switch 
-                        x:Name="FrequencyResponseSwitch"
-                        Toggled="OnFrequencyResponseSwitchToggled"
-                        HorizontalOptions="EndAndExpand"/>
-
-                </StackLayout>
-            </Frame>
-
-            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
-                <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
-
-                    <Label Text="ФЧХ"
-                   FontSize="Medium"
-                   HorizontalOptions="StartAndExpand"/>
-
-                    <Switch 
-                        x:Name="PhaseResponseSwitch"
-                        Toggled="OnPhaseResponseSwitchToggled"
-                HorizontalOptions="EndAndExpand"/>
-
-                </StackLayout>
-            </Frame>
-            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
-                <StackLayout Orientation="Vertical" Padding="{StaticResource Key=StackLayoutPadding}">
-                    <Label
+            <Label
+                Margin="{StaticResource Key=StackLayoutPadding}"
                     HorizontalOptions="StartAndExpand"
                     FontSize="Medium"
-                    Text="Промежуточные расчетные параметры"/>
+                    Text="Расчетные параметры"/>
+            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
+                <StackLayout Orientation="Vertical" Padding="{StaticResource Key=StackLayoutPadding}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="75" />
@@ -99,6 +61,36 @@
                     </Grid>
                 </StackLayout>
             </Frame>
+            <Label Text="Частотные характеристики" 
+                   Margin="{StaticResource Key=StackLayoutPadding}"
+                   FontSize="Medium"
+                   HorizontalOptions="StartAndExpand"
+                   />
+            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
+                <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
+
+                    <Label Text="АЧХ"
+                   FontSize="Medium"
+                   HorizontalOptions="StartAndExpand"/>
+
+                    <Switch 
+                        x:Name="FrequencyResponseSwitch"
+                        Toggled="OnFrequencyResponseSwitchToggled"
+                        HorizontalOptions="EndAndExpand"/>
+
+                </StackLayout>
+            </Frame>
+            <Frame Padding="{StaticResource Key=FramePadding}" Margin="{StaticResource Key=FrameMargin}">
+                <StackLayout Orientation="Horizontal" Padding="{StaticResource Key=StackLayoutPadding}">
+                    <Label Text="ФЧХ"
+                   FontSize="Medium"
+                   HorizontalOptions="StartAndExpand"/>
+                    <Switch 
+                        x:Name="PhaseResponseSwitch"
+                        Toggled="OnPhaseResponseSwitchToggled"
+                HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+            </Frame>
         </FlexLayout>
         <skia:SKCanvasView
                                     PaintSurface="OnCanvasViewPaintSurface"
@@ -107,6 +99,4 @@
                                >
         </skia:SKCanvasView>
     </Grid>
-
-
 </ContentPage>
