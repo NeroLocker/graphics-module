@@ -25,10 +25,10 @@
                 <StackLayout Orientation="Vertical" Padding="{StaticResource Key=StackLayoutPadding}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="85" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Text=""
                                x:Name="kLabel"
@@ -43,10 +43,10 @@
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="85" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Text=""
                                x:Name="zoLabel"

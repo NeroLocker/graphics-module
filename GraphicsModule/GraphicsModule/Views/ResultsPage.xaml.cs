@@ -36,12 +36,12 @@ namespace GraphicsModule
                 // Выводим промежуточные расчеты
                 var k = Math.Round(UserParameters.GetK(), 3, MidpointRounding.ToEven);
                 var n = Math.Round(UserParameters.GetN(), 3, MidpointRounding.ToEven);
-                var zo = Math.Round(UserParameters.GetZo(), 3, MidpointRounding.ToEven);
+                var zo = Math.Round(UserParameters.GetZo(), 1, MidpointRounding.ToEven);
                 var nInTwoPower = Math.Round(1d/n, 3, MidpointRounding.ToEven);
 
                 kLabel.Text = "k = " + k.ToString();
                 nLabel.Text = "n = " + n.ToString();
-                zoLabel.Text = "Zo = " + zo.ToString() + " Ом";
+                zoLabel.Text = "Zo, Ом = " + zo.ToString();
                 nInTwoPowerLabel.Text = "1/n = " + nInTwoPower.ToString();
             }
         }
