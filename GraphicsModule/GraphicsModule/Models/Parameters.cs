@@ -19,7 +19,13 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Диэлектрическая проницаемость среды.
         /// </summary>
-        private double Er { get; set; }
+        private double Er { get => _er; set{
+                if (!(value >= 1 && value <= 10000))
+                {
+                    throw new ArgumentException("Er is not in valid range");
+                }
+
+                _er = value; } }
 
         private double _z1;
 
@@ -32,6 +38,7 @@ namespace GraphicsModule.Models
         private double _fmax;
         private double _z01;
         private double _z02;
+        private double _er;
 
         /// <summary>
         /// Характеристический импеданс первой линии.
@@ -41,9 +48,9 @@ namespace GraphicsModule.Models
             get => _z1;
             private set
             {
-                if (!(value >= 1 && value <= 100))
+                if (!(value > 0 && value <= 10000))
                 {
-                    throw new ArgumentException("Value is not in valid range");
+                    throw new ArgumentException("Z1 is not in valid range");
                 }
 
                 _z1 = value;
@@ -58,9 +65,9 @@ namespace GraphicsModule.Models
             get => _z2;
             private set
             {
-                if (!(value >= 1 && value <= 100))
+                if (!(value > 0 && value <= 10000))
                 {
-                    throw new ArgumentException("Value is not in valid range");
+                    throw new ArgumentException("Z2 is not in valid range");
                 }
 
                 _z2 = value;
@@ -74,9 +81,9 @@ namespace GraphicsModule.Models
         {
             get => _z01; private set
             {
-                if (!(value >= 1 && value <= 100))
+                if (!(value > 0 && value <= 10000))
                 {
-                    throw new ArgumentException("Value is not in valid range");
+                    throw new ArgumentException("Z01 is not in valid range");
                 }
 
                 _z01 = value;
@@ -86,12 +93,17 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Номинал нагрузочного резистора Z02.
         /// </summary>
-        public double Z02 { get => _z02; private set {
-                if (!(value >= 1 && value <= 100))
+        public double Z02
+        {
+            get => _z02; private set
+            {
+                if (!(value > 0 && value <= 10000))
                 {
-                    throw new ArgumentException("Value is not in valid range");
+                    throw new ArgumentException("Z02 is not in valid range");
                 }
-                _z02 = value; } }
+                _z02 = value;
+            }
+        }
 
         /// <summary>
         /// Коэффициент связи 1-ой и 2-ой линии.
@@ -100,9 +112,9 @@ namespace GraphicsModule.Models
         {
             get => _s21; private set
             {
-                if (!(value >= 1 && value <= 100))
+                if (!(value > 0 && value <= 10000))
                 {
-                    throw new ArgumentException("Value is not in valid range");
+                    throw new ArgumentException("S21 is not in valid range");
                 }
 
                 _s21 = value;
@@ -117,9 +129,9 @@ namespace GraphicsModule.Models
             get => _l;
             private set
             {
-                if (!(value >= 1 && value <= 100))
+                if (!(value > 0 && value <= 10000))
                 {
-                    throw new ArgumentException("Value is not in valid range");
+                    throw new ArgumentException("L is not in valid range");
                 }
 
                 _l = value * Math.Pow(10, -3);
@@ -136,7 +148,7 @@ namespace GraphicsModule.Models
             {
                 if (!(value > -1))
                 {
-                    throw new ArgumentException("Value is not positive number");
+                    throw new ArgumentException("Fmin is not positive number");
                 }
 
                 _fmin = value;
@@ -152,17 +164,17 @@ namespace GraphicsModule.Models
             {
                 if (!(value > 0))
                 {
-                    throw new ArgumentException("Value is not positive number");
+                    throw new ArgumentException("Fmax is not positive number");
                 }
 
                 if (value - _fmin > 30)
                 {
-                    throw new ArgumentException("Difference between this value and Fmin can't be more than 30");
+                    throw new ArgumentException("Difference between Fmax and Fmin can't be more than 30");
                 }
 
-                if (value - _fmin < 5)
+                if (value - _fmin <= 2)
                 {
-                    throw new ArgumentException("Difference between this value and Fmin can't be less than 5");
+                    throw new ArgumentException("Difference between Fmax and Fmin can't be less than 5");
                 }
 
                 _fmax = value;
