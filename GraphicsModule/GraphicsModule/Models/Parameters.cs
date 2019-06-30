@@ -474,8 +474,8 @@ namespace GraphicsModule.Models
             Complex i = Complex.Sqrt(-1);
 
             double alpha = Math.Pow(r, 2) - 1 / Math.Pow(v, 2);
-            double beta = rho11 - 1 / w11;
-            double gamma = rho22 + 1 / w22;
+            double beta = rho11 + 1 / w11;
+            double gamma = rho22 - 1 / w22;
 
             Complex numerator = (alpha - beta * gamma) * Math.Pow(sinOfTheta, 2) + i * gamma * Math.Sin(2 * theta);
             Complex a = GetA(currentF);
