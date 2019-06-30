@@ -87,7 +87,7 @@ namespace GraphicsModule.Models.Painters
 
                 float x = j * xScalingFactor;
                 x += frame.GetFirstPointX();
-         
+
                 // Через каждую 25-ю итерацию - целое число.
                 if (quantityOfIterations == 25)
                 {
@@ -139,8 +139,9 @@ namespace GraphicsModule.Models.Painters
                 float y = j * yScalingFactor;
                 y += frame.GetFirstPointY();
 
-                // Через каждую 25-ю итерацию - целое число.
-                if (quantityOfIterations == 25)
+                
+                // Через каждую 125-ю итерацию - 5 целых чисел.
+                if (quantityOfIterations == 125)
                 {
                     number = Convert.ToInt32(j);
                     canvas.DrawText($"{-number}", shiftPoint, y, keeper.paints["Text Paint"]);
