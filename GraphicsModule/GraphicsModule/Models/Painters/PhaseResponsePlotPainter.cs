@@ -1,10 +1,6 @@
 ﻿using SkiaSharp;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using GraphicsModule.Interfaces;
-using GraphicsModule.Models;
-using System.Numerics;
 
 namespace GraphicsModule.Models.Painters
 {

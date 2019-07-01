@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using GraphicsModule.Interfaces;
-using GraphicsModule.Models;
 using SkiaSharp;
 
 namespace GraphicsModule.Models.Painters

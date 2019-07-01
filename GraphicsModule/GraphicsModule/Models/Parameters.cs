@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Numerics;
-using System.Text;
 
 namespace GraphicsModule.Models
 {
@@ -9,12 +7,7 @@ namespace GraphicsModule.Models
     /// Класс параметров, который содержит все данные, касающиеся расчета.
     /// </summary>
     public class Parameters : ICloneable
-    {
-        /// <summary>
-        /// Шаг расчета параметров.
-        /// </summary>
-        private double _step = 0.04f;
-
+    {   
         // Может быть больше единицы
         /// <summary>
         /// Диэлектрическая проницаемость среды.
