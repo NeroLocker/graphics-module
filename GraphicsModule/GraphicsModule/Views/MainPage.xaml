@@ -30,31 +30,37 @@
                         <ColumnDefinition Width="75" />
                         <ColumnDefinition Width="75" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="Fmin, ГГц:"
-                           FontSize="Default"
-                               HorizontalOptions="FillAndExpand"
+                    
+                    <Label Grid.Column="0" 
+                           Text="Fmin, ГГц:"
+                           FontSize="Default"                               
+                           HorizontalOptions="FillAndExpand"
                            VerticalOptions="Center"
                            />
-                    <Entry Grid.Column="1"
-                        FontSize="Small"
-                       x:Name="fMinEntry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Center"
-                       MaxLength="10"                                               
+                    <Entry 
+                        Grid.Column="1"
+                        FontSize="Small"                       
+                        x:Name="fMinEntry"                       
+                        Keyboard="Numeric"                      
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center"                      
+                        MaxLength="10"                                               
                         />
-                    <Label Grid.Column="2" Text="Fmax, ГГц:"
-                           FontSize="Default"
-                               HorizontalOptions="FillAndExpand" 
-                           VerticalOptions="Center"
+                    <Label 
+                        Grid.Column="2" 
+                        Text="Fmax, ГГц:"                           
+                        FontSize="Default"                              
+                        HorizontalOptions="FillAndExpand"                           
+                        VerticalOptions="Center"
                            />
-                    <Entry Grid.Column="3"      
-                       FontSize="Small"
-                       x:Name="fMaxEntry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"
-                       MaxLength="10"                                 
+                    <Entry 
+                        Grid.Column="3"                             
+                        FontSize="Small"                    
+                        x:Name="fMaxEntry"                   
+                        Keyboard="Numeric"                   
+                        HorizontalOptions="FillAndExpand"                      
+                        VerticalOptions="Center"                    
+                        MaxLength="10"                                 
                            />
                 </Grid>
                 <Grid>
@@ -64,30 +70,34 @@
                         <ColumnDefinition Width="75" />
                         <ColumnDefinition Width="75" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="l, мм:"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"                           
-                           FontSize="Default"/>
-                    <Entry     Grid.Column="1"                   
-                       FontSize="Small"
-                       x:Name="lEntry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"
-                       MaxLength="10"    
+                    <Label 
+                        Grid.Column="0" Text="Z1, Ом:"                          
+                        FontSize="Default"                    
+                        HorizontalOptions="Start"                      
+                        VerticalOptions="Center"
                            />
-                    <Label Grid.Column="2" Text="Er:"
-                           FontSize="Default"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"
-                           />
-                    <Entry     Grid.Column="3"                   
-                       FontSize="Small"
-                       x:Name="eREntry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"
-                       MaxLength="10"/>
+                    <Entry 
+                        Grid.Column="1"                                        
+                        FontSize="Small"                    
+                        x:Name="z1Entry"                   
+                        Keyboard="Numeric"                   
+                        HorizontalOptions="FillAndExpand"                    
+                        VerticalOptions="Center"                  
+                        MaxLength="10"/>
+                    <Label 
+                        Grid.Column="2"
+                        Text="Z01, Ом:"                           
+                        FontSize="Default"                          
+                        HorizontalOptions="Start"                         
+                        VerticalOptions="Center"/>
+                    <Entry 
+                        Grid.Column="3"                                                                     
+                        FontSize="Small"                                          
+                        x:Name="z01Entry"                                          
+                        Keyboard="Numeric"                                             
+                        HorizontalOptions="FillAndExpand"                                                  
+                        VerticalOptions="Center"                                            
+                        MaxLength="10"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -96,85 +106,102 @@
                         <ColumnDefinition Width="75" />
                         <ColumnDefinition Width="75" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="Z1, Ом:"
-                           FontSize="Default"
-                           HorizontalOptions="Start"
-                           VerticalOptions="Center"
+                    <Label
+                        Grid.Column="0" 
+                        Text="Z2, Ом:"                          
+                        FontSize="Default"                         
+                        HorizontalOptions="FillAndExpand"                         
+                        VerticalOptions="Center"/>
+                    <Entry                           
+                        Grid.Column="1"                                        
+                        FontSize="Small"                     
+                        x:Name="z2Entry"                   
+                        Keyboard="Numeric"                   
+                        HorizontalOptions="FillAndExpand"                         
+                        VerticalOptions="Center"                    
+                        MaxLength="10"/>
+                    <Label
+                        Grid.Column="2" 
+                        Text="Z02, Ом:"                        
+                        FontSize="Default"                        
+                        HorizontalOptions="FillAndExpand"                         
+                        VerticalOptions="Center"/>
+                    <Entry   
+                        Grid.Column="3"                                         
+                        FontSize="Small"                     
+                        x:Name="z02Entry"                    
+                        Keyboard="Numeric"                    
+                        HorizontalOptions="FillAndExpand"                      
+                        VerticalOptions="Center"                   
+                        MaxLength="10"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="75" />
+                    </Grid.ColumnDefinitions>
+                    <Label 
+                        Grid.Column="0"
+                        Text="ℓ, мм:"                   
+                        HorizontalOptions="FillAndExpand"                   
+                        VerticalOptions="Center"                                               
+                        FontSize="Default"/>
+                    <Entry    
+                        Grid.Column="1"                                     
+                        FontSize="Small"                   
+                        x:Name="lEntry"                  
+                        Keyboard="Numeric"                    
+                        HorizontalOptions="FillAndExpand"                     
+                        VerticalOptions="Center"                 
+                        MaxLength="10"    
                            />
-                    <Entry Grid.Column="1"                  
-                       FontSize="Small"
-                       x:Name="z1Entry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"
-                       MaxLength="10"/>
-                    <Label Grid.Column="2" Text="Z2, Ом:"
-                           FontSize="Default"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"/>
-                    <Entry     Grid.Column="3"                   
-                       FontSize="Small"
-                       x:Name="z2Entry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand" 
-                           VerticalOptions="Center"
-                       MaxLength="10"/>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="75" />
-                        <ColumnDefinition Width="75" />
-                        <ColumnDefinition Width="75" />
-                        <ColumnDefinition Width="75" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="Z01, Ом:"
-                           FontSize="Default"
-                           HorizontalOptions="Start"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"                       
-                       FontSize="Small"
-                       x:Name="z01Entry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"
-                       MaxLength="10"/>
-                    <Label Grid.Column="2" Text="Z02, Ом:"
-                           FontSize="Default"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"/>
-                    <Entry    Grid.Column="3"                    
-                       FontSize="Small"
-                       x:Name="z02Entry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand" 
-                           VerticalOptions="Center"
-                       MaxLength="10"/>
+                    <Label
+                        Grid.Column="2" 
+                        Text="εr:"                       
+                        FontSize="Default"                       
+                        HorizontalOptions="FillAndExpand"                       
+                        VerticalOptions="Center"
+                           />
+                    <Entry                         
+                        Grid.Column="3"                                      
+                        FontSize="Small"                 
+                        x:Name="eREntry"                 
+                        Keyboard="Numeric"                  
+                        HorizontalOptions="FillAndExpand"                 
+                        VerticalOptions="Center"                
+                        MaxLength="10"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="75" />
                         <ColumnDefinition Width="75" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="|S21|, дБ:"
-                           FontSize="Default"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="Center"/>
-                    <Entry Grid.Column="1"                       
-                       FontSize="Small"
-                       x:Name="s21Entry"
-                       Keyboard="Numeric"
-                       HorizontalOptions="FillAndExpand"
-                       VerticalOptions="Center"
-                       MaxLength="10"/>
+                    <Label 
+                        Grid.Column="0" 
+                        Text="|S21|, дБ:"                         
+                        FontSize="Default"                        
+                        HorizontalOptions="FillAndExpand"                        
+                        VerticalOptions="Center"/>
+                    <Entry 
+                        Grid.Column="1"                                              
+                        FontSize="Small"                       
+                        x:Name="s21Entry"                     
+                        Keyboard="Numeric"                       
+                        HorizontalOptions="FillAndExpand"                       
+                        VerticalOptions="Center"                       
+                        MaxLength="10"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button Text="По умолчанию"                        
-                        HorizontalOptions="EndAndExpand" 
-                            VerticalOptions="Center"
+                    <Button
+                        Text="По умолчанию"                        
+                        HorizontalOptions="EndAndExpand"                     
+                        VerticalOptions="Center"
                         FontSize="Default" 
                         Grid.Column="1" 
                         Clicked="OnByDefaultButtonClicked"></Button>
