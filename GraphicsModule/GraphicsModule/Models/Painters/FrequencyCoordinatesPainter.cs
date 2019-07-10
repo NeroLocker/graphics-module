@@ -79,8 +79,6 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas"></param>
         private void DrawXMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
-            PaintsKeeper keeper = new PaintsKeeper();
-
             float xScalingFactor = GetXScalingFactor(parameters, frame);
 
             byte quantityOfIterations = 0;
@@ -103,7 +101,7 @@ namespace GraphicsModule.Models.Painters
                 if (quantityOfIterations == 25)
                 {
                     number = Convert.ToInt32(j);
-                    canvas.DrawText($"{number}", x, frame.GetSecondPointY() + frame.GetSecondPointY() * _margin, keeper.paints["Text Paint"]);
+                    canvas.DrawText($"{number}", x, frame.GetSecondPointY() + frame.GetSecondPointY() * _margin, PaintsKeeper.paints["Text Paint"]);
                     quantityOfIterations = 0;
                 }                
 
@@ -112,7 +110,7 @@ namespace GraphicsModule.Models.Painters
                 quantityOfIterations += 1;
             }
 
-            canvas.DrawText($"{coordinates.NameOfXAxis}", frame.GetCenterPointX(), frame.GetSecondPointY() + 2 * frame.GetSecondPointY() * _margin, keeper.paints["Text Paint"]);
+            canvas.DrawText($"{coordinates.NameOfXAxis}", frame.GetCenterPointX(), frame.GetSecondPointY() + 2 * frame.GetSecondPointY() * _margin, PaintsKeeper.paints["Text Paint"]);
         }
 
         /// <summary>
@@ -125,8 +123,6 @@ namespace GraphicsModule.Models.Painters
         private void DrawYMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
             float yScalingFactor = GetYScalingFactor(parameters, frame);
-
-            PaintsKeeper keeper = new PaintsKeeper();
             // Смещенная точка.
             float shiftPoint = frame.GetFirstPointX() - frame.GetSecondPointX() * _margin;
 
@@ -155,7 +151,7 @@ namespace GraphicsModule.Models.Painters
                 if (quantityOfIterations == 125)
                 {
                     number = Convert.ToInt32(j);
-                    canvas.DrawText($"{-number}", shiftPoint, y, keeper.paints["Text Paint"]);
+                    canvas.DrawText($"{-number}", shiftPoint, y, PaintsKeeper.paints["Text Paint"]);
                     quantityOfIterations = 0;
                 }
 
@@ -170,7 +166,7 @@ namespace GraphicsModule.Models.Painters
             SKPath path = new SKPath();
             path.MoveTo(shiftPoint, frame.GetCenterPointY());
             path.LineTo(shiftPoint, frame.GetFirstPointY());
-            canvas.DrawTextOnPath($"{coordinates.NameOfYAxis}", path, 0, 0, keeper.paints["Text Paint"]);
+            canvas.DrawTextOnPath($"{coordinates.NameOfYAxis}", path, 0, 0, PaintsKeeper.paints["Text Paint"]);
             path.Close();
         }
     }

@@ -63,8 +63,6 @@ namespace GraphicsModule
         {
             SKCanvas canvas = args.Surface.Canvas;
             canvas.Clear();
-
-            PaintsKeeper keeper = new PaintsKeeper();
             RestrictiveFrame frame = new RestrictiveFrame(args.Info);
 
             if (FrequencyResponseSwitch.IsToggled)

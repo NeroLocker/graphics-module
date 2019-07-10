@@ -82,12 +82,10 @@ namespace GraphicsModule.Models
             SecondPointX = Frame.GetSecondPointX();
             SecondPointY = Frame.GetSecondPointY();
 
-            PaintsKeeper keeper = new PaintsKeeper();
-            RedPaint = keeper.paints["Red Paint"];
-            BluePaint = keeper.paints["Blue Paint"];
-            GrayPaint = keeper.paints["Gray Paint"];
-
-            TextPaint = keeper.paints["Text Paint"];
+            RedPaint = PaintsKeeper.paints["Red Paint"];
+            BluePaint = PaintsKeeper.paints["Blue Paint"];
+            GrayPaint = PaintsKeeper.paints["Gray Paint"];
+            TextPaint = PaintsKeeper.paints["Text Paint"];
         }
 
         /// <summary>

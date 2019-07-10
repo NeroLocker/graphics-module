@@ -55,8 +55,6 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas"></param>
         private void DrawXMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
-            PaintsKeeper keeper = new PaintsKeeper();
-
             float xScalingFactor = GetXScalingFactor(parameters, frame);
 
             byte quantityOfIterations = 0;
@@ -79,7 +77,7 @@ namespace GraphicsModule.Models.Painters
                 if (quantityOfIterations == 25)
                 {
                     number = Convert.ToInt32(j);
-                    canvas.DrawText($"{number}", x, frame.GetSecondPointY() + frame.GetSecondPointY() * _margin, keeper.paints["Text Paint"]);
+                    canvas.DrawText($"{number}", x, frame.GetSecondPointY() + frame.GetSecondPointY() * _margin, PaintsKeeper.paints["Text Paint"]);
                     quantityOfIterations = 0;
                 }
 
@@ -88,7 +86,7 @@ namespace GraphicsModule.Models.Painters
                 quantityOfIterations += 1;
             }
 
-            canvas.DrawText($"{coordinates.NameOfXAxis}", frame.GetCenterPointX(), frame.GetSecondPointY() + 2 * frame.GetSecondPointY() * _margin, keeper.paints["Text Paint"]);
+            canvas.DrawText($"{coordinates.NameOfXAxis}", frame.GetCenterPointX(), frame.GetSecondPointY() + 2 * frame.GetSecondPointY() * _margin, PaintsKeeper.paints["Text Paint"]);
         }
 
         /// <summary>
@@ -100,13 +98,11 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas"></param>
         private void DrawYMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
-            PaintsKeeper keeper = new PaintsKeeper();
-
             // отрисовка
             float shift = frame.GetFirstPointX() - frame.GetSecondPointX() * _margin;
 
             // 0
-            canvas.DrawText("0", shift, frame.GetCenterPointY(), keeper.paints["Text Paint"]);
+            canvas.DrawText("0", shift, frame.GetCenterPointY(), PaintsKeeper.paints["Text Paint"]);
             canvas.DrawLine(frame.GetFirstPointX(), frame.GetCenterPointY(), frame.GetSecondPointX(), frame.GetCenterPointY(), frame.Paint);
 
             // положительная часть оси Y
@@ -114,7 +110,7 @@ namespace GraphicsModule.Models.Painters
             float currentPoint = frame.GetCenterPointY();
             while (currentPoint >= frame.GetFirstPointY())
             {
-                canvas.DrawText($"{valueToShow.ToString("#")}", shift, currentPoint, keeper.paints["Text Paint"]);
+                canvas.DrawText($"{valueToShow.ToString("#")}", shift, currentPoint, PaintsKeeper.paints["Text Paint"]);
                 valueToShow += 50;
                 currentPoint -= 50;
             }
@@ -124,7 +120,7 @@ namespace GraphicsModule.Models.Painters
             currentPoint = frame.GetCenterPointY();
             while (currentPoint <= frame.GetSecondPointY())
             {
-                canvas.DrawText($"{valueToShow.ToString("#")}", shift, currentPoint, keeper.paints["Text Paint"]);
+                canvas.DrawText($"{valueToShow.ToString("#")}", shift, currentPoint, PaintsKeeper.paints["Text Paint"]);
                 valueToShow -= 50;
                 currentPoint += 50;
             }
@@ -135,7 +131,7 @@ namespace GraphicsModule.Models.Painters
             SKPath path = new SKPath();
             path.MoveTo(shift, frame.GetCenterPointY());
             path.LineTo(shift, frame.GetFirstPointY());
-            canvas.DrawTextOnPath($"{coordinates.NameOfYAxis}", path, 0, 0, keeper.paints["Text Paint"]);
+            canvas.DrawTextOnPath($"{coordinates.NameOfYAxis}", path, 0, 0, PaintsKeeper.paints["Text Paint"]);
             path.Close();
         }
     }

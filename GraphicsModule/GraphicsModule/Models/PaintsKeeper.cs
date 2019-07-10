@@ -6,15 +6,15 @@ namespace GraphicsModule.Models
     /// <summary>
     /// Класс, хранящий коллекцию красок.
     /// </summary>
-    public class PaintsKeeper
+    public static class PaintsKeeper
     {
-        public Dictionary<string, SKPaint> paints = new Dictionary<string, SKPaint>();
-        public List<SKPaint> paintsListForPlots = new List<SKPaint>();
+        public static Dictionary<string, SKPaint> paints = new Dictionary<string, SKPaint>();
+        public static List<SKPaint> paintsListForPlots = new List<SKPaint>();
 
         /// <summary>
         /// Инициализирует словарь красок.
         /// </summary>
-        public PaintsKeeper()
+        static PaintsKeeper()
         {
             SKPaint indianRedPaint = new SKPaint
             {
