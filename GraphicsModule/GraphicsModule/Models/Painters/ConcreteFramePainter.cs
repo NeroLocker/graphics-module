@@ -6,7 +6,7 @@ namespace GraphicsModule.Models.Painters
     /// <summary>
     /// Отрисовщик рамки.
     /// </summary>
-    public class ConcreteFramePainter : IRestrictiveFramePainter
+    public class ConcreteFramePainter
     {
         /// <summary>
         /// Рисует рамку.

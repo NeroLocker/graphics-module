@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using GraphicsModule.Interfaces;
+using GraphicsModule.Models.Painters;
 
 namespace GraphicsModule.Models
 {
@@ -16,7 +17,7 @@ namespace GraphicsModule.Models
         /// <summary>
         /// Отрисовщик рамок.
         /// </summary>
-        public IRestrictiveFramePainter FramePainter { get; set;}
+        public ConcreteFramePainter FramePainter { get; set;}
 
         /// <summary>
         /// Отрисовщик координат.
@@ -34,7 +35,7 @@ namespace GraphicsModule.Models
         /// <param name="plotPainter">Отрисовщик графика.</param>
         /// <param name="framePainter">Отрисовщик рамки.</param>
         /// <param name="canvas">Холст.</param>
-        public WorkingSpace(IPlotPainter plotPainter, IRestrictiveFramePainter framePainter, ICoordinatesPainter coordinatesPainter, SKCanvas canvas)
+        public WorkingSpace(IPlotPainter plotPainter, ConcreteFramePainter framePainter, ICoordinatesPainter coordinatesPainter, SKCanvas canvas)
         {
             PlotPainter = plotPainter;
             FramePainter = framePainter;
