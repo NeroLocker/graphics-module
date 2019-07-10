@@ -7,7 +7,7 @@ namespace GraphicsModule.Models.Painters
     /// <summary>
     /// Отрисовщик координат для амплитудно-частотной характеристики.
     /// </summary>
-    public class FrequencyCoordinatesPainter : ICoordinatesPainter
+    public class FrequencyCoordinatesPainter : BasePainter, ICoordinatesPainter
     {
         private float _margin = 0.05f;
 
@@ -25,52 +25,6 @@ namespace GraphicsModule.Models.Painters
         }
 
         /// <summary>
-        /// Возвращает коэффициент масштабирования для X-точек.
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="frame"></param>
-        /// <returns></returns>
-        private float GetXScalingFactor(Parameters parameters, RestrictiveFrame frame)
-        {
-            // Ненулевой
-            float scalingFactor = 0.01f;
-
-            float point = 0;
-            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointX()))
-            {
-                float x = (float)(parameters.Fmax);
-                point = frame.GetFirstPointX() + x * scalingFactor;
-                scalingFactor += 0.01f;
-            }
-
-            return scalingFactor;
-        }
-
-        /// <summary>
-        /// Возвращает коэффициент масштабирования для Y-точек.
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="frame"></param>
-        /// <returns></returns>
-        private float GetYScalingFactor(Parameters parameters, RestrictiveFrame frame)
-        {
-            // Ненулевой
-            float scalingFactor = 0.01f;
-
-            float point = 0;
-            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointY()))
-            {
-                // Здесь макс значение по y
-                float y = (float)(30);
-
-                point = frame.GetFirstPointY() + y * scalingFactor;
-                scalingFactor += 0.01f;
-            }
-
-            return scalingFactor;
-        }
-
-        /// <summary>
         /// Рисует координаты по X.
         /// </summary>
         /// <param name="coordinates"></param>
@@ -79,7 +33,7 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas"></param>
         private void DrawXMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
-            float xScalingFactor = GetXScalingFactor(parameters, frame);
+            float xScalingFactor = base.GetXScalingFactor(parameters, frame);
 
             byte quantityOfIterations = 0;
             float number = 0;
@@ -122,7 +76,7 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas"></param>
         private void DrawYMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
-            float yScalingFactor = GetYScalingFactor(parameters, frame);
+            float yScalingFactor = base.GetYScalingFactor(parameters, frame);
             // Смещенная точка.
             float shiftPoint = frame.GetFirstPointX() - frame.GetSecondPointX() * _margin;
 

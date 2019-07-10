@@ -7,7 +7,7 @@ namespace GraphicsModule.Models.Painters
     /// <summary>
     /// Отрисовщик амплитудно-частотной характеристики.
     /// </summary>
-    public class FrequencyResponsePlotPainter : IPlotPainter
+    public class FrequencyResponsePlotPainter : BasePainter, IPlotPainter
     {
         /// <summary>
         /// Рисует амплитудно-частотную характеристику.
@@ -26,8 +26,7 @@ namespace GraphicsModule.Models.Painters
                 canvas.DrawText($"{currentType}", plot.Frame.GetFirstPointX() + plot.Frame.GetSecondPointX() * shift, plot.Frame.GetFirstPointY() + plot.Frame.GetSecondPointY() * 0.05f, currentPaint);
                 counter += 1;
                 shift += 0.1f;
-            }
-                                         
+            }                                         
         }
 
         /// <summary>
@@ -42,8 +41,8 @@ namespace GraphicsModule.Models.Painters
         {
             // цикл для расчета коэффициента масштабирования координат X
             RestrictiveFrame frame = plot.Frame;
-            float xScalingFactor = GetXScalingFactor(parameters, frame);
-            float yScalingFactor = GetYScalingFactor(parameters, frame);
+            float xScalingFactor = base.GetXScalingFactor(parameters, frame);
+            float yScalingFactor = base.GetYScalingFactor(parameters, frame);
 
             double i = plot.Frame.GetFirstPointX();
             float j = (float)parameters.Fmin;
@@ -74,53 +73,6 @@ namespace GraphicsModule.Models.Painters
                 i += 0.04f;
                 j += 0.04f;
             }
-        }
-
-        /// <summary>
-        /// Возвращает коэффициент масштабирования для Y-точек.
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="frame"></param>
-        /// <returns></returns>
-        private float GetYScalingFactor(Parameters parameters, RestrictiveFrame frame)
-        {
-            // Ненулевой
-            float scalingFactor = 0.01f;
-
-            float point = 0;
-            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointY()))
-            {
-                // Здесь макс значение по y
-                float y = (float)(30);
-
-                point = frame.GetFirstPointY() + y * scalingFactor;
-                scalingFactor += 0.01f;
-            }
-
-            return scalingFactor;
-        }
-
-
-        /// <summary>
-        /// Возвращает коэффициент масштабирования для X-точек.
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="frame"></param>
-        /// <returns></returns>
-        private float GetXScalingFactor(Parameters parameters, RestrictiveFrame frame)
-        {
-            // Ненулевой
-            float scalingFactor = 0.01f;
-
-            float point = 0;
-            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointX()))
-            {
-                float x = (float)(parameters.Fmax);
-                point = frame.GetFirstPointX() + x * scalingFactor;
-                scalingFactor += 0.01f;
-            }
-
-            return scalingFactor;
         }
     }
 }

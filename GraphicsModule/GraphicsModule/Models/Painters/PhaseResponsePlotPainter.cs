@@ -7,7 +7,7 @@ namespace GraphicsModule.Models.Painters
     /// <summary>
     /// Отрисовщик фазово-частотной характеристики.
     /// </summary>
-    public class PhaseResponsePlotPainter : IPlotPainter
+    public class PhaseResponsePlotPainter : BasePainter, IPlotPainter
     {
         /// <summary>
         /// Рисует график.
@@ -39,7 +39,7 @@ namespace GraphicsModule.Models.Painters
         {
             // цикл для расчета коэффициента масштабирования координат X
             RestrictiveFrame frame = plot.Frame;
-            float scalingFactor = GetXScalingFactor(parameters, frame);
+            float scalingFactor = base.GetXScalingFactor(parameters, frame);
 
             double i = plot.Frame.GetFirstPointX();
             float j = (float)parameters.Fmin;
@@ -71,28 +71,6 @@ namespace GraphicsModule.Models.Painters
                 i += 0.04f;
                 j += 0.04f;
             }
-        }
-
-        /// <summary>
-        /// Возвращает коэффициент масштабирования для X-точек.
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="frame"></param>
-        /// <returns></returns>
-        private float GetXScalingFactor(Parameters parameters, RestrictiveFrame frame)
-        {
-            // Ненулевой
-            float scalingFactor = 0.01f;
-
-            float point = 0;
-            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointX()))
-            {
-                float x = (float)(parameters.Fmax);
-                point = frame.GetFirstPointX() + x * scalingFactor;
-                scalingFactor += 0.01f;
-            }
-
-            return scalingFactor;
         }
     }
 }

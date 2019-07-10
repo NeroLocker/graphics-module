@@ -7,7 +7,7 @@ namespace GraphicsModule.Models.Painters
     /// <summary>
     /// Отрисовщик координат для фазово-частотной характеристики.
     /// </summary>
-    public class PhaseCoordinatesPainter : ICoordinatesPainter
+    public class PhaseCoordinatesPainter : BasePainter, ICoordinatesPainter
     {
         private float _margin = 0.05f;
 
@@ -25,28 +25,6 @@ namespace GraphicsModule.Models.Painters
         }
 
         /// <summary>
-        /// Возвращает коэффициент масштабирования для X-точек.
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="frame"></param>
-        /// <returns></returns>
-        private float GetXScalingFactor(Parameters parameters, RestrictiveFrame frame)
-        {
-            // Ненулевой
-            float scalingFactor = 0.01f;
-
-            float point = 0;
-            while (Convert.ToInt32(point) != Convert.ToInt32(frame.GetSecondPointX()))
-            {
-                float x = (float)(parameters.Fmax);
-                point = frame.GetFirstPointX() + x * scalingFactor;
-                scalingFactor += 0.01f;
-            }
-
-            return scalingFactor;
-        }
-
-        /// <summary>
         /// Рисует координаты по X.
         /// </summary>
         /// <param name="coordinates"></param>
@@ -55,7 +33,7 @@ namespace GraphicsModule.Models.Painters
         /// <param name="canvas"></param>
         private void DrawXMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
-            float xScalingFactor = GetXScalingFactor(parameters, frame);
+            float xScalingFactor = base.GetXScalingFactor(parameters, frame);
 
             byte quantityOfIterations = 0;
             float number = 0;
