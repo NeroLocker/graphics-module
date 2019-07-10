@@ -19,7 +19,7 @@ namespace GraphicsModule.Models
         public IRestrictiveFramePainter FramePainter { get; set;}
 
         /// <summary>
-        /// Отрисовщик кординат.
+        /// Отрисовщик координат.
         /// </summary>
         public ICoordinatesPainter CoordinatesPainter { get; set;}
 

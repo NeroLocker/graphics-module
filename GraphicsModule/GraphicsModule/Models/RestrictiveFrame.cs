@@ -3,12 +3,12 @@
 namespace GraphicsModule.Models
 {
     /// <summary>
-    /// Представляет рамку.
+    /// Представляет ограничительную рамку.
     /// </summary>
     public class RestrictiveFrame
     {
         /// <summary>
-        /// Содержит информацию о служебном рабочем пространстве.
+        /// Содержит служебную информацию о рабочем пространстве.
         /// </summary>
         private SKImageInfo _info;
 

@@ -11,11 +11,19 @@ namespace GraphicsModule.Models.Painters
     {
         private float _margin = 0.05f;
 
+        /// <summary>
+        /// Рисует координаты.
+        /// </summary>
+        /// <param name="coordinates"></param>
+        /// <param name="parameters"></param>
+        /// <param name="frame"></param>
+        /// <param name="canvas"></param>
         public void Paint(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {         
             DrawXMarks(coordinates, parameters, frame, canvas);
             DrawYMarks(coordinates, parameters, frame, canvas);
         }
+
         /// <summary>
         /// Возвращает коэффициент масштабирования для X-точек.
         /// </summary>
@@ -38,6 +46,13 @@ namespace GraphicsModule.Models.Painters
             return scalingFactor;
         }
 
+        /// <summary>
+        /// Рисует координаты по X.
+        /// </summary>
+        /// <param name="coordinates"></param>
+        /// <param name="parameters"></param>
+        /// <param name="frame"></param>
+        /// <param name="canvas"></param>
         private void DrawXMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
             PaintsKeeper keeper = new PaintsKeeper();
@@ -76,6 +91,13 @@ namespace GraphicsModule.Models.Painters
             canvas.DrawText($"{coordinates.NameOfXAxis}", frame.GetCenterPointX(), frame.GetSecondPointY() + 2 * frame.GetSecondPointY() * _margin, keeper.paints["Text Paint"]);
         }
 
+        /// <summary>
+        /// Рисует координаты по Y.
+        /// </summary>
+        /// <param name="coordinates"></param>
+        /// <param name="parameters"></param>
+        /// <param name="frame"></param>
+        /// <param name="canvas"></param>
         private void DrawYMarks(Coordinates coordinates, Parameters parameters, RestrictiveFrame frame, SKCanvas canvas)
         {
             PaintsKeeper keeper = new PaintsKeeper();

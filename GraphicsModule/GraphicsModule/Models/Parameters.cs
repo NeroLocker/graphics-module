@@ -4,34 +4,36 @@ using System.Numerics;
 namespace GraphicsModule.Models
 {
     /// <summary>
-    /// Класс параметров, который содержит все данные, касающиеся расчета.
+    /// Класс параметров, который содержит все данные, касающиеся расчета и предоставляет методы для расчета.
     /// </summary>
     public class Parameters : ICloneable
     {   
-        // Может быть больше единицы
-        /// <summary>
-        /// Диэлектрическая проницаемость среды.
-        /// </summary>
-        private double Er { get => _er; set{
-                if (!(value >= 1 && value <= 10000))
-                {
-                    throw new ArgumentException("Er is not in valid range");
-                }
-
-                _er = value; } }
-
         private double _z1;
-
         private double _z2;
-
         private double _s21;
-
         private double _l;
         private double _fmin;
         private double _fmax;
         private double _z01;
         private double _z02;
         private double _er;
+
+        // Может быть больше единицы
+        /// <summary>
+        /// Диэлектрическая проницаемость среды.
+        /// </summary>
+        private double Er
+        {
+            get => _er; set
+            {
+                if (!(value >= 1 && value <= 10000))
+                {
+                    throw new ArgumentException("Er is not in valid range");
+                }
+
+                _er = value;
+            }
+        }
 
         /// <summary>
         /// Характеристический импеданс первой линии.
@@ -354,9 +356,6 @@ namespace GraphicsModule.Models
             return v;
         }
 
-        #endregion
-
-
 
         /// <summary>
         /// Возвращает значение ω для текущего Fi.
@@ -395,7 +394,9 @@ namespace GraphicsModule.Models
             return k;
         }
 
-        # region S-параметры
+        #endregion
+
+        #region S-параметры
 
         /// <summary>
         /// Возвращает общий знаменатель A для всех S-параметров.
@@ -429,7 +430,7 @@ namespace GraphicsModule.Models
         }
 
         /// <summary>
-        /// Возвращает значение коэффициента передачи S11 для текущего Fi.
+        /// Возвращает значение коэффициента отражения S11 для текущего Fi.
         /// </summary>
         /// <param name="currentF"></param>
         /// <returns></returns>
@@ -460,7 +461,7 @@ namespace GraphicsModule.Models
         }
 
         /// <summary>
-        /// Возвращает значение коэффициента передачи S22 для текущего Fi.
+        /// Возвращает значение коэффициента отражения S22 для текущего Fi.
         /// </summary>
         /// <param name="currentF"></param>
         /// <returns></returns>

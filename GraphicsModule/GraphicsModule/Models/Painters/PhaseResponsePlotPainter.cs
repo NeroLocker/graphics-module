@@ -10,19 +10,6 @@ namespace GraphicsModule.Models.Painters
     public class PhaseResponsePlotPainter : IPlotPainter
     {
         /// <summary>
-        /// Тип S-параметра.
-        /// </summary>
-        public enum ParameterTypeForPhase
-        {
-            ϕ11,
-            ϕ22,
-            ϕ12,
-            ϕ13,
-            ϕ24,
-            ϕ14
-        }
-
-        /// <summary>
         /// Рисует график.
         /// </summary>
         /// <param name="plot">График.</param>

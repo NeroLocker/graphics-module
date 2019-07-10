@@ -61,6 +61,9 @@ namespace GraphicsModule.Models
         /// </summary>
         public SKPaint GrayPaint { get; private set; }
 
+        /// <summary>
+        /// Краска для текста.
+        /// </summary>
         public SKPaint TextPaint { get; private set; }
 
         /// <summary>
@@ -87,6 +90,10 @@ namespace GraphicsModule.Models
             TextPaint = keeper.paints["Text Paint"];
         }
 
+        /// <summary>
+        /// Возвращает центральную точку по оси Y.
+        /// </summary>
+        /// <returns></returns>
         public float GetCenterPointOfYAxis()
         {
             return (FirstPointY + SecondPointY) / 2;

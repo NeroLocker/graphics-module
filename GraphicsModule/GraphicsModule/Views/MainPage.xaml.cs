@@ -5,9 +5,15 @@ using GraphicsModule.Models;
 
 namespace GraphicsModule
 {
+    /// <summary>
+    /// Класс страницы ввода данных.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
+        /// <summary>
+        /// Конструктор страницы.
+        /// </summary>
         public MainPage()
         {
             InitializeComponent();
@@ -24,11 +30,16 @@ namespace GraphicsModule
             s21Entry.Text = "3";
         }
 
+        /// <summary>
+        /// Событие нажатия на кнопку продолжить, которое вызывает страницу вывода.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void OnContinueButtonClicked(object sender, EventArgs e)
         {
             if (CheckFields())
             {
-                if (TryParse())
+                if (AreEntriesCorrect())
                 {
                     var fMin = float.Parse(fMinEntry.Text);
                     var fMax = float.Parse(fMaxEntry.Text);
@@ -45,9 +56,9 @@ namespace GraphicsModule
                         Parameters userParameters = new Parameters(fMin, fMax, l, eR, s21, z01, z02, z1, z2);
                         await Navigation.PushAsync(new ResultsPage(userParameters));
                     }
-
                     catch (ArgumentException argException)
                     {
+                        // Защита.
                         if (argException.Message == "Er is not in valid range")
                         {
                             await DisplayAlert("Предупреждение", "Er введено некорректно", "Ок");
@@ -116,6 +127,11 @@ namespace GraphicsModule
             }
         }
 
+        /// <summary>
+        /// Событие нажатия на кнопку по умолчанию, которое заполняет поля предустановленными параметрами.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnByDefaultButtonClicked(object sender, EventArgs e)
         {
             fMinEntry.Text = "0";
@@ -130,7 +146,7 @@ namespace GraphicsModule
         }
 
         /// <summary>
-        /// Проверяет поля на заполненность 
+        /// Проверяет поля на null и на заполненность.
         /// </summary>
         /// <returns></returns>
         private bool CheckFields()
@@ -216,8 +232,11 @@ namespace GraphicsModule
             return true;
         }
 
-
-        private bool TryParse()
+        /// <summary>
+        /// Возвращает true, если не выбрасывется исключение при парсинге пользовательских entry.
+        /// </summary>
+        /// <returns></returns>
+        private bool AreEntriesCorrect()
         {
             try
             {

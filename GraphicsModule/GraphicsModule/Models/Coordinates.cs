@@ -52,7 +52,6 @@ namespace GraphicsModule.Models
             NameOfXAxis = "Частота, ГГц";
             Type = type;
 
-            // см. рис 7 статьи
             if (Type == PlotType.FrequencyResponse)
             {
                 NameOfYAxis = textData[0];
@@ -62,6 +61,5 @@ namespace GraphicsModule.Models
                 NameOfYAxis = textData[1];
             }            
         }
-
     }
 }

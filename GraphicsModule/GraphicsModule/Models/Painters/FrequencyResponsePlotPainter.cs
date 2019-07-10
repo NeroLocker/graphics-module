@@ -51,7 +51,6 @@ namespace GraphicsModule.Models.Painters
             while (j * xScalingFactor <= parameters.Fmax * xScalingFactor)
             {
                 float x = j;
-                //float y = plot.FirstPointY;
 
                 // Встречаем отрицательную бесконечность на 1 шаге.
                 if (parameters.GetMagnitude(ParameterType.S12, x) == Double.NegativeInfinity)
@@ -79,7 +78,7 @@ namespace GraphicsModule.Models.Painters
         }
 
         /// <summary>
-        /// Возвращает коэффициент масштабирования для X-точек.
+        /// Возвращает коэффициент масштабирования для Y-точек.
         /// </summary>
         /// <param name="parameters"></param>
         /// <param name="frame"></param>
