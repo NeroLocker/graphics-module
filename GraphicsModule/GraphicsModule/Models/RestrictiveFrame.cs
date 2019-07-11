@@ -13,7 +13,7 @@ namespace GraphicsModule.Models
         private SKImageInfo _info;
 
         /// <summary>
-        /// Краска для линий.
+        /// Краска для линий рамки.
         /// </summary>
         public SKPaint Paint = new SKPaint
         {
@@ -21,6 +21,17 @@ namespace GraphicsModule.Models
             Color = SKColors.Black,
             // Толщина линий
             StrokeWidth = 2
+        };
+
+        /// <summary>
+        /// Краска для линий сетки.
+        /// </summary>
+        public SKPaint GridPaint = new SKPaint
+        {
+            Style = SKPaintStyle.Stroke,
+            Color = SKColors.LightGreen,
+            // Толщина линий
+            StrokeWidth = 1
         };
 
         /// <summary>
