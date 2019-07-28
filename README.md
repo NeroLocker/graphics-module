@@ -4,5 +4,5 @@ graphics-module (frequency characteristics) - Android mobile app for frequency a
 ### Scheme
 ![coupler](https://user-images.githubusercontent.com/36446779/62005848-535d1a80-b163-11e9-9e0e-e724f537eb44.png)
 ### UI Layouts
-![mainpage](https://user-images.githubusercontent.com/36446779/62005952-8f44af80-b164-11e9-83d4-245e79fb2cd8.png)
-![resultspage](https://user-images.githubusercontent.com/36446779/62005958-98ce1780-b164-11e9-9619-bdff0b9f592b.png)
+![main_page](https://user-images.githubusercontent.com/36446779/62006181-61149f00-b167-11e9-9f3b-697b3ce6a19b.png)
+![results_page](https://user-images.githubusercontent.com/36446779/62006186-696cda00-b167-11e9-810f-c5cbce668617.png)
